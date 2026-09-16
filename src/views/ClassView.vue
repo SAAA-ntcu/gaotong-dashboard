@@ -1,0 +1,217 @@
+<script setup>
+import { computed, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import MetricCard from '../components/MetricCard.vue';
+import NeedleGauge from '../components/NeedleGauge.vue';
+import StudentDrawer from '../components/StudentDrawer.vue';
+import {
+  SUBJECTS,
+  classIds,
+  getClassData,
+  getClassStats,
+  getRows,
+  getStudentDrawer,
+  getSubject
+} from '../data/dashboard';
+
+const route = useRoute();
+const router = useRouter();
+const activeClassId = ref(resolveClassId(route.query.class));
+const selectedSubjectId = ref('math');
+const currentFilter = ref('all');
+const selectedSeat = ref(null);
+
+function resolveClassId(value) {
+  const normalized = String(value || '');
+  return classIds.includes(normalized) ? normalized : classIds[0];
+}
+
+watch(() => route.query.class, (value) => {
+  activeClassId.value = resolveClassId(value);
+  selectedSeat.value = null;
+});
+
+const classData = computed(() => getClassData(activeClassId.value));
+const stats = computed(() => getClassStats(activeClassId.value));
+const rows = computed(() => getRows(activeClassId.value));
+const selectedSubject = computed(() => getSubject(selectedSubjectId.value));
+const selectedSubjectStats = computed(() => stats.value.subjects[selectedSubjectId.value]);
+const selectedStudent = computed(() => selectedSeat.value ? getStudentDrawer(activeClassId.value, selectedSeat.value) : null);
+
+const filterOptions = [
+  { id: 'all', label: '全部學生' },
+  { id: 'no_signal', label: '未見關注訊號' },
+  { id: 'single_subject', label: '單科關注' },
+  { id: 'multi_subject', label: '多科共同' },
+  { id: 'inconsistent', label: '跨科不一致' },
+  { id: 'incomplete', label: '資料不完整' }
+];
+
+const filterCounts = computed(() => Object.fromEntries(filterOptions.map((filter) => [
+  filter.id,
+  filter.id === 'all' ? rows.value.length : rows.value.filter((row) => row.filterTags?.includes(filter.id)).length
+])));
+
+const filteredRows = computed(() => rows.value.filter((row) => currentFilter.value === 'all' || row.filterTags?.includes(currentFilter.value)));
+const breadthSegments = computed(() => [
+  { id: 0, label: '0 科', value: stats.value.breadthCounts[0], tone: 'success' },
+  { id: 1, label: '1 科', value: stats.value.breadthCounts[1], tone: 'warning' },
+  { id: 2, label: '2 科', value: stats.value.breadthCounts[2], tone: 'danger' },
+  { id: 3, label: '3 科', value: stats.value.breadthCounts[3], tone: 'critical' }
+]);
+
+function setClass(classId) {
+  router.replace({ name: 'class', query: { class: classId } });
+  currentFilter.value = 'all';
+  selectedSeat.value = null;
+}
+
+function setFilter(filterId) {
+  currentFilter.value = filterId;
+  selectedSeat.value = null;
+}
+
+function focusStudent(row) {
+  selectedSeat.value = row.seat;
+}
+
+function subjectRecord(row, subject) {
+  return row.subjects?.[subject.name];
+}
+
+function levelClass(record) {
+  if (!record || record.status === 'ABSENT' || record.status === 'MISSING') return 'missing';
+  if (record.officialLevel === '待加強') return 'support';
+  if (record.officialLevel === '精熟') return 'advanced';
+  return 'basic';
+}
+
+function levelLabel(record) {
+  if (!record || record.status === 'ABSENT' || record.status === 'MISSING') return '缺考 / 無資料';
+  return record.officialLevel || record.status;
+}
+
+function formatDelta(value) {
+  return `${value > 0 ? '+' : value === 0 ? '±' : ''}${Number(value).toFixed(2)} pp`;
+}
+
+function formatPercent(value) {
+  return `${Number(value).toFixed(1)}%`;
+}
+</script>
+
+<template>
+  <div class="dashboard-view class-view">
+    <section class="class-topbar">
+      <div>
+        <span class="section-kicker">CLASS 360 / TEACHER WORKSPACE</span>
+        <h1>班級跨科學習工作臺</h1>
+        <p>同一個班級、三個科目、同一份可供協作的學生資料。</p>
+      </div>
+      <RouterLink class="secondary-button" to="/school">返回校務總覽</RouterLink>
+    </section>
+
+    <div class="class-tabs" role="tablist" aria-label="切換班級">
+      <button v-for="classId in classIds" :key="classId" type="button" class="class-tab" :class="{ active: activeClassId === classId }" @click="setClass(classId)">
+        {{ classId }} 班
+      </button>
+    </div>
+
+    <section class="class-identity section-card">
+      <div>
+        <span class="section-kicker">目前班級</span>
+        <h2>{{ activeClassId }} 班・跨科全貌工作臺</h2>
+        <p>五年級・在籍 {{ stats.totalStudents }} 人・評量科目 {{ classData.expectedSubjects.join('、') }}</p>
+      </div>
+      <span class="status-chip" :class="stats.completenessRate === 100 ? 'success' : 'warning'">
+        {{ stats.completenessRate === 100 ? '跨科資料完整' : `資料完整度 ${formatPercent(stats.completenessRate)}` }}
+      </span>
+    </section>
+
+    <section class="metric-grid class-metrics">
+      <MetricCard label="在籍學生" :value="`${stats.totalStudents} 人`" detail="依座號順序" icon="◎" />
+      <MetricCard label="資料完整度" :value="formatPercent(stats.completenessRate)" detail="缺考不補 0" tone="success" icon="✓" />
+      <MetricCard label="多科共同關注" :value="`${stats.multiSupportCount} 人`" detail="2 科以上" tone="danger" icon="×" />
+      <MetricCard label="跨科不一致" :value="`${stats.inconsistentCount} 人`" detail="獨立正交指標" tone="warning" icon="≈" />
+    </section>
+
+    <section class="class-focus-layout">
+      <article class="section-card class-focus-card">
+        <div class="section-heading compact">
+          <div>
+            <span class="section-kicker">01 / SUBJECT FOCUS</span>
+            <h2>{{ selectedSubject.name }}・班級同儕差距</h2>
+          </div>
+          <div class="subject-switcher">
+            <button v-for="subject in SUBJECTS" :key="subject.id" type="button" :class="{ active: selectedSubjectId === subject.id }" @click="selectedSubjectId = subject.id">
+              {{ subject.shortName }}
+            </button>
+          </div>
+        </div>
+        <div class="class-focus-content">
+          <NeedleGauge :value="selectedSubjectStats.delta" :label="'與學年同儕差距'" :color="selectedSubject.color" :height="250" />
+          <div class="focus-facts">
+            <div><span>待加強人數</span><strong>{{ selectedSubjectStats.supportCount }} / {{ selectedSubjectStats.tested }}</strong><small>{{ formatPercent(selectedSubjectStats.supportRate) }}</small></div>
+            <div><span>班級平均答對率</span><strong>{{ selectedSubjectStats.avgAccuracy?.toFixed(1) || '-' }}%</strong><small>有效資料平均</small></div>
+            <div><span>解讀</span><strong>{{ selectedSubjectStats.delta < -4 ? '優先檢視' : selectedSubjectStats.delta > 2 ? '可作為標竿' : '常態追蹤' }}</strong><small>{{ formatDelta(selectedSubjectStats.delta) }}</small></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="section-card breadth-card">
+        <div class="section-heading compact">
+          <div>
+            <span class="section-kicker">02 / SUPPORT BREADTH</span>
+            <h2>班級支持結構</h2>
+          </div>
+          <span class="section-help">點擊分流列即可篩選學生</span>
+        </div>
+        <div class="breadth-list">
+          <button v-for="segment in breadthSegments" :key="segment.id" type="button" class="breadth-row" @click="setFilter(segment.id === 0 ? 'no_signal' : segment.id === 1 ? 'single_subject' : 'multi_subject')">
+            <span class="breadth-label"><i class="legend-dot" :class="segment.tone"></i>{{ segment.label }}</span>
+            <span class="breadth-track"><span :class="`fill-${segment.tone}`" :style="{ width: `${stats.totalStudents ? segment.value / stats.totalStudents * 100 : 0}%` }"></span></span>
+            <strong>{{ segment.value }}</strong>
+          </button>
+        </div>
+        <div class="breadth-note">關注廣度、跨科表現不一致、資料完整度是三個獨立維度，彼此不互相取代。</div>
+      </article>
+    </section>
+
+    <section class="section-card matrix-section class-matrix-section">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">03 / STUDENT × SUBJECT</span>
+          <h2>學生跨科全貌</h2>
+        </div>
+        <span class="section-help">點擊學生列開啟教師觀察卡；狀態欄只使用等級描述。</span>
+      </div>
+      <div class="filter-row">
+        <button v-for="filter in filterOptions" :key="filter.id" type="button" class="filter-button" :class="{ active: currentFilter === filter.id }" @click="setFilter(filter.id)">
+          {{ filter.label }} <b>{{ filterCounts[filter.id] }}</b>
+        </button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table student-table">
+          <thead>
+            <tr><th>座號</th><th v-for="subject in SUBJECTS" :key="subject.id">{{ subject.name }}</th><th>關注廣度</th><th>跨科表現</th><th>資料完整度</th></tr>
+          </thead>
+          <tbody>
+            <tr v-for="row in filteredRows" :key="row.studentUid" class="clickable-row" :class="{ focused: selectedSeat === row.seat }" @click="focusStudent(row)">
+              <th>{{ row.seat }}</th>
+              <td v-for="subject in SUBJECTS" :key="subject.id">
+                <span class="level-badge" :class="levelClass(subjectRecord(row, subject))">{{ levelLabel(subjectRecord(row, subject)) }}</span>
+                <small v-if="subjectRecord(row, subject)?.studentAccuracy !== null && subjectRecord(row, subject)?.studentAccuracy !== undefined">{{ subjectRecord(row, subject).studentAccuracy }}%・PR{{ Math.round(subjectRecord(row, subject).countyPr ?? 0) }}</small>
+              </td>
+              <td><span class="number-pill" :class="row.supportBreadth?.breadth >= 2 ? 'danger' : row.supportBreadth?.breadth === 1 ? 'warning' : 'success'">{{ row.supportBreadth?.breadth ?? 0 }} 科</span></td>
+              <td><span class="status-chip" :class="row.crossSubjectInconsistency?.isInconsistent ? 'warning' : 'neutral'">{{ row.crossSubjectInconsistency?.isInconsistent ? '高度不一致' : '—' }}</span></td>
+              <td><span class="status-chip" :class="row.dataCompleteness?.status === 'COMPLETE' ? 'success' : 'warning'">{{ row.dataCompleteness?.status === 'COMPLETE' ? '完整' : '不完整' }}</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="legend-row"><span><i class="legend-dot advanced"></i>精熟</span><span><i class="legend-dot basic"></i>基礎</span><span><i class="legend-dot critical"></i>待加強</span><span><i class="legend-dot missing"></i>缺考／無資料</span></div>
+    </section>
+
+    <StudentDrawer :student="selectedStudent" :class-id="activeClassId" @close="selectedSeat = null" />
+  </div>
+</template>
