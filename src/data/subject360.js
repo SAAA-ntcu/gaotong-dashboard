@@ -7,9 +7,18 @@ export const SUBJECT360_META = [
 export const SUBJECT360_DATA_URL = `${import.meta.env.BASE_URL}data/subject360.json`;
 
 export async function loadSubject360() {
-  const response = await fetch(SUBJECT360_DATA_URL);
-  if (!response.ok) throw new Error(`Subject 360 data request failed: ${response.status}`);
-  return response.json();
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+  try {
+    const response = await fetch(SUBJECT360_DATA_URL, { signal: controller.signal });
+    if (!response.ok) throw new Error(`Subject 360 data request failed: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    if (error?.name === 'AbortError') throw new Error('Subject 360 資料載入逾時，請重新整理後再試。');
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 export function getSubjectMeta(subjectId) {
