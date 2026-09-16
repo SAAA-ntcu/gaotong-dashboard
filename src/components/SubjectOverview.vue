@@ -1,7 +1,8 @@
 <script setup>
 import { computed } from 'vue';
 import Subject360Chart from './Subject360Chart.vue';
-import { dimensionPriority, formatCount, formatPercent, formatPoints, getClassIds, getClassOverall, getClassStudents, getDimensions, getOverall, itemPriority } from '../data/subject360';
+import SubjectAdvice from './SubjectAdvice.vue';
+import { formatCount, formatPercent, formatPoints, getClassIds, getClassOverall, getClassStudents, getLinkedDimensions, getOverall, itemPriority, linkedDimensionPriority } from '../data/subject360';
 
 const props = defineProps({
   subject: { type: Object, required: true },
@@ -14,7 +15,7 @@ const emit = defineEmits(['select-class', 'open-page', 'open-ability', 'open-ite
 const overall = computed(() => getOverall(props.subject, props.selectedClasses));
 const selectedStudents = computed(() => getClassStudents(props.subject, props.selectedClasses));
 const classRows = computed(() => getClassIds(props.subject).map((classId) => ({ classId, stat: getClassOverall(props.subject, classId) })).sort((a, b) => (a.stat.rate ?? 1) - (b.stat.rate ?? 1)));
-const dimensions = computed(() => ['content', 'cognitive'].flatMap((type) => getDimensions(props.subject, type).map((dimension) => ({ ...dimensionPriority(props.subject, type, dimension.key, props.selectedClasses), type }))));
+const dimensions = computed(() => getLinkedDimensions(props.subject).map((dimension) => ({ ...linkedDimensionPriority(props.subject, dimension, props.selectedClasses), type: 'linked' })));
 const items = computed(() => props.subject.items.map((item) => itemPriority(props.subject, item.q, props.selectedClasses)).sort((a, b) => b.signals - a.signals || (a.selected.rate ?? 1) - (b.selected.rate ?? 1)));
 const topClass = computed(() => classRows.value[0]);
 const topDimension = computed(() => dimensions.value.sort((a, b) => (a.selected.rate ?? 1) - (b.selected.rate ?? 1))[0]);
@@ -24,11 +25,16 @@ const highItems = computed(() => items.value.filter((row) => row.level === '高�
 
 const classChart = computed(() => ({
   animation: false,
-  grid: { left: 42, right: 28, top: 18, bottom: 22, containLabel: true },
-  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: (value) => `${Number(value).toFixed(1)}%` },
-  xAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value}%' }, splitLine: { lineStyle: { color: '#e5eaf1' } } },
-  yAxis: { type: 'category', data: classRows.value.map((row) => `${row.classId} 班`) },
-  series: [{ type: 'bar', data: classRows.value.map((row) => ({ value: Number(((row.stat.rate || 0) * 100).toFixed(1)), classId: row.classId, itemStyle: { color: row.stat.rate < 0.6 ? '#b86616' : '#2f6fb1' } })), barMaxWidth: 22 }]
+  grid: { left: 42, right: 25, top: 25, bottom: 38, containLabel: true },
+  tooltip: { trigger: 'item', formatter: (params) => `${params.data.classId} 班<br/>整體答對率：${formatPercent((params.value?.[1] || 0) / 100, 1)}` },
+  xAxis: { type: 'category', data: classRows.value.map((row) => `${row.classId} 班`), axisLabel: { interval: 0 } },
+  yAxis: { type: 'value', min: 0, max: 100, axisLabel: { formatter: '{value}%' }, splitLine: { lineStyle: { color: '#e5eaf1' } } },
+  series: [{
+    type: 'scatter',
+    symbolSize: 18,
+    data: classRows.value.map((row, index) => ({ value: [index, Number(((row.stat.rate || 0) * 100).toFixed(1))], classId: row.classId, itemStyle: { color: row.stat.rate < 0.6 ? '#b86616' : '#2f6fb1' } })),
+    markLine: { symbol: 'none', label: { formatter: '全校基準' }, lineStyle: { color: '#7d8da3', type: 'dashed' }, data: [{ yAxis: Number(((getOverall(props.subject, getClassIds(props.subject)).rate || 0) * 100).toFixed(1)) }] }
+  }]
 }));
 
 function chartClick(params) {
@@ -46,8 +52,7 @@ function chartClick(params) {
     <div class="subject360-kpi-grid">
       <div class="subject360-kpi"><span>分析班級</span><strong>{{ selectedClasses.length }}</strong><small>{{ scopeLabel }}</small></div>
       <div class="subject360-kpi"><span>有效學生數</span><strong>{{ formatCount(selectedStudents.length) }}</strong><small>所選班級學生列</small></div>
-      <div class="subject360-kpi"><span>整體答對率</span><strong>{{ formatPercent(overall.rate) }}</strong><small>有效作答為分母</small></div>
-      <div class="subject360-kpi"><span>待關注向度</span><strong>{{ watchDimensions }}</strong><small>內容／認知向度</small></div>
+      <div class="subject360-kpi"><span>待關注向度</span><strong>{{ watchDimensions }}</strong><small>{{ subject.dimensions?.cognitive?.length ? '內容 × 認知聯結' : '內容向度' }}</small></div>
       <div class="subject360-kpi"><span>高優先試題</span><strong>{{ highItems }}</strong><small>多項證據支持</small></div>
     </div>
 
@@ -67,7 +72,7 @@ function chartClick(params) {
       <article class="subject360-card">
         <div class="subject360-card-head"><h3>班級訊號排序</h3><span>點擊班級進入班級 × 能力</span></div>
         <Subject360Chart :option="classChart" :height="320" aria-label="班級整體答對率" @chart-click="chartClick" />
-        <p class="subject360-caption">條長代表答對率；色彩只作為優先查看提示，不等同固定能力判定。</p>
+        <p class="subject360-caption">點位代表答對率；色彩只作為優先查看提示，不等同固定能力判定。</p>
       </article>
       <article class="subject360-card">
         <div class="subject360-card-head"><h3>優先訊號摘要</h3><span>目前最需要看的少數訊號</span></div>
@@ -78,5 +83,6 @@ function chartClick(params) {
         </div>
       </article>
     </div>
+    <SubjectAdvice :subject="subject" />
   </div>
 </template>

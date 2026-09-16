@@ -51,7 +51,7 @@ const meta = computed(() => getSubjectMeta(props.subject.key));
         <div>
           <span class="subject360-kicker" :style="{ color: meta.color }">ITEM DIAGNOSTIC</span>
           <h2>Q{{ item.q }}・{{ item.short }}</h2>
-          <p>{{ item.content }}<span v-if="item.cognitive">・{{ item.cognitive }}</span></p>
+          <p>{{ item.content }}<span v-if="item.cognitive"> × {{ item.cognitive }}</span></p>
         </div>
         <button class="icon-button" type="button" aria-label="關閉題目診斷" @click="emit('close')">×</button>
       </header>

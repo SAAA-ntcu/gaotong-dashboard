@@ -28,6 +28,55 @@ export function getSubjectMeta(subjectId) {
 export function getDimensions(subject, type) {
   return subject?.dimensions?.[type] || [];
 }
+export function getLinkedDimensions(subject) {
+  const content = getDimensions(subject, 'content');
+  const cognitive = getDimensions(subject, 'cognitive');
+  if (!cognitive.length) {
+    return content.map((dimension) => ({
+      ...dimension,
+      contentKey: dimension.key,
+      cognitiveKey: null,
+      label: dimension.key
+    }));
+  }
+  return content.flatMap((contentDimension) => cognitive
+    .map((cognitiveDimension) => {
+      const items = subject.items
+        .filter((item) => item.content === contentDimension.key && item.cognitive === cognitiveDimension.key)
+        .map((item) => item.q);
+      if (!items.length) return null;
+      return {
+        key: `${contentDimension.key} × ${cognitiveDimension.key}`,
+        label: `${contentDimension.key} × ${cognitiveDimension.key}`,
+        description: `${contentDimension.key} 的${cognitiveDimension.key}表現`,
+        contentKey: contentDimension.key,
+        cognitiveKey: cognitiveDimension.key,
+        items
+      };
+    })
+    .filter(Boolean));
+}
+
+export function getLinkedDimensionStat(subject, dimension, selectedClasses) {
+  return aggregateStats(dimension.items.map((question) => getItemStat(subject, question, selectedClasses)));
+}
+
+export function linkedDimensionPriority(subject, dimension, selectedClasses) {
+  const school = getLinkedDimensionStat(subject, dimension, getClassIds(subject));
+  const selected = getLinkedDimensionStat(subject, dimension, selectedClasses);
+  const gap = selected?.rate == null || school?.rate == null ? null : selected.rate - school.rate;
+  const lowRate = selected?.rate != null && selected.rate < 0.6;
+  const largeGap = gap != null && gap < -0.1;
+  const level = lowRate && largeGap ? '高優先' : lowRate || largeGap ? '中優先' : '建議觀察';
+  return {
+    dimension,
+    school,
+    selected,
+    gap,
+    level,
+    reasons: [lowRate ? '所選範圍答對率偏低' : '', largeGap ? '低於全校基準' : ''].filter(Boolean)
+  };
+}
 
 export function getAllDimensions(subject) {
   return ['content', 'cognitive'].flatMap((type) => getDimensions(subject, type).map((dimension) => ({ ...dimension, type })));
@@ -167,18 +216,23 @@ export function getStudentProfile(subject, student) {
   if (!student) return null;
   const content = getDimensions(subject, 'content').map((dimension) => getStudentDimension(subject, student, 'content', dimension));
   const cognitive = getDimensions(subject, 'cognitive').map((dimension) => getStudentDimension(subject, student, 'cognitive', dimension));
+  const linked = getLinkedDimensions(subject).map((dimension) => ({
+    ...getStudentDimension(subject, student, 'linked', dimension),
+    contentKey: dimension.contentKey,
+    cognitiveKey: dimension.cognitiveKey
+  }));
   const wrongItems = subject.items.filter((item) => {
     const response = student.responses[item.q - 1];
     return !validResponse(response) || response !== item.answer;
   });
-  const weak = [...content, ...cognitive].filter((row) => row.rate != null && row.rate < 0.6).sort((a, b) => a.rate - b.rate);
+  const weak = linked.filter((row) => row.rate != null && row.rate < 0.6).sort((a, b) => a.rate - b.rate);
   const missing = student.responses.filter((response) => !validResponse(response)).length;
   const optionCounts = {};
   wrongItems.forEach((item) => {
     const response = student.responses[item.q - 1];
     if (validResponse(response)) optionCounts[`${item.q}:${response}`] = (optionCounts[`${item.q}:${response}`] || 0) + 1;
   });
-  return { content, cognitive, wrongItems, weak, missing, optionCounts };
+  return { content, cognitive, linked, wrongItems, weak, missing, optionCounts };
 }
 
 export function getClassStudents(subject, selectedClasses) {
