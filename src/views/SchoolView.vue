@@ -4,14 +4,13 @@ import { useRouter } from 'vue-router';
 import ActionDrawer from '../components/ActionDrawer.vue';
 import MetricCard from '../components/MetricCard.vue';
 import NeedleGauge from '../components/NeedleGauge.vue';
+import SupportTreemap from '../components/SupportTreemap.vue';
 import {
-  ACTION_PRESETS,
   SUBJECTS,
   classIds,
   getActionPreset,
   getClassStats,
-  getSchoolStats,
-  getSubject
+  getSchoolStats
 } from '../data/dashboard';
 
 const router = useRouter();
@@ -21,8 +20,11 @@ const selectedAction = ref(null);
 
 const subjectCards = computed(() => SUBJECTS.map((subject) => school.subjects[subject.id]));
 const selectedSubject = computed(() => school.subjects[selectedSubjectId.value]);
-const selectedClassStats = computed(() => selectedSubject.value.classStats.slice().sort((a, b) => a.supportCount - b.supportCount));
 const classStats = computed(() => Object.fromEntries(classIds.map((classId) => [classId, getClassStats(classId)])));
+const topSelectedClasses = computed(() => selectedSubject.value.classStats
+  .slice()
+  .sort((a, b) => b.supportCount - a.supportCount)
+  .slice(0, 3));
 
 const priorityItems = computed(() => [
   { key: '507', classId: '507', subjectId: 'math', title: '507 班・數學', reason: `${classStats.value['507'].subjects.math.supportCount} 人待加強，全校最高`, tone: 'danger' },
@@ -124,20 +126,40 @@ function schoolSubjectAction(subjectId) {
         </button>
       </div>
 
-      <div class="subject-focus-strip">
-        <div>
-          <span class="section-kicker">目前焦點：{{ selectedSubject.name }}</span>
-          <h3>{{ selectedSubject.name }}各班待加強分布</h3>
+      <div class="distribution-layout">
+        <div class="distribution-chart-panel">
+          <div class="distribution-panel-head">
+            <div>
+              <span class="section-kicker">目前焦點：{{ selectedSubject.name }}</span>
+              <h3>各科 × 各班待加強分布</h3>
+            </div>
+            <span class="section-help">面積代表待加強人數；點擊科目或班級查看下一層資料。</span>
+          </div>
+          <SupportTreemap
+            :subjects="subjectCards"
+            :class-ids="classIds"
+            :class-stats="classStats"
+            :selected-subject-id="selectedSubjectId"
+            @select-class="openClass"
+            @select-subject="chooseSubject"
+          />
         </div>
-        <div class="subject-bars">
-          <button v-for="item in selectedClassStats" :key="item.classId" type="button" class="class-bar-row" @click="openClass(item.classId)">
-            <span class="class-bar-label">{{ item.classId }} 班</span>
-            <span class="class-bar-track"><span :style="{ width: `${Math.min(item.supportRate * 2.8, 100)}%`, background: selectedSubject.color }"></span></span>
-            <strong>{{ item.supportCount }} 人</strong>
-            <small>{{ formatPercent(item.supportRate) }}</small>
-          </button>
-        </div>
-        <button class="secondary-button" type="button" @click="openAction(schoolSubjectAction(selectedSubjectId))">開啟科目行動藍圖</button>
+        <aside class="distribution-detail">
+          <span class="section-kicker">焦點科目摘要</span>
+          <h3>{{ selectedSubject.name }}</h3>
+          <div class="distribution-stat-grid">
+            <div><span>待加強總數</span><strong>{{ selectedSubject.supportCount }} 人</strong><small>{{ formatPercent(selectedSubject.supportRate) }}</small></div>
+            <div><span>全校相對差距</span><strong>{{ formatDelta(selectedSubject.delta) }}</strong><small>與縣市平均</small></div>
+          </div>
+          <div class="distribution-top-list">
+            <span class="distribution-list-label">優先班級</span>
+            <button v-for="item in topSelectedClasses" :key="item.classId" type="button" @click="openClass(item.classId)">
+              <span><strong>{{ item.classId }} 班</strong><small>{{ formatPercent(item.supportRate) }}</small></span>
+              <b>{{ item.supportCount }} 人 →</b>
+            </button>
+          </div>
+          <button class="secondary-button" type="button" @click="openAction(schoolSubjectAction(selectedSubjectId))">開啟科目行動藍圖</button>
+        </aside>
       </div>
     </section>
 
