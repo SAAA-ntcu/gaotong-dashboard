@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/gaotong-dashboard/' : '/',
   plugins: [vue()],
   server: {
     host: '127.0.0.1',
@@ -11,4 +12,4 @@ export default defineConfig({
   build: {
     target: 'es2020'
   }
-});
+}));
