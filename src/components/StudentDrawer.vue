@@ -20,6 +20,12 @@ const subjectDetails = computed(() => {
 });
 
 const checklist = computed(() => props.student?.objectiveChecklist || []);
+const attendanceStatus = computed(() => {
+  const records = Object.values(props.student?.subjects || {});
+  return records.length === 3 && records.every((record) => record?.status === 'VALID')
+    ? '全數到考'
+    : '有缺考／缺資料';
+});
 </script>
 
 <template>
@@ -34,7 +40,7 @@ const checklist = computed(() => props.student?.objectiveChecklist || []);
 
     <div class="student-state-grid">
       <div><span>關注廣度</span><strong>{{ student.supportBreadth?.breadth ?? '-' }} 科</strong></div>
-      <div><span>資料狀態</span><strong>{{ student.dataCompleteness?.displayText || student.dataCompleteness?.display_text || '未標示' }}</strong></div>
+      <div><span>到考狀況</span><strong>{{ attendanceStatus }}</strong></div>
       <div><span>跨科表現</span><strong>{{ student.crossSubjectInconsistency?.isInconsistent ? '高度不一致' : '未見明顯訊號' }}</strong></div>
     </div>
 

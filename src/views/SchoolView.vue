@@ -72,7 +72,7 @@ function schoolSubjectAction(subjectId) {
       <div>
         <span class="section-kicker">SCHOOL DECISION COCKPIT</span>
         <h1>五年級學力檢測校務決策總覽</h1>
-        <p>先定位問題科目，再沿著班級與學生資料進入 Class 360 工作臺。</p>
+        <p>先定位問題科目，再沿著班級與學生資料進入 Class 工作臺。</p>
       </div>
       <div class="intro-meta">
         <span class="soft-chip">250 位在籍學生</span>
@@ -84,9 +84,9 @@ function schoolSubjectAction(subjectId) {
 
     <section class="metric-grid" aria-label="校務摘要">
       <MetricCard label="五年級在籍" :value="`${school.totalStudents} 人`" detail="501–509 班" icon="◎" />
-      <MetricCard label="跨科資料完整度" :value="formatPercent(school.completenessRate)" detail="缺考／待補資料已標示" tone="success" icon="✓" />
+      <MetricCard label="跨科成績完整度" :value="formatPercent(school.completenessRate)" detail="缺考／待補資料已標示" tone="success" icon="✓" />
       <MetricCard label="優先處理班級" :value="`${school.priorityClassCount} 班`" detail="至少一科待加強率偏高" tone="warning" icon="!" />
-      <MetricCard label="跨科到考率" :value="formatPercent(school.testedRate)" detail="完整資料 247+ 人" tone="blue" icon="↗" />
+      <MetricCard label="跨科到考率" :value="formatPercent(school.testedRate)" detail="三科皆有有效成績" tone="blue" icon="↗" />
     </section>
 
     <section class="section-card subject-section">
@@ -133,7 +133,7 @@ function schoolSubjectAction(subjectId) {
               <span class="section-kicker">目前焦點：{{ selectedSubject.name }}</span>
               <h3>各班待加強分布 Treemap</h3>
             </div>
-            <span class="section-help">面積代表待加強人數；點擊班級進入 Class 360，上方科目卡可切換檢視。</span>
+            <span class="section-help">面積代表待加強人數；點擊班級進入 Class，上方科目卡可切換檢視。</span>
           </div>
           <SupportTreemap
             :subjects="subjectCards"
@@ -199,7 +199,7 @@ function schoolSubjectAction(subjectId) {
         <div class="reading-steps">
           <div><span>1</span><p><strong>看指針</strong><br />先確認科目相對基準線的方向與幅度。</p></div>
           <div><span>2</span><p><strong>看熱力矩陣</strong><br />確認問題集中在哪些班級與科目。</p></div>
-          <div><span>3</span><p><strong>開啟 Class 360</strong><br />進入學生名冊，從資料走向教學觀察。</p></div>
+          <div><span>3</span><p><strong>開啟 Class</strong><br />進入學生名冊，從資料走向教學觀察。</p></div>
         </div>
       </article>
     </section>
@@ -210,12 +210,12 @@ function schoolSubjectAction(subjectId) {
           <span class="section-kicker">04 / CLASS MATRIX</span>
           <h2>班級 × 科目待加強熱力矩陣</h2>
         </div>
-        <span class="section-help">點擊任一列進入該班 Class 360；數字為待加強人數。</span>
+        <span class="section-help">點擊任一列進入該班 Class；數字為待加強人數。</span>
       </div>
       <div class="table-wrap">
         <table class="data-table school-matrix">
           <thead>
-            <tr><th>班級</th><th v-for="subject in SUBJECTS" :key="subject.id">{{ subject.name }}</th><th>跨科關注</th><th>資料完整度</th><th></th></tr>
+            <tr><th>班級</th><th v-for="subject in SUBJECTS" :key="subject.id">{{ subject.name }}</th><th>跨科關注</th><th>到考率</th><th></th></tr>
           </thead>
           <tbody>
             <tr v-for="classId in classIds" :key="classId" class="clickable-row" @click="openClass(classId)">
@@ -227,7 +227,7 @@ function schoolSubjectAction(subjectId) {
                 <small>{{ formatPercent(classStats[classId].subjects[subject.id].supportRate) }}</small>
               </td>
               <td><span class="number-pill" :class="classStats[classId].multiSupportCount ? 'warning' : 'neutral'">{{ classStats[classId].multiSupportCount }} 人</span></td>
-              <td><span class="completion-value" :class="classStats[classId].completenessRate < 100 ? 'warning' : 'success'">{{ formatPercent(classStats[classId].completenessRate) }}</span></td>
+              <td><span class="completion-value" :class="classStats[classId].testedRate < 100 ? 'warning' : 'success'">{{ formatPercent(classStats[classId].testedRate) }}</span></td>
               <td><span class="row-arrow">→</span></td>
             </tr>
           </tbody>

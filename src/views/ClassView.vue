@@ -44,7 +44,7 @@ const filterOptions = [
   { id: 'single_subject', label: '單科關注' },
   { id: 'multi_subject', label: '多科共同' },
   { id: 'inconsistent', label: '跨科不一致' },
-  { id: 'incomplete', label: '資料不完整' }
+  { id: 'incomplete', label: '有缺考／缺資料' }
 ];
 
 const filterCounts = computed(() => Object.fromEntries(filterOptions.map((filter) => [
@@ -79,6 +79,10 @@ function subjectRecord(row, subject) {
   return row.subjects?.[subject.name];
 }
 
+function isFullyTested(row) {
+  return SUBJECTS.every((subject) => subjectRecord(row, subject)?.status === 'VALID');
+}
+
 function levelClass(record) {
   if (!record || record.status === 'ABSENT' || record.status === 'MISSING') return 'missing';
   if (record.officialLevel === '待加強') return 'support';
@@ -104,8 +108,8 @@ function formatPercent(value) {
   <div class="dashboard-view class-view">
     <section class="class-topbar">
       <div>
-        <span class="section-kicker">CLASS 360 / TEACHER WORKSPACE</span>
-        <h1>班級跨科學習工作臺</h1>
+        <span class="section-kicker">CLASS / TEACHER WORKSPACE</span>
+        <h1>班級學力診斷工作臺</h1>
         <p>同一個班級、三個科目、同一份可供協作的學生資料。</p>
       </div>
       <RouterLink class="secondary-button" to="/school">返回校務總覽</RouterLink>
@@ -123,14 +127,14 @@ function formatPercent(value) {
         <h2>{{ activeClassId }} 班・跨科全貌工作臺</h2>
         <p>五年級・在籍 {{ stats.totalStudents }} 人・評量科目 {{ classData.expectedSubjects.join('、') }}</p>
       </div>
-      <span class="status-chip" :class="stats.completenessRate === 100 ? 'success' : 'warning'">
-        {{ stats.completenessRate === 100 ? '跨科資料完整' : `資料完整度 ${formatPercent(stats.completenessRate)}` }}
+      <span class="status-chip" :class="stats.testedRate >= 100 ? 'success' : 'warning'">
+        {{ stats.testedRate >= 100 ? '全數到考' : `到考率 ${formatPercent(stats.testedRate)}` }}
       </span>
     </section>
 
     <section class="metric-grid class-metrics">
       <MetricCard label="在籍學生" :value="`${stats.totalStudents} 人`" detail="依座號順序" icon="◎" />
-      <MetricCard label="資料完整度" :value="formatPercent(stats.completenessRate)" detail="缺考不補 0" tone="success" icon="✓" />
+      <MetricCard label="到考率" :value="formatPercent(stats.testedRate)" detail="三科皆有有效成績" :tone="stats.testedRate >= 100 ? 'success' : 'warning'" icon="✓" />
       <MetricCard label="多科共同關注" :value="`${stats.multiSupportCount} 人`" detail="2 科以上" tone="danger" icon="×" />
       <MetricCard label="跨科不一致" :value="`${stats.inconsistentCount} 人`" detail="獨立正交指標" tone="warning" icon="≈" />
     </section>
@@ -173,7 +177,7 @@ function formatPercent(value) {
             <strong>{{ segment.value }}</strong>
           </button>
         </div>
-        <div class="breadth-note">關注廣度、跨科表現不一致、資料完整度是三個獨立維度，彼此不互相取代。</div>
+        <div class="breadth-note">關注廣度、跨科表現不一致、到考狀況是三個獨立維度，彼此不互相取代。</div>
       </article>
     </section>
 
@@ -193,7 +197,7 @@ function formatPercent(value) {
       <div class="table-wrap">
         <table class="data-table student-table">
           <thead>
-            <tr><th>座號</th><th v-for="subject in SUBJECTS" :key="subject.id">{{ subject.name }}</th><th>關注廣度</th><th>跨科表現</th><th>資料完整度</th></tr>
+            <tr><th>座號</th><th v-for="subject in SUBJECTS" :key="subject.id">{{ subject.name }}</th><th>關注廣度</th><th>跨科表現</th><th>到考狀況</th></tr>
           </thead>
           <tbody>
             <tr v-for="row in filteredRows" :key="row.studentUid" class="clickable-row" :class="{ focused: selectedSeat === row.seat }" @click="focusStudent(row)">
@@ -204,7 +208,7 @@ function formatPercent(value) {
               </td>
               <td><span class="number-pill" :class="row.supportBreadth?.breadth >= 2 ? 'danger' : row.supportBreadth?.breadth === 1 ? 'warning' : 'success'">{{ row.supportBreadth?.breadth ?? 0 }} 科</span></td>
               <td><span class="status-chip" :class="row.crossSubjectInconsistency?.isInconsistent ? 'warning' : 'neutral'">{{ row.crossSubjectInconsistency?.isInconsistent ? '高度不一致' : '—' }}</span></td>
-              <td><span class="status-chip" :class="row.dataCompleteness?.status === 'COMPLETE' ? 'success' : 'warning'">{{ row.dataCompleteness?.status === 'COMPLETE' ? '完整' : '不完整' }}</span></td>
+              <td><span class="status-chip" :class="isFullyTested(row) ? 'success' : 'warning'">{{ isFullyTested(row) ? '全數到考' : '有缺考／缺資料' }}</span></td>
             </tr>
           </tbody>
         </table>

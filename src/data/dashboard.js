@@ -105,6 +105,7 @@ export function getClassStats(classId) {
   const summary = data.summary || {};
   const breadthCounts = summary.breadthCounts || summary.breadth_counts || {};
   const completeRows = rows.filter((row) => row.dataCompleteness?.status === 'COMPLETE');
+  const testedCount = rows.filter((row) => SUBJECTS.every((subject) => validSubjectRecord(row, subject.name))).length;
   const inconsistentRows = rows.filter((row) => row.crossSubjectInconsistency?.isInconsistent);
   const multiRows = rows.filter((row) => (row.supportBreadth?.breadth || 0) >= 2);
 
@@ -112,6 +113,8 @@ export function getClassStats(classId) {
     classId,
     totalStudents: rows.length,
     completeCount: completeRows.length,
+    testedCount,
+    testedRate: rows.length ? testedCount / rows.length * 100 : 0,
     completenessRate: rows.length ? completeRows.length / rows.length * 100 : 0,
     inconsistentCount: inconsistentRows.length,
     multiSupportCount: multiRows.length,

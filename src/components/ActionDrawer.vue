@@ -33,7 +33,7 @@ function deltaText(classId, subjectId) {
     <div class="drawer-links" v-if="action.classIds?.length">
       <span class="drawer-link-label">延伸檢視</span>
       <button v-for="classId in action.classIds" :key="classId" class="link-button" type="button" @click="openClass(classId)">
-        開啟 {{ classId }} 班 Class 360
+        開啟 {{ classId }} 班 Class
         <small v-if="action.subjectId">{{ deltaText(classId, action.subjectId) }}</small>
       </button>
     </div>

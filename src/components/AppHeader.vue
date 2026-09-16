@@ -31,7 +31,7 @@ const currentClass = computed(() => route.query.class && classIds.includes(Strin
           :class="{ active: route.name === 'class' }"
           :to="{ name: 'class', query: { class: currentClass } }"
         >
-          <span aria-hidden="true">▦</span> Class 360
+          <span aria-hidden="true">▦</span> Class
         </RouterLink>
       </nav>
     </div>
