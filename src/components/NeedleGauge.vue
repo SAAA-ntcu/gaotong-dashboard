@@ -29,8 +29,8 @@ function renderChart() {
   const isDelta = props.mode === 'delta';
   const split = isDelta ? (0 - props.min) / (props.max - props.min) : 0.5;
   const axisColors = isDelta
-    ? [[Math.max(0.01, split), '#fecaca'], [1, '#bbf7d0']]
-    : [[0.5, '#fde68a'], [1, '#bbf7d0']];
+    ? [[Math.max(0.01, split), '#e8edf4'], [1, '#dce5ef']]
+    : [[0.5, '#e8edf4'], [1, '#dce5ef']];
 
   chart.setOption({
     animationDuration: 700,
