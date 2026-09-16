@@ -131,9 +131,9 @@ function schoolSubjectAction(subjectId) {
           <div class="distribution-panel-head">
             <div>
               <span class="section-kicker">目前焦點：{{ selectedSubject.name }}</span>
-              <h3>各科 × 各班待加強分布</h3>
+              <h3>各班待加強分布 Treemap</h3>
             </div>
-            <span class="section-help">面積代表待加強人數；點擊科目或班級查看下一層資料。</span>
+            <span class="section-help">面積代表待加強人數；點擊班級進入 Class 360，上方科目卡可切換檢視。</span>
           </div>
           <SupportTreemap
             :subjects="subjectCards"

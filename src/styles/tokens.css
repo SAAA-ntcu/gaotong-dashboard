@@ -98,11 +98,11 @@ a { color: inherit; }
 .subject-card-stats span { padding: 8px; border-radius: 8px; background: #f0f4f9; }
 .subject-card-stats strong { display: block; margin-top: 3px; color: var(--ink); font-size: 0.84rem; }
 .subject-card p { min-height: 38px; margin: 12px 0 0; color: var(--muted); font-size: 0.78rem; line-height: 1.5; }
-.distribution-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(250px, 0.65fr); gap: 16px; align-items: stretch; margin-top: 18px; padding: 16px; border: 1px solid #dce7f5; border-radius: 13px; background: #f6f9fe; }
+.distribution-layout { display: grid; grid-template-columns: minmax(0, 1.85fr) minmax(230px, 0.55fr); gap: 14px; align-items: stretch; margin-top: 18px; padding: 16px; border: 1px solid #dce7f5; border-radius: 13px; background: #f6f9fe; }
 .distribution-chart-panel { min-width: 0; }
 .distribution-panel-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 8px; }
 .distribution-panel-head h3 { margin: 5px 0 0; font-size: 1rem; }
-.support-treemap { width: 100%; height: 350px; min-height: 280px; }
+.support-treemap { width: 100%; height: 360px; min-height: 280px; }
 .distribution-detail { display: flex; min-width: 0; flex-direction: column; padding: 15px; border: 1px solid #dce7f5; border-radius: 11px; background: rgba(255, 255, 255, 0.78); }
 .distribution-detail h3 { margin: 5px 0 14px; color: var(--navy); font-size: 1.2rem; }
 .distribution-stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }

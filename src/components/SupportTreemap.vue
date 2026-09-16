@@ -22,37 +22,38 @@ function hexToRgba(hex, alpha) {
 }
 
 function buildTree() {
-  return props.subjects.map((subject) => {
-    const children = props.classIds.map((classId) => {
-      const stats = props.classStats[classId]?.subjects?.[subject.id];
-      return {
-        name: `${classId} 班`,
-        classId,
-        subjectId: subject.id,
-        value: stats?.supportCount || 0,
-        supportRate: stats?.supportRate || 0,
-        tested: stats?.tested || 0,
-        delta: stats?.delta || 0,
-        itemStyle: {
-          color: hexToRgba(subject.color, 0.48),
-          borderColor: '#ffffff',
-          borderWidth: 2
-        }
-      };
-    });
+  const subject = props.subjects.find((item) => item.id === props.selectedSubjectId) || props.subjects[0];
+  if (!subject) return [];
 
+  const children = props.classIds.map((classId) => {
+    const stats = props.classStats[classId]?.subjects?.[subject.id];
     return {
-      name: subject.name,
+      name: `${classId} 班`,
+      classId,
       subjectId: subject.id,
-      value: children.reduce((sum, child) => sum + child.value, 0),
-      children,
+      value: stats?.supportCount || 0,
+      supportRate: stats?.supportRate || 0,
+      tested: stats?.tested || 0,
+      delta: stats?.delta || 0,
       itemStyle: {
-        color: subject.color,
-        borderColor: props.selectedSubjectId === subject.id ? '#172033' : '#ffffff',
-        borderWidth: props.selectedSubjectId === subject.id ? 3 : 2
+        color: hexToRgba(subject.color, 0.48),
+        borderColor: '#ffffff',
+        borderWidth: 2
       }
     };
   });
+
+  return [{
+    name: subject.name,
+    subjectId: subject.id,
+    value: children.reduce((sum, child) => sum + child.value, 0),
+    children,
+    itemStyle: {
+      color: subject.color,
+      borderColor: '#172033',
+      borderWidth: 3
+    }
+  }];
 }
 
 function formatDelta(value) {
@@ -138,5 +139,5 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="chartElement" class="support-treemap" role="img" aria-label="各科目與班級待加強人數 Treemap" />
+  <div ref="chartElement" class="support-treemap" role="img" aria-label="目前科目與班級待加強人數 Treemap" />
 </template>
