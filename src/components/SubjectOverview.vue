@@ -39,8 +39,8 @@ function chartClick(params) {
 <template>
   <div class="subject360-module">
     <div class="subject360-page-head">
-      <div><h2>教學總覽</h2><p>{{ scopeLabel }}｜先看少數需要決策的訊號，再逐層查看證據。</p></div>
-      <span class="subject360-badge">證據門檻已啟用</span>
+      <div><h2>決策總覽</h2><p>{{ scopeLabel }}｜先找出最值得處理的問題，再沿著證據鏈落到題目與學生。</p></div>
+      <span class="subject360-badge">三步決策路徑</span>
     </div>
 
     <div class="subject360-kpi-grid">
@@ -52,20 +52,20 @@ function chartClick(params) {
     </div>
 
     <div class="subject360-decision-card">
-      <span>30 秒決策路徑</span>
+      <span>三步決策路徑</span>
       <p>先查看 <button type="button" @click="emit('open-page', 'classes')">{{ topClass ? `${topClass.classId} 班` : '班級比較' }}</button> → <button type="button" @click="topDimension && emit('open-ability', topDimension)">{{ topDimension?.dimension?.key || '能力向度' }}</button> → <button type="button" @click="topItem && emit('open-item', topItem.item.q)">Q{{ topItem?.item.q || '—' }} {{ topItem?.item.short || '' }}</button></p>
       <small>這是一個優先查看順序，不是固定能力判定；單一訊號仍需回到題目與學生資料確認。</small>
     </div>
 
     <div class="subject360-grid subject360-grid-3">
-      <article class="subject360-card subject360-focus-card"><span>先看哪一班</span><strong>{{ topClass ? `${topClass.classId} 班` : '—' }}</strong><p>{{ topClass ? formatPercent(topClass.stat.rate) + ' 整體答對率' : '目前沒有可排序的班級訊號' }}</p><button type="button" @click="emit('open-page', 'classes')">開啟班級比較 →</button></article>
-      <article class="subject360-card subject360-focus-card"><span>先看哪個向度</span><strong>{{ topDimension?.dimension?.key || '—' }}</strong><p>{{ topDimension ? formatPoints(topDimension.gap) + ' vs 全校' : '目前沒有可用向度' }}</p><button type="button" @click="topDimension && emit('open-ability', topDimension)">開啟能力分析 →</button></article>
-      <article class="subject360-card subject360-focus-card"><span>先看哪一題</span><strong>Q{{ topItem?.item.q || '—' }} {{ topItem?.item.short || '' }}</strong><p>{{ topItem ? formatPercent(topItem.selected.rate) + ' 所選範圍答對率' : '目前沒有可用題目' }}</p><button type="button" @click="topItem && emit('open-item', topItem.item.q)">開啟單題診斷 →</button></article>
+      <article class="subject360-card subject360-focus-card"><span>第一步：鎖定班級</span><strong>{{ topClass ? `${topClass.classId} 班` : '—' }}</strong><p>{{ topClass ? formatPercent(topClass.stat.rate) + ' 整體答對率' : '目前沒有可排序的班級訊號' }}</p><button type="button" @click="emit('open-page', 'classes')">查看班級 × 能力 →</button></article>
+      <article class="subject360-card subject360-focus-card"><span>第二步：確認能力</span><strong>{{ topDimension?.dimension?.key || '—' }}</strong><p>{{ topDimension ? formatPoints(topDimension.gap) + ' vs 全校' : '目前沒有可用向度' }}</p><button type="button" @click="topDimension && emit('open-ability', topDimension)">查看能力診斷 →</button></article>
+      <article class="subject360-card subject360-focus-card"><span>第三步：回到題目</span><strong>Q{{ topItem?.item.q || '—' }} {{ topItem?.item.short || '' }}</strong><p>{{ topItem ? formatPercent(topItem.selected.rate) + ' 所選範圍答對率' : '目前沒有可用題目' }}</p><button type="button" @click="topItem && emit('open-item', topItem.item.q)">查看試題證據 →</button></article>
     </div>
 
     <div class="subject360-grid subject360-grid-2">
       <article class="subject360-card">
-        <div class="subject360-card-head"><h3>班級整體表現</h3><span>點擊班級可進入比較</span></div>
+        <div class="subject360-card-head"><h3>班級訊號排序</h3><span>點擊班級進入班級 × 能力</span></div>
         <Subject360Chart :option="classChart" :height="320" aria-label="班級整體答對率" @chart-click="chartClick" />
         <p class="subject360-caption">條長代表答對率；色彩只作為優先查看提示，不等同固定能力判定。</p>
       </article>

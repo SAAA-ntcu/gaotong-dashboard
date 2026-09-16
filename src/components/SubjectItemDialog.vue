@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import Subject360Chart from './Subject360Chart.vue';
-import { formatCount, formatPercent, getClassOverall, getItemStat, getStudentById, getClassIds, getSubjectMeta } from '../data/subject360';
+import { formatCount, formatPercent, getClassOverall, getItemStat, getClassIds, getSubjectMeta } from '../data/subject360';
 
 const props = defineProps({
   subject: { type: Object, required: true },
@@ -10,7 +10,7 @@ const props = defineProps({
   visible: { type: Boolean, default: false }
 });
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'select-class', 'select-student']);
 
 const item = computed(() => props.question ? props.subject.items[props.question - 1] : null);
 const selectedStat = computed(() => item.value ? getItemStat(props.subject, props.question, props.selectedClasses) : null);
@@ -71,7 +71,7 @@ const meta = computed(() => getSubjectMeta(props.subject.key));
             <div class="subject360-card-head"><h3>班級答對率</h3><span>低到高排序</span></div>
             <div class="subject360-class-list">
               <div v-for="row in classRows" :key="row.classId" class="subject360-class-row">
-                <span>{{ row.classId }} 班</span><div><i :style="{ width: `${Math.max(1, (row.stat.rate || 0) * 100)}%` }" :class="{ low: row.stat.rate < 0.6 }" /></div><strong>{{ formatPercent(row.stat.rate) }}</strong>
+                <span><button type="button" class="subject360-link-button" @click="emit('select-class', row.classId)">{{ row.classId }} 班</button></span><div><i :style="{ width: `${Math.max(1, (row.stat.rate || 0) * 100)}%` }" :class="{ low: row.stat.rate < 0.6 }" /></div><strong>{{ formatPercent(row.stat.rate) }}</strong>
               </div>
             </div>
           </article>
@@ -79,7 +79,7 @@ const meta = computed(() => getSubjectMeta(props.subject.key));
         <article class="subject360-card">
           <div class="subject360-card-head"><h3>需要回到題目確認的學生</h3><span>最多顯示 12 人</span></div>
           <div v-if="affectedStudents.length" class="subject360-tag-list">
-            <span v-for="student in affectedStudents" :key="student.id" class="subject360-tag emphasis">{{ student.class }}班 {{ student.seat }}號</span>
+            <button v-for="student in affectedStudents" :key="student.id" type="button" class="subject360-tag emphasis" @click="emit('select-student', student.id)">{{ student.class }}班 {{ student.seat }}號</button>
           </div>
           <p v-else class="subject360-empty">目前範圍沒有錯答或未答學生。</p>
         </article>

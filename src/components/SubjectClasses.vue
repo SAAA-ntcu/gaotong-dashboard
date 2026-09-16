@@ -17,6 +17,14 @@ const activeDimension = computed(() => dimensions.value.find((dimension) => dime
 const classRows = computed(() => getClassIds(props.subject).map((classId) => ({ classId, stat: getClassOverall(props.subject, classId) })).sort((a, b) => (a.stat.rate ?? 1) - (b.stat.rate ?? 1)));
 const dimensionRows = computed(() => activeDimension.value ? getClassIds(props.subject).map((classId) => ({ classId, stat: getDimensionStat(props.subject, dimensionType.value, activeDimension.value.key, [classId]) })).sort((a, b) => (a.stat?.rate ?? 1) - (b.stat?.rate ?? 1)) : []);
 const dimensionCards = computed(() => dimensions.value.map((dimension) => ({ ...dimension, priority: dimensionPriority(props.subject, dimensionType.value, dimension.key, props.selectedClasses) })));
+const matrixRows = computed(() => getClassIds(props.subject).map((classId) => ({
+  classId,
+  selected: props.selectedClasses.includes(classId),
+  cells: dimensions.value.map((dimension) => ({
+    dimension,
+    stat: getDimensionStat(props.subject, dimensionType.value, dimension.key, [classId])
+  }))
+})));
 const chart = computed(() => ({
   animation: false,
   grid: { left: 42, right: 28, top: 18, bottom: 22, containLabel: true },
@@ -41,7 +49,7 @@ function chartClick(params) {
 <template>
   <div class="subject360-module">
     <div class="subject360-page-head">
-      <div><h2>班級比較</h2><p>比較班級整體與正式向度，辨認多班共同與特定班級差異。</p></div>
+      <div><h2>班級 × 能力</h2><p>先定位班級差異，再確認問題集中在哪個能力向度。</p></div>
       <div class="subject360-segmented"><button type="button" :class="{ active: dimensionType === 'content' }" @click="setType('content')">內容向度</button><button type="button" :class="{ active: dimensionType === 'cognitive' }" :disabled="!getDimensions(subject, 'cognitive').length" @click="setType('cognitive')">認知向度</button></div>
     </div>
 
@@ -60,6 +68,21 @@ function chartClick(params) {
         </div>
       </article>
     </div>
+    <article class="subject360-card subject360-section-gap">
+      <div class="subject360-card-head"><h3>班級 × 能力矩陣</h3><span>點擊格子切換向度；列標可鎖定班級</span></div>
+      <div class="subject360-matrix-wrap">
+        <table class="subject360-matrix">
+          <thead><tr><th>班級</th><th v-for="dimension in dimensions" :key="dimension.key">{{ dimension.key }}</th></tr></thead>
+          <tbody>
+            <tr v-for="row in matrixRows" :key="row.classId" :class="{ selected: row.selected }">
+              <th><button type="button" @click="emit('select-class', row.classId)">{{ row.classId }} 班</button></th>
+              <td v-for="cell in row.cells" :key="cell.dimension.key"><button type="button" class="subject360-matrix-cell" :class="{ low: cell.stat?.rate < 0.6, medium: cell.stat?.rate >= 0.6 && cell.stat?.rate < 0.8, high: cell.stat?.rate >= 0.8 }" :title="`${row.classId} 班・${cell.dimension.key}`" @click="chooseDimension(cell.dimension)">{{ formatPercent(cell.stat?.rate) }}</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="subject360-caption">橘色代表優先確認，灰藍色代表中段，藍綠色代表目前表現較穩定；色階是排序提示，不是能力定論。</p>
+    </article>
 
     <article v-if="activeDimension" class="subject360-card subject360-section-gap">
       <div class="subject360-card-head"><h3>{{ activeDimension.key }}｜班級表現</h3><span>{{ activeDimension.description }}</span></div>

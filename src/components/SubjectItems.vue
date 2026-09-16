@@ -9,6 +9,7 @@ const props = defineProps({
   selectedClasses: { type: Array, required: true },
   focusQuestion: { type: Number, default: null }
 });
+const emit = defineEmits(['select-class', 'select-student']);
 
 const itemSort = ref('priority');
 const contentFilter = ref('all');
@@ -48,7 +49,7 @@ function chartClick(params) {
 
 <template>
   <div class="subject360-module">
-    <div class="subject360-page-head"><div><h2>試題分析</h2><p>完整題目總覽；答對率以有效作答為分母，選項分布保留所有學生列。</p></div><label class="subject360-inline-control">排序<select v-model="itemSort"><option value="priority">教學優先度</option><option value="q">題號</option><option value="rate">答對率低到高</option><option value="classGap">班級落差低到高</option></select></label></div>
+    <div class="subject360-page-head"><div><h2>試題證據</h2><p>先看選項分布與班級差異，再回到需要確認的題目與學生。</p></div><label class="subject360-inline-control">排序<select v-model="itemSort"><option value="priority">教學優先度</option><option value="q">題號</option><option value="rate">答對率低到高</option><option value="classGap">班級落差低到高</option></select></label></div>
     <div class="subject360-filter-bar"><label>內容向度<select v-model="contentFilter"><option v-for="key in contentKeys" :key="key" :value="key">{{ key === 'all' ? '全部' : key }}</option></select></label><label>認知向度<select v-model="cognitiveFilter" :disabled="cognitiveKeys.length === 1"><option v-for="key in cognitiveKeys" :key="key" :value="key">{{ key === 'all' && cognitiveKeys.length === 1 ? '此科未提供' : key === 'all' ? '全部' : key }}</option></select></label><label>優先度<select v-model="priorityFilter"><option value="all">全部</option><option value="高優先">高優先</option><option value="中優先">中優先</option><option value="建議觀察">建議觀察</option></select></label></div>
 
     <div class="subject360-grid subject360-grid-2">
@@ -57,6 +58,6 @@ function chartClick(params) {
     </div>
 
     <article class="subject360-card subject360-section-gap"><div class="subject360-card-head"><h3>題目總覽（{{ formatCount(rows.length) }} / {{ formatCount(subject.questionCount) }}）</h3><span>點選列開啟單題診斷</span></div><div class="subject360-table-wrap"><table class="subject360-table"><thead><tr><th>題目</th><th>內容向度</th><th>所選範圍</th><th>全校</th><th>差距</th><th>主要錯誤</th><th>優先</th></tr></thead><tbody><tr v-for="row in rows" :key="row.item.q" class="clickable-row" @click="focusedQuestion = row.item.q"><td>Q{{ row.item.q }} {{ row.item.short }}</td><td>{{ row.item.content }}</td><td>{{ formatPercent(row.selected.rate) }}<small>N={{ formatCount(row.selected.valid) }}</small></td><td>{{ formatPercent(row.school.rate) }}</td><td>{{ formatPoints(row.delta) }}</td><td>{{ row.selected.topWrong ? ['A', 'B', 'C', 'D'][row.selected.topWrong.option - 1] : '—' }}</td><td><span class="subject360-priority" :class="row.level === '高優先' ? 'high' : row.level === '中優先' ? 'medium' : 'observe'">{{ row.level }}</span></td></tr></tbody></table></div></article>
-    <SubjectItemDialog :subject="subject" :question="focusedQuestion" :selected-classes="selectedClasses" :visible="Boolean(focusedQuestion)" @close="focusedQuestion = null" />
+    <SubjectItemDialog :subject="subject" :question="focusedQuestion" :selected-classes="selectedClasses" :visible="Boolean(focusedQuestion)" @close="focusedQuestion = null" @select-class="emit('select-class', $event)" @select-student="emit('select-student', $event)" />
   </div>
 </template>

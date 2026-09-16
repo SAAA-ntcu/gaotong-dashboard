@@ -6,11 +6,12 @@ import { dimensionPriority, formatCount, formatPercent, formatPoints, getClassId
 
 const props = defineProps({
   subject: { type: Object, required: true },
-  selectedClasses: { type: Array, required: true }
+  selectedClasses: { type: Array, required: true },
+  initialDimension: { type: String, default: '' }
 });
-
 const dimensionType = ref('content');
-const selectedKey = ref('');
+
+const selectedKey = ref(props.initialDimension);
 const focusedQuestion = ref(null);
 const dimensions = computed(() => getDimensions(props.subject, dimensionType.value));
 const activeDimension = computed(() => dimensions.value.find((dimension) => dimension.key === selectedKey.value) || dimensions.value[0]);
@@ -35,7 +36,7 @@ function setType(type) {
 <template>
   <div class="subject360-module">
     <div class="subject360-page-head">
-      <div><h2>能力分析</h2><p>先看正式評量向度，再下鑽到向度內題目與班級表現。</p></div>
+      <div><h2>能力診斷</h2><p>先定位正式評量向度，再下鑽到向度內題目與班級表現。</p></div>
       <div class="subject360-segmented"><button type="button" :class="{ active: dimensionType === 'content' }" @click="setType('content')">內容向度</button><button type="button" :class="{ active: dimensionType === 'cognitive' }" :disabled="!getDimensions(subject, 'cognitive').length" @click="setType('cognitive')">認知向度</button></div>
     </div>
     <div v-if="!getDimensions(subject, 'cognitive').length" class="subject360-notice info">{{ subject.label }} 的正式資料只有內容向度，沒有提供認知向度對照；本頁不自行補分類。</div>
