@@ -33,6 +33,9 @@ const currentClass = computed(() => route.query.class && classIds.includes(Strin
         >
           <span aria-hidden="true">▦</span> Class
         </RouterLink>
+        <RouterLink class="nav-link" :class="{ active: route.name === 'subject' }" :to="{ name: 'subject', query: { subject: 'math' } }">
+          <span aria-hidden="true">◎</span> Subject
+        </RouterLink>
       </nav>
     </div>
   </header>

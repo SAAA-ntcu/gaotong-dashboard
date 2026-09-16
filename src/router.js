@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import SchoolView from './views/SchoolView.vue';
 import ClassView from './views/ClassView.vue';
-
+import SubjectView from './views/SubjectView.vue';
 function rootRedirect(to) {
   return to.query.class
     ? { name: 'class', query: { class: to.query.class } }
@@ -14,7 +14,8 @@ const router = createRouter({
     { path: '/', redirect: rootRedirect },
     { path: '/index.html', redirect: rootRedirect },
     { path: '/school', name: 'school', component: SchoolView },
-    { path: '/class', name: 'class', component: ClassView }
+    { path: '/class', name: 'class', component: ClassView },
+    { path: '/subject', name: 'subject', component: SubjectView }
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition;
