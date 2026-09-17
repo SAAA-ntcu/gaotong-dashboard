@@ -145,7 +145,7 @@ function chartClick(params) {
 <template>
   <div class="subject360-module">
     <div class="subject360-page-head">
-      <div><h2>班級 × 能力</h2><p>{{ hasCognitive ? '數學以內容向度 × 認知向度聯結呈現，不再把兩套分類拆開比較。' : '依內容向度定位班級差異，再下鑽到題目與學生證據。' }}</p></div>
+      <div><h2>班級 × 能力</h2><p>{{ hasCognitive ? '數學同時顯示內容與認知向度；其他科目依內容向度呈現。' : '依內容向度查看班級差異，再查看題目與學生資料。' }}</p></div>
       <span class="subject360-badge">{{ hasCognitive ? '內容 × 認知' : '內容向度' }}</span>
     </div>
     <div class="subject360-grid subject360-grid-2">
@@ -154,13 +154,13 @@ function chartClick(params) {
         <div class="subject360-class-ranking">
           <button v-for="(row, index) in classRows" :key="row.classId" type="button" class="subject360-class-rank-row" @click="emit('select-class', row.classId)"><span class="subject360-class-rank">{{ index + 1 }}</span><span class="subject360-class-name">{{ row.classId }} 班</span><i><em :style="{ width: `${Math.max(1, (row.stat.rate || 0) * 100)}%` }" :class="{ low: row.stat.rate < 0.6 }" /></i><strong>{{ formatPercent(row.stat.rate) }}</strong></button>
         </div>
-        <p class="subject360-caption">點擊班級可鎖定目前分析範圍；向度定位請查看右側樹狀圖。</p>
+        <p class="subject360-caption">點擊班級可鎖定目前分析範圍；向度資料請查看右側圖表。</p>
       </article>
       <article class="subject360-card">
-        <div class="subject360-card-head"><h3>聯結向度快速檢視</h3><span>面積＝題數・色彩＝答對率</span></div>
+        <div class="subject360-card-head"><h3>向度分布</h3><span>面積＝題數・色彩＝答對率</span></div>
         <Subject360Chart v-if="dimensions.length" :option="dimensionTreemapChart" :height="320" :aria-label="hasCognitive ? '內容與認知聯結向度樹狀圖' : '內容向度樹狀圖'" @chart-click="treemapClick" />
         <p v-else class="subject360-empty">目前沒有可用向度資料。</p>
-        <p class="subject360-caption">數學以內容向度分組、認知向度分格；點擊格子查看題目組成與班級證據。</p>
+        <p class="subject360-caption">數學依內容向度分組、認知向度分格；點擊格子查看題目與班級資料。</p>
       </article>
     </div>
 
@@ -168,13 +168,13 @@ function chartClick(params) {
       <div class="subject360-card-head"><h3>{{ hasCognitive ? '內容 × 認知熱圖' : '內容向度熱圖' }}</h3><span>點擊格子查看需要確認的學生</span></div>
       <Subject360Chart :option="matrixChart" :height="380" :aria-label="hasCognitive ? '內容與認知向度班級熱圖' : '內容向度班級熱圖'" @chart-click="chartClick" />
       <div v-if="evidenceCell && evidenceDimension" class="subject360-student-evidence">
-        <div class="subject360-card-head"><h3>{{ evidenceCell.classId }} 班・{{ evidenceDimension.label || evidenceDimension.key }}</h3><span>向度答對率低於 60% 的學生</span></div>
+        <div class="subject360-card-head"><h3>{{ evidenceCell.classId }} 班・{{ evidenceDimension.label || evidenceDimension.key }}</h3><span>向度答對率低於 60%</span></div>
         <div v-if="evidenceStudents.length" class="subject360-student-evidence-list">
           <button v-for="row in evidenceStudents.slice(0, 12)" :key="row.student.id" type="button" @click="emit('select-student', row.student.id)"><span>{{ row.student.class }}班 {{ row.student.seat }}號</span><strong>{{ formatPercent(row.student.score) }}</strong><small>向度 {{ formatPercent(row.stat.rate) }}</small></button>
         </div>
-        <p v-else class="subject360-empty">目前沒有低於 60% 的學生；仍可從上方「查詢學生」查看個別證據。</p>
+        <p v-else class="subject360-empty">目前沒有低於 60% 的學生；仍可從上方「查詢學生」查看個別資料。</p>
       </div>
-      <p class="subject360-caption">同一個內容向度會依認知層次拆成聯結格；這些格子是教學定位線索，不是單獨能力判定。</p>
+      <p class="subject360-caption">同一個內容向度會依認知層次拆成聯結格；格子內容僅供教學定位參考。</p>
     </article>
 
     <article v-if="activeDimension" class="subject360-card subject360-section-gap">

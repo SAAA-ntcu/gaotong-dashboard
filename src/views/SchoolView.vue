@@ -73,16 +73,16 @@ function schoolSubjectAction(subjectId) {
   <div class="dashboard-view">
     <section class="page-intro">
       <div>
-        <span class="section-kicker">SCHOOL DECISION COCKPIT</span>
-        <h1>五年級學力檢測校務決策總覽</h1>
-        <p>先定位問題科目，再沿著班級與學生資料進入 Class 工作臺。</p>
+        <span class="section-kicker">校務資料總覽</span>
+        <h1>五年級學力檢測校務資料總覽</h1>
+        <p>先查看科目與班級資料，再進入班級頁面。</p>
       </div>
       <div class="intro-meta">
         <span class="soft-chip">250 位在籍學生</span>
         <span class="soft-chip">9 個班級</span>
         <span class="soft-chip">國語文・數學・英語文</span>
         <span class="soft-chip access-chip">視角：{{ accessProfile.label }}</span>
-        <RouterLink class="primary-button" :to="{ name: 'class', query: { role: accessProfile.id, class: '501' } }">開啟班級工作臺</RouterLink>
+        <RouterLink class="primary-button" :to="{ name: 'class', query: { role: accessProfile.id, class: '501' } }">查看班級資料</RouterLink>
       </div>
     </section>
 
@@ -96,10 +96,10 @@ function schoolSubjectAction(subjectId) {
     <section class="section-card subject-section">
       <div class="section-heading">
         <div>
-          <span class="section-kicker">01 / SIGNAL</span>
+          <span class="section-kicker">01 / 科目資料</span>
           <h2>科目問題定位</h2>
         </div>
-        <span class="section-help">指針只表達與縣市平均的差距；點擊科目查看班級分布。</span>
+        <span class="section-help">指針顯示與縣市平均的差距；點擊科目查看班級分布。</span>
       </div>
 
       <div class="subject-card-grid">
@@ -117,7 +117,7 @@ function schoolSubjectAction(subjectId) {
               <strong>{{ subject.name }}</strong>
             </div>
             <span class="status-chip" :class="subject.delta < 0 ? 'danger' : subject.delta === 0 ? 'warning' : 'success'">
-              {{ subject.delta < 0 ? '需要檢視' : subject.delta === 0 ? '基準線' : '整體領先' }}
+              {{ subject.delta < 0 ? '需要檢視' : subject.delta === 0 ? '基準線' : '高於縣市平均' }}
             </span>
           </div>
           <NeedleGauge :value="subject.delta" :label="'與縣市差距'" :color="subject.color" />
@@ -135,9 +135,9 @@ function schoolSubjectAction(subjectId) {
           <div class="distribution-panel-head">
             <div>
               <span class="section-kicker">目前焦點：{{ selectedSubject.name }}</span>
-              <h3>各班待加強分布 Treemap</h3>
+              <h3>各班待加強分布</h3>
             </div>
-            <span class="section-help">面積代表待加強人數；點擊班級進入 Class，上方科目卡可切換檢視。</span>
+            <span class="section-help">面積代表待加強人數；點擊班級查看班級資料，上方科目卡可切換科目。</span>
           </div>
           <SupportTreemap
             :subjects="subjectCards"
@@ -162,7 +162,7 @@ function schoolSubjectAction(subjectId) {
               <b>{{ item.supportCount }} 人 →</b>
             </button>
           </div>
-          <button class="secondary-button" type="button" @click="openAction(schoolSubjectAction(selectedSubjectId))">開啟科目行動藍圖</button>
+          <button class="secondary-button" type="button" @click="openAction(schoolSubjectAction(selectedSubjectId))">查看科目建議</button>
         </aside>
       </div>
     </section>
@@ -171,10 +171,10 @@ function schoolSubjectAction(subjectId) {
       <article class="section-card priority-card">
         <div class="section-heading compact">
           <div>
-            <span class="section-kicker">02 / NEXT ACTION</span>
-            <h2>優先行動佇列</h2>
+            <span class="section-kicker">02 / 後續處理</span>
+            <h2>優先處理項目</h2>
           </div>
-          <span class="section-help">點擊處方查看協作路徑</span>
+          <span class="section-help">點擊查看建議措施</span>
         </div>
         <div class="priority-list">
           <button v-for="item in priorityItems" :key="item.key" type="button" class="priority-item" @click="openAction(item.key)">
@@ -187,7 +187,7 @@ function schoolSubjectAction(subjectId) {
           </button>
           <button type="button" class="priority-item subject-priority" @click="openAction('math-all')">
             <span class="priority-rank">↗</span>
-            <span class="priority-body"><strong>五年級數學領域</strong><small>6 / 9 班待加強偏高，進入共同備課處方</small></span>
+            <span class="priority-body"><strong>五年級數學領域</strong><small>6 / 9 班待加強偏高，進入共同備課建議</small></span>
             <span class="status-chip danger">領域</span>
           </button>
         </div>
@@ -196,14 +196,14 @@ function schoolSubjectAction(subjectId) {
       <article class="section-card methodology-card">
         <div class="section-heading compact">
           <div>
-            <span class="section-kicker">03 / READING GUIDE</span>
+            <span class="section-kicker">03 / 閱讀方式</span>
             <h2>怎麼讀這個儀表板</h2>
           </div>
         </div>
         <div class="reading-steps">
           <div><span>1</span><p><strong>看指針</strong><br />先確認科目相對基準線的方向與幅度。</p></div>
           <div><span>2</span><p><strong>看熱力矩陣</strong><br />確認問題集中在哪些班級與科目。</p></div>
-          <div><span>3</span><p><strong>開啟 Class</strong><br />進入學生名冊，從資料走向教學觀察。</p></div>
+          <div><span>3</span><p><strong>開啟班級資料</strong><br />進入學生名冊，從資料進行教學觀察。</p></div>
         </div>
       </article>
     </section>
@@ -211,10 +211,10 @@ function schoolSubjectAction(subjectId) {
     <section class="section-card matrix-section">
       <div class="section-heading">
         <div>
-          <span class="section-kicker">04 / CLASS MATRIX</span>
+          <span class="section-kicker">04 / 班級矩陣</span>
           <h2>班級 × 科目待加強熱力矩陣</h2>
         </div>
-        <span class="section-help">點擊任一列進入該班 Class；數字為待加強人數。</span>
+        <span class="section-help">點擊任一列查看該班資料；數字為待加強人數。</span>
       </div>
       <div class="table-wrap">
         <table class="data-table school-matrix">

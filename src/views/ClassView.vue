@@ -114,9 +114,9 @@ function formatPercent(value) {
   <div class="dashboard-view class-view">
     <section class="class-topbar">
       <div>
-        <span class="section-kicker">CLASS / TEACHER WORKSPACE</span>
-        <h1>班級學力診斷工作臺</h1>
-        <p>同一個班級、{{ visibleSubjects.length }} 個科目、同一份可供協作的學生資料。{{ accessProfile.scopeLabel }}</p>
+        <span class="section-kicker">班級資料</span>
+        <h1>班級學力資料</h1>
+        <p>目前班級包含 {{ visibleSubjects.length }} 個科目，顯示可查看的學生資料。{{ accessProfile.scopeLabel }}</p>
       </div>
       <RouterLink v-if="accessProfile.canViewSchool" class="secondary-button" :to="{ name: 'school', query: { role: accessProfile.id } }">返回校務總覽</RouterLink>
     </section>
@@ -130,7 +130,7 @@ function formatPercent(value) {
     <section class="class-identity section-card">
       <div>
         <span class="section-kicker">目前班級</span>
-        <h2>{{ activeClassId }} 班・跨科全貌工作臺</h2>
+        <h2>{{ activeClassId }} 班・跨科資料</h2>
         <p>五年級・在籍 {{ stats.totalStudents }} 人・評量科目 {{ visibleSubjects.map((subject) => subject.name).join('、') }}</p>
       </div>
       <span class="status-chip" :class="stats.testedRate >= 100 ? 'success' : 'warning'">
@@ -142,14 +142,14 @@ function formatPercent(value) {
       <MetricCard label="在籍學生" :value="`${stats.totalStudents} 人`" detail="依座號順序" icon="◎" />
       <MetricCard label="到考率" :value="formatPercent(stats.testedRate)" detail="三科皆有有效成績" :tone="stats.testedRate >= 100 ? 'success' : 'warning'" icon="✓" />
       <MetricCard label="多科共同關注" :value="`${stats.multiSupportCount} 人`" detail="2 科以上" tone="danger" icon="×" />
-      <MetricCard label="跨科不一致" :value="`${stats.inconsistentCount} 人`" detail="獨立正交指標" tone="warning" icon="≈" />
+      <MetricCard label="跨科不一致" :value="`${stats.inconsistentCount} 人`" detail="獨立指標" tone="warning" icon="≈" />
     </section>
 
     <section class="class-focus-layout">
       <article class="section-card class-focus-card">
         <div class="section-heading compact">
           <div>
-            <span class="section-kicker">01 / SUBJECT FOCUS</span>
+            <span class="section-kicker">01 / 科目表現</span>
             <h2>{{ selectedSubject.name }}・班級同儕差距</h2>
           </div>
           <div class="subject-switcher">
@@ -163,7 +163,7 @@ function formatPercent(value) {
           <div class="focus-facts">
             <div><span>待加強人數</span><strong>{{ selectedSubjectStats.supportCount }} / {{ selectedSubjectStats.tested }}</strong><small>{{ formatPercent(selectedSubjectStats.supportRate) }}</small></div>
             <div><span>班級平均答對率</span><strong>{{ selectedSubjectStats.avgAccuracy?.toFixed(1) || '-' }}%</strong><small>有效資料平均</small></div>
-            <div><span>解讀</span><strong>{{ selectedSubjectStats.delta < -4 ? '優先檢視' : selectedSubjectStats.delta > 2 ? '可作為標竿' : '常態追蹤' }}</strong><small>{{ formatDelta(selectedSubjectStats.delta) }}</small></div>
+            <div><span>解讀</span><strong>{{ selectedSubjectStats.delta < -4 ? '優先檢視' : selectedSubjectStats.delta > 2 ? '高於學年平均' : '常態追蹤' }}</strong><small>{{ formatDelta(selectedSubjectStats.delta) }}</small></div>
           </div>
         </div>
       </article>
@@ -171,7 +171,7 @@ function formatPercent(value) {
       <article class="section-card breadth-card">
         <div class="section-heading compact">
           <div>
-            <span class="section-kicker">02 / SUPPORT BREADTH</span>
+            <span class="section-kicker">02 / 關注範圍</span>
             <h2>班級支持結構</h2>
           </div>
           <span class="section-help">點擊分流列即可篩選學生</span>
@@ -190,8 +190,8 @@ function formatPercent(value) {
     <section class="section-card matrix-section class-matrix-section">
       <div class="section-heading">
         <div>
-          <span class="section-kicker">03 / STUDENT × SUBJECT</span>
-          <h2>學生跨科全貌</h2>
+          <span class="section-kicker">03 / 學生與科目</span>
+          <h2>學生跨科資料</h2>
         </div>
         <span class="section-help">點擊學生列開啟教師觀察卡；狀態欄只使用等級描述。</span>
       </div>

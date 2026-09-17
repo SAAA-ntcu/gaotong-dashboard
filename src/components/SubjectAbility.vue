@@ -59,16 +59,19 @@ function optionLabel(option) {
   return ['A', 'B', 'C', 'D'][Number(option) - 1] || '—';
 }
 function priorityClass(level) {
-  if (level === '高優先' || level === '極高風險') return 'high';
-  if (level === '中優先' || level === '高風險') return 'medium';
+  if (level === '高優先') return 'high';
+  if (level === '中優先') return 'medium';
   return 'observe';
+}
+function priorityLabel(level) {
+  return { 高優先: '優先查看', 中優先: '需查看', 建議觀察: '觀察' }[level] || level;
 }
 </script>
 
 <template>
   <div class="subject360-module">
     <div class="subject360-page-head">
-      <div><h2>能力診斷</h2><p>{{ hasCognitive ? '每張卡都是內容向度 × 認知向度的聯結，避免把數學能力拆成兩張互不相干的表。' : '依內容向度下鑽到題目與學生資料。' }}</p></div>
+      <div><h2>能力診斷</h2><p>{{ hasCognitive ? '數學同時顯示內容與認知向度；其他科目依內容向度呈現。' : '依內容向度查看題目與學生資料。' }}</p></div>
       <span class="subject360-badge">{{ hasCognitive ? '內容 × 認知' : '內容向度' }}</span>
     </div>
 
@@ -84,7 +87,7 @@ function priorityClass(level) {
         <div><h3>能力診斷 × 歷年知識庫</h3><span>{{ historicalDiagnosis.label }}｜對照 {{ historyYears.join('、') }} 年官方報告</span></div>
         <span class="subject360-priority" :class="historicalDiagnosis.hasCurrentSignal ? 'medium' : 'observe'">{{ historicalDiagnosis.evidenceLabel }}</span>
       </div>
-      <div class="subject360-notice info">本次題目表現只用來啟動歷史知識庫的教學鏡像；以下是「可能的錯誤假設」候選，不是由歷史資料直接確診的學生迷思，仍須回到題目選項、口頭解釋或學生作品確認。</div>
+      <div class="subject360-notice info">本次題目表現只用來對照歷年資料；以下是「可能的錯誤假設」候選，不是由歷史資料直接確診的學生迷思，仍須回到題目選項、口頭解釋或學生作品確認。</div>
       <div class="subject360-mini-grid subject360-history-inference-kpis">
         <div><span>目前向度</span><strong>{{ formatPercent(historicalDiagnosis.currentRate, 1) }}</strong><small>{{ scopeLabel }}｜有效作答 {{ formatCount(historicalDiagnosis.currentValid) }}</small></div>
         <div><span>歷年向度平均</span><strong>{{ formatPercent(historyDimension?.historyAverage, 1) }}</strong><small>{{ historyDimension?.recurrenceYears?.length || 0 }} 年曾出現同向度訊號</small></div>
@@ -104,7 +107,7 @@ function priorityClass(level) {
         </div>
       </div>
       <div v-if="historicalDiagnosis.signalItems.length" class="subject360-history-inference-evidence">
-        <b>啟動推論的本次題目</b>
+        <b>本次作答較低的題目</b>
         <div class="subject360-tag-list">
           <button v-for="item in historicalDiagnosis.signalItems.slice(0, 6)" :key="item.q" type="button" class="subject360-tag emphasis" @click="focusedQuestion = item.q">
             Q{{ item.q }}・{{ item.label }}<small>{{ formatPercent(item.currentRate, 1) }}<span v-if="item.currentTopWrong">｜主要錯誤 {{ optionLabel(item.currentTopWrong.option) }}</span></small>
@@ -125,10 +128,10 @@ function priorityClass(level) {
       <div class="subject360-card-head"><h3>{{ activeDimension.label || activeDimension.key }}｜題目資料</h3><span>{{ activeDimension.items.length }} 題・{{ activeDimension.description }}</span></div>
       <div class="subject360-table-wrap">
         <table class="subject360-table"><thead><tr><th>題目</th><th>{{ comparisonLabel }}</th><th>所選範圍</th><th>差距</th><th>主要錯誤</th><th>優先</th></tr></thead><tbody>
-          <tr v-for="row in questionRows" :key="row.item.q" class="clickable-row" @click="focusedQuestion = row.item.q"><td>Q{{ row.item.q }} {{ row.item.short }}</td><td>{{ formatPercent(row.school.rate) }}<small>N={{ formatCount(row.school.valid) }}</small></td><td>{{ formatPercent(row.selected.rate) }}<small>N={{ formatCount(row.selected.valid) }}</small></td><td>{{ formatPoints(row.delta) }}</td><td>{{ row.selected.topWrong ? optionLabel(row.selected.topWrong.option) : '—' }}</td><td><span class="subject360-priority" :class="row.level === '高優先' ? 'high' : row.level === '中優先' ? 'medium' : 'observe'">{{ row.level }}</span></td></tr>
+          <tr v-for="row in questionRows" :key="row.item.q" class="clickable-row" @click="focusedQuestion = row.item.q"><td>Q{{ row.item.q }} {{ row.item.short }}</td><td>{{ formatPercent(row.school.rate) }}<small>N={{ formatCount(row.school.valid) }}</small></td><td>{{ formatPercent(row.selected.rate) }}<small>N={{ formatCount(row.selected.valid) }}</small></td><td>{{ formatPoints(row.delta) }}</td><td>{{ row.selected.topWrong ? optionLabel(row.selected.topWrong.option) : '—' }}</td><td><span class="subject360-priority" :class="priorityClass(row.level)">{{ priorityLabel(row.level) }}</span></td></tr>
         </tbody></table>
       </div>
-      <div class="subject360-signal-list"><div><b>向度判斷</b><p><span class="subject360-priority" :class="selectedPriority.level === '高優先' ? 'high' : selectedPriority.level === '中優先' ? 'medium' : 'observe'">{{ selectedPriority.level }}</span> {{ selectedPriority.reasons.join('；') || '目前沒有明顯差距' }}</p></div><div><b>資料解讀</b><p>歷年知識庫只提供候選盲點與教學檢核；能力診斷仍要回到題目選項與學生資料確認。</p></div></div>
+      <div class="subject360-signal-list"><div><b>向度判斷</b><p><span class="subject360-priority" :class="priorityClass(selectedPriority.level)">{{ priorityLabel(selectedPriority.level) }}</span> {{ selectedPriority.reasons.join('；') || '目前沒有明顯差距' }}</p></div><div><b>資料解讀</b><p>歷年知識庫只提供候選盲點與教學檢核；能力診斷仍要回到題目選項與學生資料確認。</p></div></div>
     </article>
     <SubjectItemDialog :subject="subject" :question="focusedQuestion" :selected-classes="selectedClasses" :visible-class-ids="visibleClassIds" :visible="Boolean(focusedQuestion)" @close="closeQuestion" @select-class="selectClass" @select-student="selectStudent" />
   </div>

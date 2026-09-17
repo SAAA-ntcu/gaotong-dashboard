@@ -5,7 +5,7 @@ import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 const props = defineProps({
   option: { type: Object, required: true },
   height: { type: Number, default: 300 },
-  ariaLabel: { type: String, default: 'Subject 360 圖表' }
+  ariaLabel: { type: String, default: '科目資料圖表' }
 });
 
 const emit = defineEmits(['chart-click']);

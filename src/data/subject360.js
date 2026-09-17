@@ -15,16 +15,16 @@ export async function loadSubject360() {
       fetch(SUBJECT360_DATA_URL, { signal: controller.signal }),
       fetch(SUBJECT360_HISTORY_URL, { signal: controller.signal })
     ]);
-    if (!response.ok) throw new Error(`Subject 360 data request failed: ${response.status}`);
-    if (!historyResponse.ok) throw new Error(`Subject 360 history request failed: ${historyResponse.status}`);
+    if (!response.ok) throw new Error(`科目資料載入失敗：${response.status}`);
+    if (!historyResponse.ok) throw new Error(`歷年資料載入失敗：${historyResponse.status}`);
     const [data, history] = await Promise.all([response.json(), historyResponse.json()]);
-    if (!history?.subjects) throw new Error('Subject 360 歷年分析資料格式錯誤。');
+    if (!history?.subjects) throw new Error('歷年分析資料格式錯誤。');
     Object.entries(data.subjects || {}).forEach(([subjectId, subject]) => {
       subject.historicalAnalysis = history.subjects[subjectId] || null;
     });
     return data;
   } catch (error) {
-    if (error?.name === 'AbortError') throw new Error('Subject 360 資料載入逾時，請重新整理後再試。');
+    if (error?.name === 'AbortError') throw new Error('科目資料載入逾時，請重新整理後再試。');
     throw error;
   } finally {
     clearTimeout(timeout);

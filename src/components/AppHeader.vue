@@ -40,11 +40,10 @@ function switchRole(roleId) {
       <div class="brand-block">
         <div class="eyebrow-row">
           <span class="eyebrow-chip light">115 年度</span>
-          <span class="eyebrow-chip accent">學力檢測決策儀表板</span>
-          <span class="eyebrow-chip muted">Vue 版</span>
+          <span class="eyebrow-chip accent">學力檢測資料</span>
         </div>
-        <RouterLink class="brand-title" :to="homeLocation">高通國小學力檢測決策儀表板</RouterLink>
-        <p class="brand-subtitle">從年級問題定位到班級跨科工作臺，讓數據直接連到下一個教學行動</p>
+        <RouterLink class="brand-title" :to="homeLocation">高通國小學力檢測資料儀表板</RouterLink>
+        <p class="brand-subtitle">檢視年級、班級與科目資料，作為教學討論參考。</p>
       </div>
 
       <div class="header-controls">
@@ -65,10 +64,10 @@ function switchRole(roleId) {
             <span aria-hidden="true">⌂</span> 校務總覽
           </RouterLink>
           <RouterLink v-if="activeProfile.canViewClass" class="nav-link" :class="{ active: route.name === 'class' }" :to="classLocation">
-            <span aria-hidden="true">▦</span> Class
+            <span aria-hidden="true">▦</span> 班級
           </RouterLink>
           <RouterLink class="nav-link" :class="{ active: route.name === 'subject' }" :to="subjectLocation">
-            <span aria-hidden="true">◎</span> Subject
+            <span aria-hidden="true">◎</span> 科目
           </RouterLink>
         </nav>
       </div>

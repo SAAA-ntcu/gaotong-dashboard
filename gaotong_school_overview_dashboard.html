@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>高通國小 115年度 五年級學力檢測校務決策儀表板</title>
+  <title>高通國小 115年度 五年級學力檢測校務資料總覽</title>
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- FontAwesome 6 -->
@@ -200,17 +200,16 @@
         <div>
           <div class="d-flex align-items-center gap-2 mb-2">
             <span class="badge bg-white text-dark fw-bold px-2 py-1">115年度</span>
-            <span class="badge bg-warning text-dark fw-bold px-2 py-1">校務首頁決策儀表板</span>
-            <span class="badge bg-light text-primary fw-bold px-2 py-1">全實測真實數據</span>
+            <span class="badge bg-warning text-dark fw-bold px-2 py-1">校務資料總覽</span>
           </div>
-          <h1 class="h2 fw-bolder mb-1">高通國小 五年級學力檢測校務決策儀表板</h1>
-          <p class="mb-0 text-white-50">專供校長、教務主任定位問題、衡量規模、解構交叉訊號與擬定行政檢視路徑</p>
+          <h1 class="h2 fw-bolder mb-1">高通國小 五年級學力檢測校務資料總覽</h1>
+          <p class="mb-0 text-white-50">查看科目、班級與學生資料。</p>
         </div>
         <div class="d-flex flex-wrap gap-2">
           <span class="badge-chip bg-white bg-opacity-25 text-white"><i class="fa-solid fa-users me-1"></i> 五年級在籍 250 人</span>
           <span class="badge-chip bg-white bg-opacity-25 text-white"><i class="fa-solid fa-school me-1"></i> 9 個班級 (501～509 班)</span>
           <span class="badge-chip bg-white bg-opacity-25 text-white"><i class="fa-solid fa-book-open me-1"></i> 國語文 · 數學 · 英語文</span>
-          <a class="badge-chip bg-white bg-opacity-25 text-white text-decoration-none" href="gaotong_class_360_dashboard.html?class=501"><i class="fa-solid fa-chalkboard-user me-1"></i> 班級工作臺</a>
+          <a class="badge-chip bg-white bg-opacity-25 text-white text-decoration-none" href="gaotong_class_360_dashboard.html?class=501"><i class="fa-solid fa-chalkboard-user me-1"></i> 班級資料</a>
         </div>
       </div>
     </div>
@@ -222,8 +221,8 @@
     <div class="card-custom p-4 mb-4">
       <div class="section-title">
         <span class="section-number">1</span>
-        <h3 class="h4 mb-0 fw-bold">五年級 · 科目問題定位 (Subject Problem Location)</h3>
-        <span class="ms-auto badge bg-danger-subtle text-danger px-3 py-2 rounded-pill fw-bold"><i class="fa-solid fa-circle-exclamation me-1"></i> 核心回答：哪個科目值得最優先看？</span>
+        <h3 class="h4 mb-0 fw-bold">五年級 · 科目問題定位</h3>
+        <span class="ms-auto badge bg-danger-subtle text-danger px-3 py-2 rounded-pill fw-bold"><i class="fa-solid fa-circle-exclamation me-1"></i> 目前需先查看的科目</span>
       </div>
 
                         <!-- 3 Subject Integrated Mini-Dashboard Cards Row -->
@@ -236,7 +235,7 @@
               <!-- Header -->
               <div class="d-flex justify-content-between align-items-start mb-2">
                 <span class="badge bg-danger text-white px-2 py-1 fs-6">五年級 · 數學</span>
-                <span class="badge bg-danger-subtle text-danger fw-bold"><i class="fa-solid fa-triangle-exclamation me-1"></i>第一優先檢視焦點</span>
+                <span class="badge bg-danger-subtle text-danger fw-bold"><i class="fa-solid fa-triangle-exclamation me-1"></i>優先檢視</span>
               </div>
 
               <!-- Body: Left (Gauge Dashboard Only) + Right (3 Metrics: 答對率對照、待加強規模、到考率) -->
@@ -291,7 +290,7 @@
                       <div class="progress-bar bg-success" role="progressbar" style="width: 98.8%;" aria-valuenow="98.8" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <div class="d-flex justify-content-between text-muted mt-1" style="font-size: 0.7rem;">
-                      <span>到考率 98.8% (高純度)</span>
+                      <span>到考率 98.8% (資料完整度)</span>
                       <span>502班 2人、503班 1人</span>
                     </div>
                   </div>
@@ -301,7 +300,7 @@
 
             <!-- Bottom: 學力研判 (Full Width) -->
             <div class="alert alert-danger p-2 mb-0 small border-0">
-              <i class="fa-solid fa-circle-exclamation me-1"></i> <strong>學力研判：</strong> 學校領先優勢完全歸零，全校 9 班中有 6 班待加強偏高，低 PR 族群龐大，列為<strong>全校第一優先檢視</strong>。
+              <i class="fa-solid fa-circle-exclamation me-1"></i> <strong>學力研判：</strong> 全校 9 班中有 6 班待加強率偏高，建議先查看數學資料。
             </div>
           </div>
         </div>
@@ -368,7 +367,7 @@
                       <div class="progress-bar bg-success" role="progressbar" style="width: 98.8%;" aria-valuenow="98.8" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <div class="d-flex justify-content-between text-muted mt-1" style="font-size: 0.7rem;">
-                      <span>到考率 98.8% (高純度)</span>
+                      <span>到考率 98.8% (資料完整度)</span>
                       <span>502班 2人、503班 1人</span>
                     </div>
                   </div>
@@ -390,7 +389,7 @@
               <!-- Header -->
               <div class="d-flex justify-content-between align-items-start mb-2">
                 <span class="badge bg-success text-white px-2 py-1 fs-6">五年級 · 國語文</span>
-                <span class="badge bg-success-subtle text-success fw-bold"><i class="fa-solid fa-circle-check me-1"></i>全校表現最穩健</span>
+                <span class="badge bg-success-subtle text-success fw-bold"><i class="fa-solid fa-circle-check me-1"></i>全校答對率較高</span>
               </div>
 
               <!-- Body: Left (Gauge Dashboard Only) + Right (3 Metrics: 答對率對照、待加強規模、到考率) -->
@@ -430,7 +429,7 @@
                       <div class="progress-bar bg-danger" style="width: 4.8%;" title="待加強 4.8%"></div>
                     </div>
                     <div class="d-flex justify-content-between text-muted mt-1" style="font-size: 0.7rem;">
-                      <span class="text-success fw-semibold">基礎扎實 (66.0%)</span>
+                      <span class="text-success fw-semibold">基礎表現 (66.0%)</span>
                       <span class="text-secondary">待加強率全校最低 (4.8%)</span>
                     </div>
                   </div>
@@ -455,7 +454,7 @@
 
             <!-- Bottom: 學力研判 (Full Width) -->
             <div class="alert alert-success p-2 mb-0 small border-0">
-              <i class="fa-solid fa-circle-check me-1"></i> <strong>學力研判：</strong> 全校各班平均皆達 72% 以上，離散度全校最小，待加強學生僅 12 人且無缺考，整體學力超越縣市平均，體質健康。
+              <i class="fa-solid fa-circle-check me-1"></i> <strong>學力研判：</strong> 全校各班平均皆達 72% 以上，待加強學生 12 人且無缺考，與縣市平均相比差距較小。
             </div>
           </div>
         </div>
@@ -467,8 +466,8 @@
     <div class="card-custom p-4 mb-4">
       <div class="section-title">
         <span class="section-number">2</span>
-        <h3 class="h4 mb-0 fw-bold">問題規模與分布 (Problem Scale & Distribution)</h3>
-        <span class="ms-auto badge bg-danger-subtle text-danger px-3 py-2 rounded-pill fw-bold"><i class="fa-solid fa-users me-1"></i> 核心回答：這個問題到底影響多少學生、多少班？分布型態為何？</span>
+        <h3 class="h4 mb-0 fw-bold">問題規模與分布</h3>
+        <span class="ms-auto badge bg-danger-subtle text-danger px-3 py-2 rounded-pill fw-bold"><i class="fa-solid fa-users me-1"></i> 查看影響人數與班級分布</span>
       </div>
 
 
@@ -483,7 +482,7 @@
                   <i class="fa-solid fa-circle-dot text-danger me-2"></i>各班待加強學生分布：多維氣泡散布圖 (側並列防遮蔽 × 各科學年中位數基準版)
                 </h5>
                 <span class="text-secondary small">
-                  氣泡直徑等比映射待加強人數規模；三學科同班微幅側並列（數學偏左、英語置中、國語偏右）防重疊遮蔽；各學科各自對照學年中位數常模基準線（數學 5 人、英語 1 人、國語 2 人）。點擊氣泡可開啟對應班級 Class 360 工作臺
+                  氣泡直徑等比映射待加強人數規模；三學科同班微幅側並列（數學偏左、英語置中、國語偏右）防重疊遮蔽；各學科各自對照學年中位數常模基準線（數學 5 人、英語 1 人、國語 2 人）。點擊氣泡可開啟對應班級資料頁面
                 </span>
               </div>
               <div class="d-flex flex-wrap gap-2 align-items-center">
@@ -526,7 +525,7 @@
                       <td class="fw-bold text-success">2.0 人</td>
                       <td>1.12 人</td>
                       <td><span class="badge bg-success-subtle text-success">無顯著離群 (最高507班 3人)</span></td>
-                      <td class="text-start small">全學年各班平穩達標，基礎讀寫扎實，維持常態教學深耕。</td>
+                      <td class="text-start small">各班平均差異不大，維持目前教學安排。</td>
                     </tr>
                     <tr>
                       <td class="fw-bold text-primary"><i class="fa-solid fa-language me-1"></i>英語文</td>
@@ -544,7 +543,7 @@
                       <td class="fw-bold text-danger">5.0 人</td>
                       <td>1.76 人</td>
                       <td><span class="badge bg-danger text-white">507 班 (9人 · 達全班33.3%)</span></td>
-                      <td class="text-start small">全學年 6 班待加強偏高，以 507 班為首優先啟動四則運算診斷與適性教學支援。</td>
+                      <td class="text-start small">全學年 6 班待加強偏高，以 507 班為先查看四則運算與適性教學資料。</td>
                     </tr>
                   </tbody>
                 </table>
@@ -563,9 +562,9 @@
     <div class="card-custom p-4 mb-4">
       <div class="section-title">
         <span class="section-number">3</span>
-        <h3 class="h4 mb-0 fw-bold">學力診斷與管理行動一體化控制台 (Unified Action Cockpit)</h3>
+        <h3 class="h4 mb-0 fw-bold">學力資料與後續處理</h3>
         <span class="ms-auto badge bg-success text-white px-3 py-2 rounded-pill fw-bold">
-          <i class="fa-solid fa-compass me-1"></i> 核心回答：行政管理上，下一步先往哪裡看？（點選象限卡或氣泡即時展開對應行動藍圖）
+          <i class="fa-solid fa-compass me-1"></i> 查看下一個處理項目（點選卡片或氣泡查看建議措施）
         </span>
       </div>
 
@@ -590,7 +589,7 @@
           <div id="unified-card-508" class="quadrant-box interactive border-warning active" onclick="selectCockpitItem('508')">
             <div class="d-flex justify-content-between align-items-center mb-1">
               <span class="badge bg-warning text-dark">單科 × 單班 (特定學科落差)</span>
-              <span class="badge bg-warning-subtle text-dark border">點擊展開處方</span>
+              <span class="badge bg-warning-subtle text-dark border">查看建議</span>
             </div>
             <h5 class="fw-bold mb-1">508 班 · 英語文</h5>
             <div class="text-danger fw-bold fs-5 mb-1">Δ_Peer = -7.10 pp</div>
@@ -605,7 +604,7 @@
           <div id="unified-card-math" class="quadrant-box interactive border-danger" onclick="selectCockpitItem('math-all')">
             <div class="d-flex justify-content-between align-items-center mb-1">
               <span class="badge bg-danger text-white">單科 × 多班 (學年領域課題)</span>
-              <span class="badge bg-danger-subtle text-danger border">點擊展開處方</span>
+              <span class="badge bg-danger-subtle text-danger border">查看建議</span>
             </div>
             <h5 class="fw-bold mb-1">五年級 · 數學領域</h5>
             <div class="text-danger fw-bold fs-5 mb-1">6 / 9 班 待加強偏高</div>
@@ -620,7 +619,7 @@
           <div id="unified-card-503" class="quadrant-box interactive border-danger" onclick="selectCockpitItem('503')">
             <div class="d-flex justify-content-between align-items-center mb-1">
               <span class="badge bg-danger text-white" style="background-color: #ea580c !important;">多科 × 單班 (跨科同儕落差)</span>
-              <span class="badge bg-warning-subtle text-dark border">點擊展開處方</span>
+              <span class="badge bg-warning-subtle text-dark border">查看建議</span>
             </div>
             <h5 class="fw-bold mb-1">503 班 · 三學科表現</h5>
             <div class="text-danger fw-bold fs-5 mb-1" style="color: #ea580c !important;">三學科同儕落差較顯著</div>
@@ -634,13 +633,13 @@
         <div class="col-lg-3 col-md-6">
           <div id="unified-card-504" class="quadrant-box interactive border-success" onclick="selectCockpitItem('504')">
             <div class="d-flex justify-content-between align-items-center mb-1">
-              <span class="badge bg-success text-white">多科 × 多班 (全面領先標竿)</span>
-              <span class="badge bg-success-subtle text-success border">點擊展開典範</span>
+              <span class="badge bg-success text-white">多科 × 多班 (表現較高)</span>
+              <span class="badge bg-success-subtle text-success border">查看經驗</span>
             </div>
-            <h5 class="fw-bold mb-1">504 / 509 班 · 標竿典範</h5>
-            <div class="text-success fw-bold fs-5 mb-1">三科全面顯著領先</div>
+            <h5 class="fw-bold mb-1">504 / 509 班 · 教學經驗</h5>
+            <div class="text-success fw-bold fs-5 mb-1">三科皆高於同儕</div>
             <p class="small text-muted mb-0" style="font-size: 0.82rem;">
-              國數英全面領先 (+1.8 ~ +6.3pp)，待加強僅 1~2 人，學力體質穩健扎實。
+              國數英皆高於同儕，待加強 1~2 人。
             </p>
           </div>
         </div>
@@ -654,14 +653,14 @@
               <i class="fa-solid fa-crosshairs text-primary me-2"></i>全校 9 班學力診斷 2D 四象限地圖 (最差單科同儕落差 × 三科平均同儕落差)
             </h5>
             <span class="text-secondary small">
-              橫軸標定各班最脆弱之「單科陷落深度」，縱軸反映「三科平均體質」；<strong>點擊圖上任意班級氣泡，下方直接聯動展開對應行政行動處方！</strong>
+              橫軸標定各班較低的單科同儕差距，縱軸反映三科平均同儕差距；<strong>點擊圖上任意班級氣泡，下方查看對應建議措施。</strong>
             </span>
           </div>
           <div class="d-flex flex-wrap gap-2 align-items-center">
             <span class="badge bg-warning-subtle text-dark border border-warning-subtle px-2 py-1">🟨 508班：單科偏離</span>
             <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1">🟥 503班：跨科落差</span>
             <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1" style="border-color: #fca5a5 !important;">🟪 507班：數學偏弱</span>
-            <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">🟩 504/509班：楷模優勢</span>
+            <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">🟩 504/509班：表現較高</span>
           </div>
         </div>
 
@@ -673,10 +672,10 @@
             <i class="fa-solid fa-circle-info text-primary me-1"></i><strong>四大象限導引：</strong>
             <span class="ms-2 me-3"><strong>🟨 左上 (單科偏離)：</strong>聚焦教材難點與單元診斷</span>
             <span class="me-3"><strong>🟥 左下 (跨科落差)：</strong>聚焦跨科共備與適性學習支援</span>
-            <span><strong>🟩 右上 (全面領先)：</strong>標竿班級經驗傳承分享</span>
+            <span><strong>🟩 右上 (表現較高)：</strong>班級教學經驗分享</span>
           </div>
           <div class="text-primary fw-bold">
-            <i class="fa-solid fa-hand-pointer me-1"></i>支援點擊氣泡聯動下方處方面板
+            <i class="fa-solid fa-hand-pointer me-1"></i>點擊氣泡查看下方建議
           </div>
         </div>
       </div>
@@ -861,10 +860,10 @@
       [0 + offsetM, 4, '501班', 28, 14.3, '常態波動'],
       [1 + offsetM, 5, '502班', 26, 19.2, '待加強率偏高'],
       [2 + offsetM, 5, '503班', 28, 17.9, '全科偏弱關聯'],
-      [3 + offsetM, 2, '504班', 28, 7.1,  '表現穩健'],
+      [3 + offsetM, 2, '504班', 28, 7.1,  '表現較高'],
       [4 + offsetM, 5, '505班', 27, 18.5, '待加強率偏高'],
       [5 + offsetM, 5, '506班', 28, 17.9, '待加強率偏高'],
-      [6 + offsetM, 9, '507班', 27, 33.3, '全學年最高峰 · 待加強佔該班 1/3'],
+      [6 + offsetM, 9, '507班', 27, 33.3, '待加強率較高 · 待加強佔該班 1/3'],
       [7 + offsetM, 6, '508班', 27, 22.2, '待加強顯著偏高'],
       [8 + offsetM, 5, '509班', 28, 17.9, '待加強率偏高']
     ];
@@ -1094,15 +1093,15 @@
     
     // 班級教學診斷與處方資訊庫（懸停氣泡即時浮動展示）
     const classDiagnosisInfo = {
-      '501': { badge: '501班 · 常態穩定', badgeClass: 'bg-secondary text-white', text: '<strong>診斷：</strong>國語(+1.83pp)、英語(+1.88pp)高於同儕，數學(-0.47pp)微幅波動，整體發展健康均衡。' },
-      '502': { badge: '502班 · 英語優勢', badgeClass: 'bg-primary text-white', text: '<strong>診斷：</strong>英語文(+4.13pp)表現亮眼；數學(-2.72pp)與國語(-1.54pp)微幅落後，建議加強數學概念理解。' },
-      '503': { badge: '503班 · 跨科落差顯著 🚨', badgeClass: 'bg-danger text-white', text: '<strong>診斷：</strong>國語(-4.94pp)、數學(-4.99pp)、英語(-7.13pp)三科皆低於同儕，英語待加強學生較多。建議教務處啟動跨科任課教師共備，針對核心概念提供個別化與適性學習支援。' },
-      '504': { badge: '504班 · 全面領先 ⭐', badgeClass: 'bg-success text-white', text: '<strong>診斷：</strong>國語(+4.08pp)、數學(+6.26pp)、英語(+3.01pp)三科全面顯著領先同儕，學力基底扎實，足為楷模。' },
-      '505': { badge: '505班 · 數學優勢', badgeClass: 'bg-info text-dark', text: '<strong>診斷：</strong>數學科(+5.16pp)大幅領先同儕；國語(-0.41pp)與英語(-0.36pp)合於學年常模水平。' },
-      '506': { badge: '506班 · 雙語穩健', badgeClass: 'bg-primary text-white', text: '<strong>診斷：</strong>國語(+2.94pp)與英語(+1.88pp)表現穩健；數學(-1.59pp)屬常態微幅波動。' },
-      '507': { badge: '507班 · 數國雙科偏弱 ⚠️', badgeClass: 'bg-warning text-dark', text: '<strong>診斷：</strong>數學(-6.14pp)為全校最低峰且9人待加強，國語(-4.94pp)亦偏弱。建議以 507 班為首優先安排數學課堂分組合作與概念奠基。' },
-      '508': { badge: '508班 · 單科特定偏離 ⚡', badgeClass: 'bg-warning text-dark', text: '<strong>診斷：</strong>國語(+0.71pp)與數學(+2.90pp)均優於同儕，唯英語文單科落差較大(-7.10pp)。屬單一學科獨立偏離，建議聚焦英語特定語音聽辨與發音單元之教材難點突破。' },
-      '509': { badge: '509班 · 全面優勢 ⭐', badgeClass: 'bg-success text-white', text: '<strong>診斷：</strong>英語(+5.30pp)、國語(+2.98pp)、數學(+1.79pp)三科均衡強勁，待加強人數僅 1 人，表現穩健卓越。' }
+      '501': { badge: '501班 · 常態範圍', badgeClass: 'bg-secondary text-white', text: '<strong>資料摘要：</strong>三科與同儕差距不大。' },
+      '502': { badge: '502班 · 英語表現較高', badgeClass: 'bg-primary text-white', text: '<strong>資料摘要：</strong>英語文高於同儕；數學與國語接近學年常模，可查看數學概念理解。' },
+      '503': { badge: '503班 · 跨科表現有差異', badgeClass: 'bg-danger text-white', text: '<strong>資料摘要：</strong>三科皆低於同儕，英語待加強學生較多。建議安排跨科任課教師共備，確認核心概念學習狀況。' },
+      '504': { badge: '504班 · 三科表現較高', badgeClass: 'bg-success text-white', text: '<strong>資料摘要：</strong>三科皆高於同儕，待加強學生較少。' },
+      '505': { badge: '505班 · 數學表現較高', badgeClass: 'bg-info text-dark', text: '<strong>資料摘要：</strong>數學科高於同儕；國語與英語接近學年常模。' },
+      '506': { badge: '506班 · 國語與英語表現較高', badgeClass: 'bg-primary text-white', text: '<strong>資料摘要：</strong>國語與英語高於同儕；數學接近學年常模。' },
+      '507': { badge: '507班 · 數學與國語需查看', badgeClass: 'bg-warning text-dark', text: '<strong>資料摘要：</strong>數學目前各班最低且 9 人待加強，國語也低於同儕。建議先查看數學課堂分組與概念資料。' },
+      '508': { badge: '508班 · 英語文單科差異', badgeClass: 'bg-warning text-dark', text: '<strong>資料摘要：</strong>國語與數學高於同儕，英語文單科差距較大。建議確認語音聽辨單元的題目表現。' },
+      '509': { badge: '509班 · 三科表現較高', badgeClass: 'bg-success text-white', text: '<strong>資料摘要：</strong>三科皆高於同儕，待加強學生 1 人。' }
     };
 
     // 9 班指標計算：X 軸 = 最差單科同儕落差 (pp)，Y 軸 = 三科平均同儕落差 (pp)
@@ -1113,7 +1112,7 @@
       const worst = Math.min(chi, math, eng);
       const avg = (chi + math + eng) / 3;
 
-      let category = '常態均衡穩健 (波動於正常範圍)';
+      let category = '常態範圍 (波動於正常範圍)';
       let color = '#64748b';
       let size = 30;
 
@@ -1130,7 +1129,7 @@
         color = '#7c3aed';
         size = 36;
       } else if (cls === '504' || cls === '509') {
-        category = '🟩 全面領先優勢 (三科皆顯著高於同儕)';
+        category = '🟩 表現較高 (三科皆高於同儕)';
         color = '#16a34a';
         size = 34;
       }
@@ -1204,7 +1203,7 @@
       },
       yAxis: {
         type: 'value',
-        name: '三科平均同儕落差 (pp) ➔ 越往上代表班級整體學力體質越強',
+        name: '三科平均同儕落差 (pp) ➔ 越往上代表班級平均差距越高',
         nameLocation: 'middle',
         nameGap: 46,
         nameTextStyle: { fontWeight: 'bold', color: '#334155', fontSize: 13 },
@@ -1250,7 +1249,7 @@
               ],
               // Quadrant 3: Overall Dominant (Top-Right)
               [
-                { name: '🟩 全面領先優勢區\n(三科皆超越同儕)', xAxis: 0, yAxis: 6, itemStyle: { color: 'rgba(34, 197, 94, 0.08)' } },
+                { name: '🟩 表現較高區\n(三科皆高於同儕)', xAxis: 0, yAxis: 6, itemStyle: { color: 'rgba(34, 197, 94, 0.08)' } },
                 { xAxis: 4, yAxis: 0 }
               ]
             ],
@@ -1269,7 +1268,7 @@
     const cockpitActionData = {
       '508': {
         title: '508 班 英語文專任教學與語音聽辨檢視',
-        badge: '🟨 單科特定偏離 · 專任學科向',
+        badge: '🟨 單科特定差異 · 專任學科檢視',
         badgeClass: 'bg-warning text-dark',
         cardId: 'unified-card-508',
         who: '英語專任教師 × 英語領域輔導員',
@@ -1283,7 +1282,7 @@
       },
       'math-all': {
         title: '五年級 數學領域共同備課與單元教材檢視',
-        badge: '🟥 全學年領域課題 · 系統共備向',
+        badge: '🟥 全學年領域課題 · 共備檢視',
         badgeClass: 'bg-danger text-white',
         cardId: 'unified-card-math',
         who: '五年級數學教學研究會 × 教務處教學組',
@@ -1317,42 +1316,42 @@
         badgeClass: 'bg-secondary text-white',
         cardId: 'unified-card-math',
         who: '數學任課教師 × 五年級導師',
-        problem: '數學班平均 49% (Δ_Peer = -6.14pp)，為全校各班最低峰；待加強學生達 9 / 29人 (31.0%，全校最多)，低 PR 群達 10 / 29人 (34.5%)。',
+        problem: '數學班平均 49% (Δ_Peer = -6.14pp)，為目前各班最低；待加強學生達 9 / 29人 (31.0%，目前較多)，低 PR 群達 10 / 29人 (34.5%)。',
         actions: [
-          '<strong>運算迷思個別化診斷：</strong> 針對 9 位待加強學生進行四則運算迷思精準診斷，釐清概念斷層與符號混淆點。',
-          '<strong>課堂異質分組合作學習：</strong> 安排學習優勢同儕進行課堂協同共學，運用同儕互助降低數學學習焦慮。',
-          '<strong>具體操作化抽象為具體：</strong> 數學課堂上增加具體教具操作時間，加強運算程序與情境題意理解。'
+          '<strong>錯題資料檢視：</strong> 針對 9 位待加強學生查看四則運算題目表現，釐清概念與符號混淆點。',
+          '<strong>課堂分組合作學習：</strong> 安排學生進行課堂協同共學，運用同儕互助降低數學學習焦慮。',
+          '<strong>具體操作活動：</strong> 數學課堂上增加具體教具操作時間，加強運算程序與情境題意理解。'
         ],
         kpis: '數學待加強人數由 9 人降至 4 人以內，基本運算程序題型正確率達 80% 以上。',
         when: '第 3 週錯題訪談 · 第 7 週分組學習回饋 · 第 10 週單元小測驗'
       },
       '504': {
-        title: '504 / 509 班 全面均衡領先經驗擴散',
-        badge: '🟩 全面領先標竿 · 典範分享向',
+        title: '504 / 509 班教學經驗分享',
+        badge: '🟩 表現較高・經驗分享',
         badgeClass: 'bg-success text-white',
         cardId: 'unified-card-504',
         who: '504 / 509 班任課教師 × 學年主任',
-        problem: '國語、數學、英語三科全面顯著高於同儕(+1.8 ~ +6.3pp)，待加強人數僅 1~2 人，學力體質普遍穩健扎實。',
+        problem: '國語、數學、英語三科皆高於同儕(+1.8 ~ +6.3pp)，待加強人數 1~2 人。',
         actions: [
-          '<strong>課堂互動典範分享：</strong> 邀請任課教師於學年教學研究會分享雙語提問引導與課堂小組共學經驗。',
-          '<strong>跨領域探究任務規劃：</strong> 為學力優勢學生規劃跨學科專題探究學習任務，促進高階思維與多元表達。'
+          '<strong>課堂互動經驗分享：</strong> 邀請任課教師於學年教學研究會分享雙語提問引導與課堂小組共學經驗。',
+          '<strong>跨領域探究任務規劃：</strong> 為表現較高的學生規劃跨學科專題探究學習任務，促進高階思維與多元表達。'
         ],
-        kpis: '形成校本優良教學案例庫，促進學年教學經驗良性傳承。',
+        kpis: '整理教學案例，供學年交流。',
         who: '504 / 509 班任課教師 × 學年主任',
         when: '期中教學研究會專題分享 · 常態性教學觀摩'
       },
       '509': {
-        title: '509 班 英語文與跨學科優勢經驗分享',
-        badge: '🟩 雙語穩健卓越 · 典範分享向',
+        title: '509 班 英語文與跨科表現經驗分享',
+        badge: '🟩 英語文與跨科經驗分享',
         badgeClass: 'bg-success text-white',
         cardId: 'unified-card-504',
         who: '509 班導師與任課教師',
-        problem: '英語文班平均領先同儕 +5.30pp，國語(+2.98pp)與數學(+1.79pp)齊頭並進，待加強學生僅 1 人。',
+        problem: '英語文班平均高於同儕 +5.30pp，國語(+2.98pp)與數學(+1.79pp)也高於同儕，待加強學生 1 人。',
         actions: [
           '<strong>雙語課堂互動經驗分享：</strong> 邀請任課教師分享英語情境教學與學生提問引導策略。',
           '<strong>適性閱讀深化：</strong> 提供高階英語讀本與自主閱讀材料，延伸學習動能。'
         ],
-        kpis: '教學研究會典範教案錄整與分享。',
+        kpis: '整理教學研究會教案，供學年交流。',
         when: '常態教學觀察與分享'
       }
     };
@@ -1367,7 +1366,7 @@
 
       const links = classIds.map(classId =>
         `<a class="btn btn-sm btn-outline-primary fw-semibold py-1" href="gaotong_class_360_dashboard.html?class=${encodeURIComponent(classId)}">` +
-        `<i class="fa-solid fa-arrow-up-right-from-square me-1"></i>開啟 ${classId} 班 Class 360</a>`
+        `<i class="fa-solid fa-arrow-up-right-from-square me-1"></i>開啟 ${classId} 班級資料</a>`
       ).join('');
 
       return `<div class="d-flex flex-wrap align-items-center gap-2 mb-3 pb-3 border-bottom">` +
@@ -1390,16 +1389,16 @@
         // Fallback generic class data
         const info = classDiagnosisInfo[key];
         data = {
-          title: `${key} 班 學力診斷與適性教學指引`,
+          title: `${key} 班級學力資料與教學指引`,
           badge: info ? info.badge : `${key} 班`,
           badgeClass: info ? info.badgeClass : 'bg-primary text-white',
           who: `${key} 班導師 × 各學科任課教師`,
-          problem: info ? info.text : `該班學力發展常態健康，建議持續追蹤學習進程。`,
+          problem: info ? info.text : `該班資料可供查看，建議持續追蹤學習進程。`,
           actions: [
             '<strong>個別概念奠基：</strong> 針對課堂作業及小測驗易錯概念，由任課教師於課堂提供及時個別回饋。',
             '<strong>常態教學觀察：</strong> 維持規律課堂教學節奏，落實同儕合作學習與自主學習引導。'
           ],
-          kpis: '各學科班平均穩健維持於學年常模水平，待加強學生數維持低檔。',
+          kpis: '各學科班平均維持於學年常模範圍，待加強學生數可持續追蹤。',
           when: '常態教學督導與雙週教學檢視'
         };
       }
@@ -1420,7 +1419,7 @@
         <div class="row g-3">
           <div class="col-lg-5">
             <div class="p-3 bg-white rounded border h-100 shadow-sm">
-              <strong class="text-danger small"><i class="fa-solid fa-triangle-exclamation me-1"></i> 客觀盲點歸因 (數據佐證)：</strong>
+              <strong class="text-danger small"><i class="fa-solid fa-triangle-exclamation me-1"></i> 資料摘要：</strong>
               <div class="small text-secondary mt-2 mb-3" style="line-height: 1.5;">
                 ${data.problem}
               </div>
@@ -1431,12 +1430,12 @@
           </div>
           <div class="col-lg-7">
             <div class="p-3 bg-white rounded border h-100 shadow-sm">
-              <strong class="text-primary small"><i class="fa-solid fa-compass me-1"></i> 建議檢視與教學支持路徑：</strong>
+              <strong class="text-primary small"><i class="fa-solid fa-compass me-1"></i> 建議措施與教學支持：</strong>
               <div class="small text-secondary mt-2">
                 ${data.actions.map(a => `<div class="mb-2 pb-1 border-bottom border-light">${a}</div>`).join('')}
               </div>
               <div class="mt-2 pt-2 border-top text-success small fw-bold">
-                <i class="fa-solid fa-bullseye me-1"></i>成效檢核指標 (KPI)：<span class="fw-normal text-dark">${data.kpis}</span>
+                <i class="fa-solid fa-bullseye me-1"></i>成效檢核：<span class="fw-normal text-dark">${data.kpis}</span>
               </div>
             </div>
           </div>

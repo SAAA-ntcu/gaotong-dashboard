@@ -54,16 +54,16 @@ function close() {
 </script>
 
 <template>
-  <div v-if="visible" class="subject360-drawer" role="dialog" aria-modal="true" aria-label="學生證據">
-    <button class="subject360-drawer-backdrop" type="button" aria-label="關閉學生證據" @click="close" />
+  <div v-if="visible" class="subject360-drawer" role="dialog" aria-modal="true" aria-label="學生作答資料">
+    <button class="subject360-drawer-backdrop" type="button" aria-label="關閉學生作答資料" @click="close" />
     <aside class="subject360-drawer-panel">
       <header class="subject360-drawer-head">
         <div>
-          <span class="subject360-kicker">STUDENT EVIDENCE</span>
-          <h2>學生證據</h2>
-          <p>從目前班級、向度或題目脈絡下鑽；不把單次作答當成固定能力判定。</p>
+          <span class="subject360-kicker">學生作答資料</span>
+          <h2>學生作答資料</h2>
+          <p>從目前班級、向度或題目資料查看學生表現；單次作答不代表固定能力。</p>
         </div>
-        <button class="icon-button" type="button" aria-label="關閉學生證據" @click="close">×</button>
+        <button class="icon-button" type="button" aria-label="關閉學生作答資料" @click="close">×</button>
       </header>
 
       <div class="subject360-drawer-body">
@@ -77,7 +77,7 @@ function close() {
           <section class="subject360-drawer-profile">
             <div class="subject360-profile-head">
               <div><strong>{{ student.class }}班 {{ student.seat }}號</strong><span>學生代碼 {{ student.id }}｜目前範圍 {{ selectedClasses.join('、') }}班</span></div>
-              <span class="subject360-priority" :class="profile.weak.length >= 2 ? 'medium' : 'observe'">{{ profile.weak.length >= 2 ? '中優先' : '建議觀察' }}</span>
+              <span class="subject360-priority" :class="profile.weak.length >= 2 ? 'medium' : 'observe'">{{ profile.weak.length >= 2 ? '需查看' : '觀察' }}</span>
             </div>
             <div class="subject360-profile-kpis">
               <div><span>整體表現</span><strong>{{ formatPercent(student.score) }}</strong><small>{{ formatCount(student.correctCount) }} / {{ formatCount(student.validCount) }} 有效題</small></div>

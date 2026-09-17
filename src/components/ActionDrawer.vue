@@ -22,19 +22,19 @@ function deltaText(classId, subjectId) {
 </script>
 
 <template>
-  <aside v-if="action" class="action-drawer" aria-label="行動處方">
+  <aside v-if="action" class="action-drawer" aria-label="建議措施">
     <div class="drawer-head">
       <div>
         <span class="status-chip warning">{{ action.badge }}</span>
         <h2>{{ action.title }}</h2>
       </div>
-      <button class="icon-button" type="button" aria-label="關閉處方" @click="emit('close')">×</button>
+      <button class="icon-button" type="button" aria-label="關閉建議措施" @click="emit('close')">×</button>
     </div>
 
     <div class="drawer-links" v-if="action.classIds?.length">
       <span class="drawer-link-label">延伸檢視</span>
       <button v-for="classId in action.classIds" :key="classId" class="link-button" type="button" @click="openClass(classId)">
-        開啟 {{ classId }} 班 Class
+        開啟 {{ classId }} 班級
         <small v-if="action.subjectId">{{ deltaText(classId, action.subjectId) }}</small>
       </button>
     </div>
@@ -52,7 +52,7 @@ function deltaText(classId, subjectId) {
           <strong>{{ item.title }}</strong>
           <p>{{ item.description }}</p>
         </div>
-        <div class="kpi-callout"><strong>成效檢核 KPI</strong>{{ action.kpi }}</div>
+        <div class="kpi-callout"><strong>成效檢核</strong>{{ action.kpi }}</div>
       </section>
     </div>
   </aside>

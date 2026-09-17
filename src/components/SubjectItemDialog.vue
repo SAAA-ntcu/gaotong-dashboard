@@ -49,7 +49,7 @@ const historicalInsight = computed(() => item.value ? props.subject.historicalAn
     <section class="subject360-modal-panel">
       <header class="subject360-modal-head">
         <div>
-          <span class="subject360-kicker" :style="{ color: meta.color }">ITEM DIAGNOSTIC</span>
+          <span class="subject360-kicker" :style="{ color: meta.color }">題目資料</span>
           <h2>Q{{ item.q }}・{{ item.short }}</h2>
           <p>{{ item.content }}<span v-if="item.cognitive"> × {{ item.cognitive }}</span></p>
         </div>
@@ -60,7 +60,7 @@ const historicalInsight = computed(() => item.value ? props.subject.historicalAn
           <div><span>正確答案</span><strong>{{ ['A', 'B', 'C', 'D'][item.answer - 1] || item.answer }}</strong></div>
           <div><span>目前範圍</span><strong>{{ formatPercent(selectedStat?.rate) }}</strong><small>N={{ formatCount(selectedStat?.valid) }}</small></div>
           <div><span>{{ comparisonLabel }}</span><strong>{{ formatPercent(schoolStat?.rate) }}</strong><small>N={{ formatCount(schoolStat?.valid) }}</small></div>
-          <div><span>主要錯誤</span><strong>{{ selectedStat?.topWrong ? ['A', 'B', 'C', 'D'][selectedStat.topWrong.option - 1] : '—' }}</strong><small>{{ selectedStat?.topWrong ? formatPercent(selectedStat.topWrong.share) + ' of wrong' : '無明顯集中' }}</small></div>
+          <div><span>主要錯誤</span><strong>{{ selectedStat?.topWrong ? ['A', 'B', 'C', 'D'][selectedStat.topWrong.option - 1] : '—' }}</strong><small>{{ selectedStat?.topWrong ? formatPercent(selectedStat.topWrong.share) + ' 錯答占比' : '無明顯集中' }}</small></div>
         </div>
         <div class="subject360-modal-grid">
           <article class="subject360-card">
@@ -79,8 +79,8 @@ const historicalInsight = computed(() => item.value ? props.subject.historicalAn
           </article>
         </div>
         <article v-if="historicalInsight" class="subject360-card subject360-history-item-card">
-          <div class="subject360-card-head"><div><h3>115 弱點判讀 × 歷年報告</h3><span>{{ historicalInsight.dimension }}</span></div><span class="subject360-priority" :class="historicalInsight.level === '極高風險' || historicalInsight.level === '高風險' ? 'high' : historicalInsight.level === '觀察' ? 'medium' : 'observe'">{{ historicalInsight.evidenceType === 'direct_item' ? '歷年相似題型' : '歷年同向度鏡像' }}</span></div>
-          <div class="subject360-history-item-summary"><p><b>目前訊號</b>{{ formatPercent(selectedStat?.rate, 1) }} 答對率｜{{ historicalInsight.signal }}</p><p><b>判讀</b>{{ historicalInsight.diagnosis }}</p><p><b>學生可能卡點</b>{{ historicalInsight.blindSpot }}</p><p><b>歷年鏡像</b>{{ historicalInsight.historicalMirror }}</p></div>
+          <div class="subject360-card-head"><div><h3>115 題目表現與歷年報告</h3><span>{{ historicalInsight.dimension }}</span></div><span class="subject360-priority" :class="historicalInsight.level === '極高風險' || historicalInsight.level === '高風險' ? 'high' : historicalInsight.level === '觀察' ? 'medium' : 'observe'">{{ historicalInsight.evidenceType === 'direct_item' ? '歷年相似題型' : '歷年同向度資料' }}</span></div>
+          <div class="subject360-history-item-summary"><p><b>目前訊號</b>{{ formatPercent(selectedStat?.rate, 1) }} 答對率｜{{ historicalInsight.signal }}</p><p><b>判讀</b>{{ historicalInsight.diagnosis }}</p><p><b>學生可能卡點</b>{{ historicalInsight.blindSpot }}</p><p><b>歷年資料</b>{{ historicalInsight.historicalMirror }}</p></div>
           <div class="subject360-history-item-columns">
             <div><b>可能的錯誤假設</b><ul><li v-for="misconception in historicalInsight.misconceptions" :key="misconception">{{ misconception }}</li></ul></div>
             <div><b>教學建議與檢核</b><ol><li v-for="(move, index) in historicalInsight.teachingMoves" :key="move">{{ move }}<small v-if="historicalInsight.checks?.[index]">檢核：{{ historicalInsight.checks[index] }}</small></li></ol></div>

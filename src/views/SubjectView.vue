@@ -23,7 +23,7 @@ const focusedStudent = ref('');
 const studentLookup = ref('');
 const focusedAbility = ref('');
 const tabs = [
-  { id: 'overview', label: '決策總覽' },
+  { id: 'overview', label: '資料總覽' },
   { id: 'classes', label: '班級 × 能力' },
   { id: 'ability', label: '能力診斷' },
   { id: 'items', label: '試題資料' },
@@ -153,7 +153,7 @@ onMounted(async () => {
     data.value = await loadSubject360();
     syncFromRoute();
   } catch (loadError) {
-    error.value = loadError instanceof Error ? loadError.message : 'Subject 360 資料載入失敗';
+    error.value = loadError instanceof Error ? loadError.message : '科目資料載入失敗';
   }
 });
 watch(() => route.query, syncFromRoute, { deep: true });
@@ -161,11 +161,11 @@ watch(() => route.query, syncFromRoute, { deep: true });
 
 <template>
   <div class="subject360-page">
-    <section v-if="!data && !error" class="subject360-loading subject360-card"><span class="subject360-spinner" />正在載入 Subject 360 資料…</section>
-    <section v-else-if="error" class="subject360-card subject360-notice danger"><strong>Subject 360 載入失敗</strong><p>{{ error }}</p></section>
+    <section v-if="!data && !error" class="subject360-loading subject360-card"><span class="subject360-spinner" />正在載入科目資料…</section>
+    <section v-else-if="error" class="subject360-card subject360-notice danger"><strong>科目資料載入失敗</strong><p>{{ error }}</p></section>
     <template v-else-if="subject">
       <section class="subject360-hero">
-        <div><span class="subject360-kicker">SUBJECT 360 / TEACHER WORKSPACE</span><h1>{{ subject.label }}科教師教學決策工作臺</h1><p>先找問題，再確認能力與試題資料，最後落到學生與教學分組。</p></div>
+        <div><span class="subject360-kicker">科目資料</span><h1>{{ subject.label }}學力檢測資料</h1><p>查看能力、試題與學生資料，作為教學討論參考。</p></div>
         <div class="subject360-hero-controls">
           <label class="subject360-subject-select">目前科目<select :value="selectedSubjectId" @change="setSubject($event.target.value)"><option v-for="meta in accessibleSubjectMeta" :key="meta.id" :value="meta.id">{{ meta.label }}</option></select></label>
           <label class="subject360-subject-select subject360-student-search">查詢學生<input v-model="studentLookup" list="subject360-student-options" placeholder="輸入學生代碼…" :disabled="!studentCandidates.length" @change="selectStudentLookup(studentLookup)" @keydown.enter.prevent="selectStudentLookup(studentLookup)" /><datalist id="subject360-student-options"><option v-for="candidate in studentCandidates" :key="candidate.id" :value="candidate.id" :label="`${candidate.class}班 ${candidate.seat}號`" /></datalist></label>
@@ -173,10 +173,10 @@ watch(() => route.query, syncFromRoute, { deep: true });
       </section>
       <div class="subject360-access-banner">
         <div><span>目前權限視角</span><strong>{{ accessProfile.label }}</strong></div>
-        <p>{{ accessProfile.scopeLabel }}。頁面只呈現目前視角可存取的科目、班級與學生證據。</p>
+        <p>{{ accessProfile.scopeLabel }}。目前頁面依此範圍顯示科目、班級與學生資料。</p>
       </div>
       <SubjectScopePicker :class-ids="classIds" :selected-classes="selectedClasses" :scope-label="scopeLabel" :select-all-label="selectAllLabel" @toggle-class="toggleClass" @select-all="selectAllClasses" />
-      <nav class="subject360-tabs" aria-label="Subject 360 教學決策流程"><button v-for="tab in tabs" :key="tab.id" type="button" :class="{ active: activeTab === tab.id }" @click="setTab(tab.id)">{{ tab.label }}</button></nav>
+      <nav class="subject360-tabs" aria-label="科目資料導覽"><button v-for="tab in tabs" :key="tab.id" type="button" :class="{ active: activeTab === tab.id }" @click="setTab(tab.id)">{{ tab.label }}</button></nav>
       <component
         :is="activeComponent"
         v-bind="activeTab === 'ability' ? { initialDimension: focusedAbility } : {}"

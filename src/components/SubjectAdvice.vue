@@ -43,15 +43,15 @@ const itemRows = computed(() => Object.values(analysis.value?.itemInsights || {}
   .map((insight) => {
     const stat = getItemStat(props.subject, insight.q, scope.value);
     const currentRate = stat?.rate ?? insight.currentRate;
-    const level = currentRate < 0.4 ? '極高風險' : currentRate < 0.6 ? '高風險' : currentRate < 0.7 ? '觀察' : '穩定';
+    const level = currentRate < 0.4 ? '優先查看' : currentRate < 0.6 ? '需查看' : currentRate < 0.7 ? '觀察' : '一般';
     return { ...insight, currentRate, level, topWrong: stat?.topWrong || insight.topWrong };
   })
   .sort((a, b) => (a.currentRate ?? 1) - (b.currentRate ?? 1)));
-const highRiskItems = computed(() => itemRows.value.filter((item) => item.currentRate < 0.6).length);
+const priorityItems = computed(() => itemRows.value.filter((item) => item.currentRate < 0.6).length);
 const priorityDimensionCount = computed(() => dimensionRows.value.filter((dimension) => dimension.currentRate < 0.7 || dimension.recurrenceYears?.length >= 2).length);
 
 function priorityClass(level) {
-  if (level === '極高風險' || level === '高風險') return 'high';
+  if (level === '優先查看' || level === '需查看') return 'high';
   if (level === '觀察') return 'medium';
   return 'observe';
 }
@@ -61,15 +61,15 @@ function priorityClass(level) {
   <article v-if="analysis || legacyAdvice" class="subject360-card subject360-advice-card subject360-section-gap">
     <template v-if="analysis">
       <div class="subject360-card-head">
-        <div><h3>115 弱點分析 × 歷年報告</h3><p class="subject360-advice-topic">115 題目資料｜對照 {{ analysis.historicalYears.join('、') }} 年官方五年級報告</p></div>
-        <span class="subject360-badge">校內觀測 × 報告鏡像</span>
+        <div><h3>115 題目表現與歷年報告</h3><p class="subject360-advice-topic">115 題目資料｜對照 {{ analysis.historicalYears.join('、') }} 年官方五年級報告</p></div>
+        <span class="subject360-badge">校內資料・歷年報告</span>
       </div>
       <div class="subject360-notice info">{{ analysis.summary }}</div>
       <div class="subject360-mini-grid subject360-advice-kpis">
         <div><span>目前範圍整體</span><strong>{{ formatPercent(currentOverall.rate, 1) }}</strong><small>{{ scopeLabel || '目前範圍' }}｜N={{ formatCount(currentOverall.valid) }}</small></div>
         <div><span>112–114 整體平均</span><strong>{{ formatPercent(historicalAverage, 1) }}</strong><small>官方報告向度基線</small></div>
         <div><span>待優先向度</span><strong>{{ priorityDimensionCount }}</strong><small>目前低於 70% 或歷年反覆偏低</small></div>
-        <div><span>高風險題目</span><strong>{{ highRiskItems }}</strong><small>目前答對率低於 60%</small></div>
+        <div><span>需優先查看題目</span><strong>{{ priorityItems }}</strong><small>目前答對率低於 60%</small></div>
       </div>
 
       <div class="subject360-grid subject360-grid-2 subject360-history-overview">
@@ -94,12 +94,12 @@ function priorityClass(level) {
       </div>
 
       <div class="subject360-card subject360-history-dimension-card">
-        <div class="subject360-card-head"><div><h3>學生盲點與教學處方</h3><p>依目前範圍排序；每一張卡都保留 112–114 報告的對照依據。</p></div><span>前 {{ priorityDimensions.length }} 個優先向度</span></div>
+        <div class="subject360-card-head"><div><h3>學生可能卡點與教學建議</h3><p>依目前範圍排序；每張卡保留 112–114 年報告的對照依據。</p></div><span>前 {{ priorityDimensions.length }} 個優先向度</span></div>
         <div class="subject360-history-dimension-grid">
           <article v-for="dimension in priorityDimensions" :key="dimension.key" class="subject360-history-dimension">
-            <header><div><strong>{{ dimension.label }}</strong><small>{{ dimension.title }}｜{{ dimension.trend }}</small></div><span class="subject360-priority" :class="priorityClass(dimension.status === 'priority' ? '高風險' : dimension.status === 'watch' ? '觀察' : '穩定')">{{ formatPercent(dimension.currentRate, 1) }}</span></header>
-            <p><b>115 盲點</b>{{ dimension.blindSpot }}</p>
-            <p><b>歷年鏡像</b>{{ dimension.historicalMirror }}</p>
+            <header><div><strong>{{ dimension.label }}</strong><small>{{ dimension.title }}｜{{ dimension.trend }}</small></div><span class="subject360-priority" :class="priorityClass(dimension.status === 'priority' ? '優先查看' : dimension.status === 'watch' ? '觀察' : '一般')">{{ formatPercent(dimension.currentRate, 1) }}</span></header>
+            <p><b>目前可能卡點</b>{{ dimension.blindSpot }}</p>
+            <p><b>歷年資料</b>{{ dimension.historicalMirror }}</p>
             <div class="subject360-history-actions">
               <div v-for="action in dimension.actions" :key="action.title"><strong>{{ action.title }}</strong><p>{{ action.action }}</p><small>檢核：{{ action.check }}</small></div>
             </div>
@@ -110,13 +110,13 @@ function priorityClass(level) {
       </div>
 
       <details class="subject360-card subject360-history-items">
-        <summary><strong>查看全部 {{ formatCount(itemRows.length) }} 題的 115 弱點判讀</strong><span>答對率由低到高；點題目可開啟試題資料</span></summary>
+        <summary><strong>查看全部 {{ formatCount(itemRows.length) }} 題的 115 題目表現判讀</strong><span>答對率由低到高；點題目可開啟試題資料</span></summary>
         <div class="subject360-table-wrap">
           <table class="subject360-table"><thead><tr><th>題目</th><th>目前答對率</th><th>判讀</th><th>第一個教學檢核</th></tr></thead><tbody>
             <tr v-for="item in itemRows" :key="item.q">
               <td><button type="button" class="subject360-link-button" @click="emit('open-item', item.q)">Q{{ item.q }} {{ item.label }}</button><small>{{ item.dimension }}</small></td>
               <td><strong>{{ formatPercent(item.currentRate, 1) }}</strong><small>{{ item.signal }}</small></td>
-              <td><span class="subject360-priority" :class="priorityClass(item.level)">{{ item.level }}</span><small>{{ item.evidenceType === 'direct_item' ? '歷年相似題型' : '歷年同向度鏡像' }}</small></td>
+              <td><span class="subject360-priority" :class="priorityClass(item.level)">{{ item.level }}</span><small>{{ item.evidenceType === 'direct_item' ? '歷年相似題型' : '歷年同向度資料' }}</small></td>
               <td>{{ item.teachingMoves[0] }}</td>
             </tr>
           </tbody></table>
