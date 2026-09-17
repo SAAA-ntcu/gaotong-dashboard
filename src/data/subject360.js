@@ -190,9 +190,6 @@ export function dimensionPriority(subject, type, key, selectedClasses) {
   return { dimension, school, selected, gap, level, reasons: [lowRate ? '所選範圍答對率偏低' : '', largeGap ? '低於全校基準' : ''].filter(Boolean) };
 }
 
-export function getStudentById(subject, studentId) {
-  return subject.students?.find((student) => student.id === studentId) || null;
-}
 
 function validResponse(value) {
   return Number.isInteger(value) && value >= 1 && value <= 4;
@@ -233,6 +230,12 @@ export function getStudentProfile(subject, student) {
     if (validResponse(response)) optionCounts[`${item.q}:${response}`] = (optionCounts[`${item.q}:${response}`] || 0) + 1;
   });
   return { content, cognitive, linked, wrongItems, weak, missing, optionCounts };
+}
+export function getStudentsForLinkedDimension(subject, selectedClasses, dimension, threshold = 0.6) {
+  return getClassStudents(subject, selectedClasses)
+    .map((student) => ({ student, stat: getStudentDimension(subject, student, 'linked', dimension) }))
+    .filter((row) => row.stat.rate != null && row.stat.rate < threshold)
+    .sort((a, b) => a.stat.rate - b.stat.rate || a.student.class.localeCompare(b.student.class, 'zh-Hant', { numeric: true }) || a.student.seat.localeCompare(b.student.seat, 'zh-Hant', { numeric: true }));
 }
 
 export function getClassStudents(subject, selectedClasses) {

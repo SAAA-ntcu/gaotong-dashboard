@@ -16,7 +16,7 @@ const linkedFilter = ref('all');
 const priorityFilter = ref('all');
 const focusedQuestion = ref(props.focusQuestion);
 
-watch(() => props.focusQuestion, (value) => { if (value) focusedQuestion.value = value; });
+watch(() => props.focusQuestion, (value) => { focusedQuestion.value = value || null; });
 
 const linkedDimensions = computed(() => getLinkedDimensions(props.subject));
 const linkedKeys = computed(() => ['all', ...linkedDimensions.value.map((dimension) => dimension.key)]);
@@ -60,6 +60,17 @@ const chart = computed(() => ({
 function chartClick(params) {
   if (params.data?.question) focusedQuestion.value = params.data.question;
 }
+function closeQuestion() {
+  focusedQuestion.value = null;
+}
+function selectClass(classId) {
+  closeQuestion();
+  emit('select-class', classId);
+}
+function selectStudent(studentId) {
+  closeQuestion();
+  emit('select-student', studentId);
+}
 </script>
 
 <template>
@@ -73,6 +84,6 @@ function chartClick(params) {
     </div>
 
     <article class="subject360-card subject360-section-gap"><div class="subject360-card-head"><h3>題目總覽（{{ formatCount(rows.length) }} / {{ formatCount(subject.questionCount) }}）</h3><span>點選列開啟單題診斷</span></div><div class="subject360-table-wrap"><table class="subject360-table"><thead><tr><th>題目</th><th>{{ hasCognitive ? '內容 × 認知' : '內容向度' }}</th><th>所選範圍</th><th>全校</th><th>差距</th><th>主要錯誤</th><th>優先</th></tr></thead><tbody><tr v-for="row in rows" :key="row.item.q" class="clickable-row" @click="focusedQuestion = row.item.q"><td>Q{{ row.item.q }} {{ row.item.short }}</td><td>{{ [row.item.content, row.item.cognitive].filter(Boolean).join(' × ') }}</td><td>{{ formatPercent(row.selected.rate) }}<small>N={{ formatCount(row.selected.valid) }}</small></td><td>{{ formatPercent(row.school.rate) }}</td><td>{{ formatPoints(row.delta) }}</td><td>{{ row.selected.topWrong ? ['A', 'B', 'C', 'D'][row.selected.topWrong.option - 1] : '—' }}</td><td><span class="subject360-priority" :class="row.level === '高優先' ? 'high' : row.level === '中優先' ? 'medium' : 'observe'">{{ row.level }}</span></td></tr></tbody></table></div></article>
-    <SubjectItemDialog :subject="subject" :question="focusedQuestion" :selected-classes="selectedClasses" :visible="Boolean(focusedQuestion)" @close="focusedQuestion = null" @select-class="emit('select-class', $event)" @select-student="emit('select-student', $event)" />
+    <SubjectItemDialog :subject="subject" :question="focusedQuestion" :selected-classes="selectedClasses" :visible="Boolean(focusedQuestion)" @close="closeQuestion" @select-class="selectClass" @select-student="selectStudent" />
   </div>
 </template>

@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from 'vue';
-import Subject360Chart from './Subject360Chart.vue';
 import { formatCount, formatPercent, getClassOverall, getItemStat, getClassIds, getSubjectMeta } from '../data/subject360';
 
 const props = defineProps({
@@ -32,14 +31,11 @@ const affectedStudents = computed(() => {
     .slice(0, 12);
 });
 const optionLabels = ['A', 'B', 'C', 'D', '其他／未答'];
-const optionChart = computed(() => ({
-  animation: false,
-  grid: { left: 42, right: 18, top: 20, bottom: 28, containLabel: true },
-  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: (value) => `${Number(value).toFixed(1)}%` },
-  xAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value}%' }, splitLine: { lineStyle: { color: '#e5eaf1' } } },
-  yAxis: { type: 'category', data: optionLabels },
-  series: [{ type: 'bar', data: (selectedStat.value?.optionRates || []).map((rate, index) => ({ value: Number((rate * 100).toFixed(1)), itemStyle: { color: index + 1 === item.value?.answer ? '#17243d' : '#9bb5cf' } })), barMaxWidth: 22 }]
-}));
+const optionRows = computed(() => optionLabels.map((label, index) => ({
+  label,
+  rate: selectedStat.value?.optionRates?.[index] || 0,
+  correct: index + 1 === item.value?.answer
+})));
 const meta = computed(() => getSubjectMeta(props.subject.key));
 </script>
 
@@ -65,7 +61,9 @@ const meta = computed(() => getSubjectMeta(props.subject.key));
         <div class="subject360-modal-grid">
           <article class="subject360-card">
             <div class="subject360-card-head"><h3>選項分布</h3><span>正確答案以深色標示</span></div>
-            <Subject360Chart :option="optionChart" :height="250" aria-label="題目選項分布" />
+            <div class="subject360-option-list">
+              <div v-for="row in optionRows" :key="row.label" class="subject360-option-row"><span :class="{ correct: row.correct }">{{ row.label }}<small v-if="row.correct">正確</small></span><i><em :style="{ width: `${Math.max(1, row.rate * 100)}%` }" :class="{ correct: row.correct }" /></i><strong>{{ formatPercent(row.rate) }}</strong></div>
+            </div>
           </article>
           <article class="subject360-card">
             <div class="subject360-card-head"><h3>班級答對率</h3><span>低到高排序</span></div>

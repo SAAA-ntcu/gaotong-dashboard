@@ -1,8 +1,7 @@
 <script setup>
 import { computed } from 'vue';
-import Subject360Chart from './Subject360Chart.vue';
 import SubjectAdvice from './SubjectAdvice.vue';
-import { formatCount, formatPercent, formatPoints, getClassIds, getClassOverall, getClassStudents, getLinkedDimensions, getOverall, itemPriority, linkedDimensionPriority } from '../data/subject360';
+import { formatCount, formatPercent, formatPoints, getClassIds, getClassOverall, getClassStudents, getLinkedDimensions, itemPriority, linkedDimensionPriority } from '../data/subject360';
 
 const props = defineProps({
   subject: { type: Object, required: true },
@@ -10,35 +9,28 @@ const props = defineProps({
   scopeLabel: { type: String, required: true }
 });
 
-const emit = defineEmits(['select-class', 'open-page', 'open-ability', 'open-item']);
+const emit = defineEmits(['open-page', 'open-ability', 'open-item']);
 
-const overall = computed(() => getOverall(props.subject, props.selectedClasses));
 const selectedStudents = computed(() => getClassStudents(props.subject, props.selectedClasses));
 const classRows = computed(() => getClassIds(props.subject).map((classId) => ({ classId, stat: getClassOverall(props.subject, classId) })).sort((a, b) => (a.stat.rate ?? 1) - (b.stat.rate ?? 1)));
-const dimensions = computed(() => getLinkedDimensions(props.subject).map((dimension) => ({ ...linkedDimensionPriority(props.subject, dimension, props.selectedClasses), type: 'linked' })));
+const dimensions = computed(() => getLinkedDimensions(props.subject).map((dimension) => linkedDimensionPriority(props.subject, dimension, props.selectedClasses)));
 const items = computed(() => props.subject.items.map((item) => itemPriority(props.subject, item.q, props.selectedClasses)).sort((a, b) => b.signals - a.signals || (a.selected.rate ?? 1) - (b.selected.rate ?? 1)));
 const topClass = computed(() => classRows.value[0]);
-const topDimension = computed(() => dimensions.value.sort((a, b) => (a.selected.rate ?? 1) - (b.selected.rate ?? 1))[0]);
+const topDimension = computed(() => [...dimensions.value].sort((a, b) => (a.selected.rate ?? 1) - (b.selected.rate ?? 1))[0]);
 const topItem = computed(() => items.value[0]);
 const watchDimensions = computed(() => dimensions.value.filter((row) => row.level !== '建議觀察').length);
 const highItems = computed(() => items.value.filter((row) => row.level === '高優先').length);
 
-const classChart = computed(() => ({
-  animation: false,
-  grid: { left: 42, right: 25, top: 25, bottom: 38, containLabel: true },
-  tooltip: { trigger: 'item', formatter: (params) => `${params.data.classId} 班<br/>整體答對率：${formatPercent((params.value?.[1] || 0) / 100, 1)}` },
-  xAxis: { type: 'category', data: classRows.value.map((row) => `${row.classId} 班`), axisLabel: { interval: 0 } },
-  yAxis: { type: 'value', min: 0, max: 100, axisLabel: { formatter: '{value}%' }, splitLine: { lineStyle: { color: '#e5eaf1' } } },
-  series: [{
-    type: 'scatter',
-    symbolSize: 18,
-    data: classRows.value.map((row, index) => ({ value: [index, Number(((row.stat.rate || 0) * 100).toFixed(1))], classId: row.classId, itemStyle: { color: row.stat.rate < 0.6 ? '#b86616' : '#2f6fb1' } })),
-    markLine: { symbol: 'none', label: { formatter: '全校基準' }, lineStyle: { color: '#7d8da3', type: 'dashed' }, data: [{ yAxis: Number(((getOverall(props.subject, getClassIds(props.subject)).rate || 0) * 100).toFixed(1)) }] }
-  }]
-}));
+const priorityQueue = computed(() => [
+  { type: 'class', label: '班級', title: topClass.value ? `${topClass.value.classId} 班` : '班級比較', detail: topClass.value ? `${formatPercent(topClass.value.stat.rate)} 整體答對率` : '目前沒有可排序的班級訊號' },
+  { type: 'ability', label: '向度', title: topDimension.value?.dimension?.label || topDimension.value?.dimension?.key || '能力向度', detail: topDimension.value ? `${formatPoints(topDimension.value.gap)} vs 全校` : '目前沒有可用向度' },
+  { type: 'item', label: '題目', title: topItem.value ? `Q${topItem.value.item.q} ${topItem.value.item.short}` : '題目證據', detail: topItem.value ? `${formatPercent(topItem.value.selected.rate)} 所選範圍答對率` : '目前沒有可用題目' }
+]);
 
-function chartClick(params) {
-  if (params.data?.classId) emit('select-class', params.data.classId);
+function openQueue(entry) {
+  if (entry.type === 'class') emit('open-page', 'classes');
+  if (entry.type === 'ability' && topDimension.value) emit('open-ability', topDimension.value);
+  if (entry.type === 'item' && topItem.value) emit('open-item', topItem.value.item.q);
 }
 </script>
 
@@ -46,7 +38,7 @@ function chartClick(params) {
   <div class="subject360-module">
     <div class="subject360-page-head">
       <div><h2>決策總覽</h2><p>{{ scopeLabel }}｜先找出最值得處理的問題，再沿著證據鏈落到題目與學生。</p></div>
-      <span class="subject360-badge">三步決策路徑</span>
+      <span class="subject360-badge">證據下鑽路徑</span>
     </div>
 
     <div class="subject360-kpi-grid">
@@ -57,22 +49,24 @@ function chartClick(params) {
     </div>
 
     <div class="subject360-decision-card">
-      <span>三步決策路徑</span>
-      <p>先查看 <button type="button" @click="emit('open-page', 'classes')">{{ topClass ? `${topClass.classId} 班` : '班級比較' }}</button> → <button type="button" @click="topDimension && emit('open-ability', topDimension)">{{ topDimension?.dimension?.key || '能力向度' }}</button> → <button type="button" @click="topItem && emit('open-item', topItem.item.q)">Q{{ topItem?.item.q || '—' }} {{ topItem?.item.short || '' }}</button></p>
+      <span>證據下鑽路徑</span>
+      <p>先查看 <button type="button" @click="emit('open-page', 'classes')">{{ topClass ? `${topClass.classId} 班` : '班級比較' }}</button> → <button type="button" @click="topDimension && emit('open-ability', topDimension)">{{ topDimension?.dimension?.key || '能力向度' }}</button> → <button type="button" @click="topItem && emit('open-item', topItem.item.q)">Q{{ topItem?.item.q || '—' }} {{ topItem?.item.short || '' }}</button> → <span>受影響學生</span></p>
       <small>這是一個優先查看順序，不是固定能力判定；單一訊號仍需回到題目與學生資料確認。</small>
     </div>
 
     <div class="subject360-grid subject360-grid-3">
       <article class="subject360-card subject360-focus-card"><span>第一步：鎖定班級</span><strong>{{ topClass ? `${topClass.classId} 班` : '—' }}</strong><p>{{ topClass ? formatPercent(topClass.stat.rate) + ' 整體答對率' : '目前沒有可排序的班級訊號' }}</p><button type="button" @click="emit('open-page', 'classes')">查看班級 × 能力 →</button></article>
       <article class="subject360-card subject360-focus-card"><span>第二步：確認能力</span><strong>{{ topDimension?.dimension?.key || '—' }}</strong><p>{{ topDimension ? formatPoints(topDimension.gap) + ' vs 全校' : '目前沒有可用向度' }}</p><button type="button" @click="topDimension && emit('open-ability', topDimension)">查看能力診斷 →</button></article>
-      <article class="subject360-card subject360-focus-card"><span>第三步：回到題目</span><strong>Q{{ topItem?.item.q || '—' }} {{ topItem?.item.short || '' }}</strong><p>{{ topItem ? formatPercent(topItem.selected.rate) + ' 所選範圍答對率' : '目前沒有可用題目' }}</p><button type="button" @click="topItem && emit('open-item', topItem.item.q)">查看試題證據 →</button></article>
+      <article class="subject360-card subject360-focus-card"><span>第三步：題目 → 學生</span><strong>Q{{ topItem?.item.q || '—' }} {{ topItem?.item.short || '' }}</strong><p>{{ topItem ? formatPercent(topItem.selected.rate) + ' 所選範圍答對率' : '目前沒有可用題目' }}</p><button type="button" @click="topItem && emit('open-item', topItem.item.q)">查看試題證據，再下鑽學生 →</button></article>
     </div>
 
     <div class="subject360-grid subject360-grid-2">
       <article class="subject360-card">
-        <div class="subject360-card-head"><h3>班級訊號排序</h3><span>點擊班級進入班級 × 能力</span></div>
-        <Subject360Chart :option="classChart" :height="320" aria-label="班級整體答對率" @chart-click="chartClick" />
-        <p class="subject360-caption">點位代表答對率；色彩只作為優先查看提示，不等同固定能力判定。</p>
+        <div class="subject360-card-head"><h3>優先訊號佇列</h3><span>由問題走到學生證據</span></div>
+        <div class="subject360-priority-queue">
+          <button v-for="(entry, index) in priorityQueue" :key="entry.type" type="button" @click="openQueue(entry)"><span class="subject360-priority-queue-index">{{ index + 1 }}</span><span class="subject360-priority-queue-body"><b>{{ entry.label }}｜{{ entry.title }}</b><small>{{ entry.detail }}</small></span><strong>→</strong></button>
+        </div>
+        <p class="subject360-caption">這是建議查看順序，不是固定能力判定；進入題目證據後，可直接點擊受影響學生開啟抽屜。</p>
       </article>
       <article class="subject360-card">
         <div class="subject360-card-head"><h3>優先訊號摘要</h3><span>目前最需要看的少數訊號</span></div>

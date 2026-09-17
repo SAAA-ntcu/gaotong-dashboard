@@ -7,8 +7,8 @@ import SubjectClasses from '../components/SubjectClasses.vue';
 import SubjectAbility from '../components/SubjectAbility.vue';
 import SubjectItems from '../components/SubjectItems.vue';
 import SubjectGroups from '../components/SubjectGroups.vue';
-import SubjectStudents from '../components/SubjectStudents.vue';
-import { SUBJECT360_META, getClassIds, getScopeLabel, loadSubject360 } from '../data/subject360';
+import SubjectStudentDrawer from '../components/SubjectStudentDrawer.vue';
+import { SUBJECT360_META, getClassIds, getClassStudents, getScopeLabel, loadSubject360 } from '../data/subject360';
 
 const route = useRoute();
 const router = useRouter();
@@ -19,19 +19,20 @@ const selectedSubjectId = ref('math');
 const selectedClasses = ref([]);
 const focusedItem = ref(null);
 const focusedStudent = ref('');
+const studentLookup = ref('');
 const focusedAbility = ref('');
 const tabs = [
   { id: 'overview', label: '決策總覽' },
   { id: 'classes', label: '班級 × 能力' },
   { id: 'ability', label: '能力診斷' },
   { id: 'items', label: '試題證據' },
-  { id: 'groups', label: '教學分組' },
-  { id: 'students', label: '學生剖面' }
+  { id: 'groups', label: '教學分組' }
 ];
 const subject = computed(() => data.value?.subjects?.[selectedSubjectId.value] || null);
 const classIds = computed(() => getClassIds(subject.value));
 const scopeLabel = computed(() => subject.value ? getScopeLabel(subject.value, selectedClasses.value) : '載入中');
-const activeComponent = computed(() => ({ overview: SubjectOverview, classes: SubjectClasses, ability: SubjectAbility, items: SubjectItems, groups: SubjectGroups, students: SubjectStudents }[activeTab.value] || SubjectOverview));
+const studentCandidates = computed(() => subject.value ? getClassStudents(subject.value, selectedClasses.value) : []);
+const activeComponent = computed(() => ({ overview: SubjectOverview, classes: SubjectClasses, ability: SubjectAbility, items: SubjectItems, groups: SubjectGroups }[activeTab.value] || SubjectOverview));
 
 function validTab(value) {
   return tabs.some((tab) => tab.id === value) ? value : 'overview';
@@ -52,6 +53,7 @@ function syncFromRoute() {
   focusedItem.value = Number.isInteger(question) && question > 0 ? question : null;
   focusedAbility.value = String(route.query.ability || '');
   focusedStudent.value = String(route.query.student || '');
+  studentLookup.value = focusedStudent.value;
 }
 function writeRoute(extra = {}) {
   const query = { ...route.query, subject: selectedSubjectId.value, tab: activeTab.value, ...extra };
@@ -60,7 +62,7 @@ function writeRoute(extra = {}) {
   else query.class = selectedClasses.value.join(',');
   if (activeTab.value !== 'items' || !focusedItem.value) delete query.item;
   if (activeTab.value !== 'ability' || !focusedAbility.value) delete query.ability;
-  if (activeTab.value !== 'students' || !focusedStudent.value) delete query.student;
+  if (!focusedStudent.value) delete query.student;
   router.replace({ name: 'subject', query });
 }
 function setTab(tab) {
@@ -111,12 +113,18 @@ function openItem(question) {
   activeTab.value = 'items';
   writeRoute({ item: String(question) });
 }
+function selectStudentLookup(value) {
+  const candidate = studentCandidates.value.find((student) => student.id === value);
+  if (candidate) selectStudent(candidate.id);
+  else studentLookup.value = '';
+}
 function selectStudent(studentId) {
-  focusedStudent.value = studentId;
+  focusedStudent.value = String(studentId || '');
+  studentLookup.value = focusedStudent.value;
   focusedItem.value = null;
   focusedAbility.value = '';
-  activeTab.value = 'students';
-  writeRoute({ student: studentId });
+  if (focusedStudent.value) writeRoute({ student: focusedStudent.value });
+  else writeRoute();
 }
 
 onMounted(async () => {
@@ -137,11 +145,15 @@ watch(() => route.query, syncFromRoute, { deep: true });
     <template v-else-if="subject">
       <section class="subject360-hero">
         <div><span class="subject360-kicker">SUBJECT 360 / TEACHER WORKSPACE</span><h1>{{ subject.label }}科教師教學決策工作臺</h1><p>先找問題，再確認能力與試題證據，最後落到學生與教學分組。</p></div>
-        <label class="subject360-subject-select">目前科目<select :value="selectedSubjectId" @change="setSubject($event.target.value)"><option v-for="meta in SUBJECT360_META" :key="meta.id" :value="meta.id">{{ meta.label }}</option></select></label>
+        <div class="subject360-hero-controls">
+          <label class="subject360-subject-select">目前科目<select :value="selectedSubjectId" @change="setSubject($event.target.value)"><option v-for="meta in SUBJECT360_META" :key="meta.id" :value="meta.id">{{ meta.label }}</option></select></label>
+          <label class="subject360-subject-select subject360-student-search">查詢學生<input v-model="studentLookup" list="subject360-student-options" placeholder="輸入學生代碼…" :disabled="!studentCandidates.length" @change="selectStudentLookup(studentLookup)" @keydown.enter.prevent="selectStudentLookup(studentLookup)" /><datalist id="subject360-student-options"><option v-for="candidate in studentCandidates" :key="candidate.id" :value="candidate.id" :label="`${candidate.class}班 ${candidate.seat}號`" /></datalist></label>
+        </div>
       </section>
       <SubjectScopePicker :class-ids="classIds" :selected-classes="selectedClasses" :scope-label="scopeLabel" @toggle-class="toggleClass" @select-all="selectAllClasses" />
       <nav class="subject360-tabs" aria-label="Subject 360 教學決策流程"><button v-for="tab in tabs" :key="tab.id" type="button" :class="{ active: activeTab === tab.id }" @click="setTab(tab.id)">{{ tab.label }}</button></nav>
-      <component :is="activeComponent" v-bind="activeTab === 'ability' ? { initialDimension: focusedAbility } : {}" :subject="subject" :selected-classes="selectedClasses" :scope-label="scopeLabel" :focus-question="focusedItem" :initial-student-id="focusedStudent" @open-page="setTab" @open-ability="openAbility" @open-item="openItem" @select-class="selectClass" @select-student="selectStudent" />
+      <component :is="activeComponent" v-bind="activeTab === 'ability' ? { initialDimension: focusedAbility } : {}" :subject="subject" :selected-classes="selectedClasses" :scope-label="scopeLabel" :focus-question="focusedItem" @open-page="setTab" @open-ability="openAbility" @open-item="openItem" @select-class="selectClass" @select-student="selectStudent" />
+      <SubjectStudentDrawer :subject="subject" :selected-classes="selectedClasses" :initial-student-id="focusedStudent" :visible="Boolean(focusedStudent)" @close="selectStudent('')" @select-class="selectClass" @select-student="selectStudent" />
     </template>
   </div>
 </template>
