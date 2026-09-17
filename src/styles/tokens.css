@@ -526,6 +526,9 @@ button.subject360-tag { cursor: pointer; }
 .subject360-drawer-profile { padding: 14px; border: 1px solid var(--line); border-radius: 11px; background: #fff; }
 .subject360-drawer-card { margin-top: 0; }
 .subject360-student-dimension-list { display: grid; gap: 9px; }
+.subject360-student-dimension-radar { margin-bottom: 12px; padding: 8px 12px 0; border: 1px solid #edf1f6; border-radius: 10px; background: #fbfcfe; }
+.subject360-student-dimension-radar .subject360-chart { min-height: 0; }
+.subject360-student-dimension-radar .subject360-caption { margin-top: 0; padding-bottom: 8px; text-align: center; }
 .subject360-student-dimension-row { display: grid; grid-template-columns: minmax(150px, 0.85fr) minmax(220px, 1.15fr); align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #edf1f6; }
 .subject360-student-dimension-row:last-child { border-bottom: 0; }
 .subject360-student-dimension-row > div:first-child strong, .subject360-student-dimension-row > div:first-child small { display: block; }

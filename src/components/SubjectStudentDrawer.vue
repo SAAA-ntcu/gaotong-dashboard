@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
 import SubjectItemDialog from './SubjectItemDialog.vue';
+import Subject360Chart from './Subject360Chart.vue';
 import { formatCount, formatPercent, formatPoints, getClassStudents, getLinkedDimensions, getLinkedDimensionStat, getOverall, getStudentProfile } from '../data/subject360';
 
 const props = defineProps({
@@ -34,6 +35,58 @@ const linkedRows = computed(() => dimensions.value.map((dimension) => {
   const classRate = student.value ? getLinkedDimensionStat(props.subject, dimension, [student.value.class]).rate : null;
   return { dimension, studentRate: studentRow?.rate, classRate };
 }));
+const dimensionRadarChart = computed(() => {
+  const rows = linkedRows.value;
+  return {
+    animation: false,
+    tooltip: {
+      trigger: 'item',
+      formatter: (params) => {
+        const values = Array.isArray(params.value) ? params.value : [];
+        const details = rows.map((row, index) => `${row.dimension.label || row.dimension.key}：${Number(values[index] ?? 0).toFixed(1)}%`);
+        return `${params.name}<br/>${details.join('<br/>')}`;
+      }
+    },
+    legend: {
+      bottom: 0,
+      data: ['學生', '班級'],
+      itemWidth: 14,
+      itemHeight: 8,
+      textStyle: { color: '#667085', fontSize: 11 }
+    },
+    radar: {
+      center: ['50%', '43%'],
+      radius: '63%',
+      splitNumber: 4,
+      indicator: rows.map((row) => ({ name: radarLabel(row.dimension), max: 100 })),
+      axisName: { color: '#42526b', fontSize: 10, lineHeight: 13 },
+      axisLine: { lineStyle: { color: '#cbd7e5' } },
+      splitLine: { lineStyle: { color: '#dfe6ef' } },
+      splitArea: { areaStyle: { color: ['rgba(247, 249, 252, 0.76)', 'rgba(255, 255, 255, 0.76)'] } }
+    },
+    series: [{
+      type: 'radar',
+      symbol: 'circle',
+      symbolSize: 5,
+      data: [
+        {
+          name: '學生',
+          value: rows.map((row) => radarValue(row.studentRate)),
+          lineStyle: { color: '#2563eb', width: 2 },
+          itemStyle: { color: '#2563eb' },
+          areaStyle: { color: 'rgba(37, 99, 235, 0.16)' }
+        },
+        {
+          name: '班級',
+          value: rows.map((row) => radarValue(row.classRate)),
+          lineStyle: { color: '#94a3b8', width: 2 },
+          itemStyle: { color: '#94a3b8' },
+          areaStyle: { color: 'rgba(148, 163, 184, 0.12)' }
+        }
+      ]
+    }]
+  };
+});
 
 watch([candidates, () => props.initialStudentId], () => {
   if (props.initialStudentId && candidates.value.some((candidate) => candidate.id === props.initialStudentId)) selectedStudentId.value = props.initialStudentId;
@@ -46,6 +99,13 @@ watch(() => props.visible, (visible) => {
   }
 });
 
+function radarValue(rate) {
+  return Number.isFinite(Number(rate)) ? Number((Number(rate) * 100).toFixed(1)) : 0;
+}
+function radarLabel(dimension) {
+  const label = String(dimension.label || dimension.key || '');
+  return label.length > 14 ? `${label.slice(0, 13)}…` : label;
+}
 function chooseStudent(studentId) {
   selectedStudentId.value = studentId;
   focusedQuestion.value = null;
@@ -108,6 +168,10 @@ function close() {
 
           <section class="subject360-card subject360-drawer-card">
             <div class="subject360-card-head"><h3>{{ subject.dimensions?.cognitive?.length ? '內容 × 認知學習比較' : '內容向度學習比較' }}</h3><span>學生 vs 所屬班級</span></div>
+            <div v-if="isFullscreen && linkedRows.length" class="subject360-student-dimension-radar">
+              <Subject360Chart v-if="linkedRows.length" :option="dimensionRadarChart" :height="340" :aria-label="subject.dimensions?.cognitive?.length ? '學生與班級內容與認知向度雷達圖' : '學生與班級內容向度雷達圖'" />
+              <p class="subject360-caption">雷達圖用來快速查看能力輪廓；下方保留各向度百分比明細。</p>
+            </div>
             <div class="subject360-student-dimension-list">
               <div v-for="row in linkedRows" :key="row.dimension.key" class="subject360-student-dimension-row">
                 <div><strong>{{ row.dimension.label || row.dimension.key }}</strong><small>{{ row.dimension.description }}</small></div>
