@@ -5,14 +5,24 @@ export const SUBJECT360_META = [
 ];
 
 export const SUBJECT360_DATA_URL = `${import.meta.env.BASE_URL}data/subject360.json`;
+export const SUBJECT360_HISTORY_URL = `${import.meta.env.BASE_URL}data/subject360-history.json`;
 
 export async function loadSubject360() {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15000);
   try {
-    const response = await fetch(SUBJECT360_DATA_URL, { signal: controller.signal });
+    const [response, historyResponse] = await Promise.all([
+      fetch(SUBJECT360_DATA_URL, { signal: controller.signal }),
+      fetch(SUBJECT360_HISTORY_URL, { signal: controller.signal })
+    ]);
     if (!response.ok) throw new Error(`Subject 360 data request failed: ${response.status}`);
-    return await response.json();
+    if (!historyResponse.ok) throw new Error(`Subject 360 history request failed: ${historyResponse.status}`);
+    const [data, history] = await Promise.all([response.json(), historyResponse.json()]);
+    if (!history?.subjects) throw new Error('Subject 360 歷年分析資料格式錯誤。');
+    Object.entries(data.subjects || {}).forEach(([subjectId, subject]) => {
+      subject.historicalAnalysis = history.subjects[subjectId] || null;
+    });
+    return data;
   } catch (error) {
     if (error?.name === 'AbortError') throw new Error('Subject 360 資料載入逾時，請重新整理後再試。');
     throw error;

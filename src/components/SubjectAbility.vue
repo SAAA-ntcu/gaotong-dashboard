@@ -37,7 +37,7 @@ function selectStudent(studentId) {
 <template>
   <div class="subject360-module">
     <div class="subject360-page-head">
-      <div><h2>能力診斷</h2><p>{{ hasCognitive ? '每張卡都是內容向度 × 認知向度的聯結，避免把數學能力拆成兩張互不相干的表。' : '依內容向度下鑽到題目與學生證據。' }}</p></div>
+      <div><h2>能力診斷</h2><p>{{ hasCognitive ? '每張卡都是內容向度 × 認知向度的聯結，避免把數學能力拆成兩張互不相干的表。' : '依內容向度下鑽到題目與學生資料。' }}</p></div>
       <span class="subject360-badge">{{ hasCognitive ? '內容 × 認知' : '內容向度' }}</span>
     </div>
 
@@ -49,7 +49,7 @@ function selectStudent(studentId) {
     </div>
 
     <article v-if="activeDimension && selectedPriority" class="subject360-card subject360-section-gap">
-      <div class="subject360-card-head"><h3>{{ activeDimension.label || activeDimension.key }}｜題目證據</h3><span>{{ activeDimension.items.length }} 題・{{ activeDimension.description }}</span></div>
+      <div class="subject360-card-head"><h3>{{ activeDimension.label || activeDimension.key }}｜題目資料</h3><span>{{ activeDimension.items.length }} 題・{{ activeDimension.description }}</span></div>
       <div class="subject360-table-wrap">
         <table class="subject360-table"><thead><tr><th>題目</th><th>全校</th><th>所選範圍</th><th>差距</th><th>主要錯誤</th><th>優先</th></tr></thead><tbody>
           <tr v-for="row in questionRows" :key="row.item.q" class="clickable-row" @click="focusedQuestion = row.item.q"><td>Q{{ row.item.q }} {{ row.item.short }}</td><td>{{ formatPercent(row.school.rate) }}<small>N={{ formatCount(row.school.valid) }}</small></td><td>{{ formatPercent(row.selected.rate) }}<small>N={{ formatCount(row.selected.valid) }}</small></td><td>{{ formatPoints(row.delta) }}</td><td>{{ row.selected.topWrong ? ['A', 'B', 'C', 'D'][row.selected.topWrong.option - 1] : '—' }}</td><td><span class="subject360-priority" :class="row.level === '高優先' ? 'high' : row.level === '中優先' ? 'medium' : 'observe'">{{ row.level }}</span></td></tr>

@@ -75,11 +75,11 @@ function selectStudent(studentId) {
 
 <template>
   <div class="subject360-module">
-    <div class="subject360-page-head"><div><h2>試題證據</h2><p>先看選項分布與班級差異，再回到需要確認的題目與學生。</p></div><label class="subject360-inline-control">排序<select v-model="itemSort"><option value="priority">教學優先度</option><option value="q">題號</option><option value="rate">答對率低到高</option><option value="classGap">班級落差低到高</option></select></label></div>
+    <div class="subject360-page-head"><div><h2>試題資料</h2><p>先看選項分布與班級差異，再搭配 115 弱點判讀確認教學問題。</p></div><label class="subject360-inline-control">排序<select v-model="itemSort"><option value="priority">教學優先度</option><option value="q">題號</option><option value="rate">答對率低到高</option><option value="classGap">班級落差低到高</option></select></label></div>
     <div class="subject360-filter-bar"><label>{{ hasCognitive ? '內容 × 認知' : '內容向度' }}<select v-model="linkedFilter"><option v-for="key in linkedKeys" :key="key" :value="key">{{ key === 'all' ? '全部' : key }}</option></select></label><label>優先度<select v-model="priorityFilter"><option value="all">全部</option><option value="高優先">高優先</option><option value="中優先">中優先</option><option value="建議觀察">建議觀察</option></select></label></div>
 
     <div class="subject360-grid subject360-grid-2">
-      <article class="subject360-card"><div class="subject360-card-head"><h3>題目 × 選項熱圖</h3><span>前 {{ chartRows.length }} 題｜顏色越深代表比例越高</span></div><Subject360Chart v-if="chartRows.length" :option="chart" :height="Math.max(300, chartRows.length * 40 + 90)" aria-label="題目選項熱圖" @chart-click="chartClick" /><p v-else class="subject360-empty">沒有符合目前篩選的題目。</p><p class="subject360-caption">每格是該題在所選範圍的選項比例；滑過可查看正確答案，點擊題目列可開啟完整證據。</p></article>
+      <article class="subject360-card"><div class="subject360-card-head"><h3>題目 × 選項熱圖</h3><span>前 {{ chartRows.length }} 題｜顏色越深代表比例越高</span></div><Subject360Chart v-if="chartRows.length" :option="chart" :height="Math.max(300, chartRows.length * 40 + 90)" aria-label="題目選項熱圖" @chart-click="chartClick" /><p v-else class="subject360-empty">沒有符合目前篩選的題目。</p><p class="subject360-caption">每格是該題在所選範圍的選項比例；滑過可查看正確答案，點擊題目列可開啟完整試題資料。</p></article>
       <article class="subject360-card"><div class="subject360-card-head"><h3>解讀提示</h3><span>Item → Option</span></div><div class="subject360-signal-list"><div><b>分母</b><p>答對率使用有效選項作答數 N；選項圖使用全部學生列。</p></div><div><b>主要錯誤</b><p>主要錯誤選項表示錯答集中，不等同迷思概念已被確診。</p></div><div><b>下鑽</b><p>點選題目可查看選項分布、班級比較與需要回到題目確認的學生。</p></div></div></article>
     </div>
 

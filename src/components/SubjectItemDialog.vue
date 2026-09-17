@@ -37,6 +37,7 @@ const optionRows = computed(() => optionLabels.map((label, index) => ({
   correct: index + 1 === item.value?.answer
 })));
 const meta = computed(() => getSubjectMeta(props.subject.key));
+const historicalInsight = computed(() => item.value ? props.subject.historicalAnalysis?.itemInsights?.[String(item.value.q)] || null : null);
 </script>
 
 <template>
@@ -74,6 +75,15 @@ const meta = computed(() => getSubjectMeta(props.subject.key));
             </div>
           </article>
         </div>
+        <article v-if="historicalInsight" class="subject360-card subject360-history-item-card">
+          <div class="subject360-card-head"><div><h3>115 弱點判讀 × 歷年報告</h3><span>{{ historicalInsight.dimension }}</span></div><span class="subject360-priority" :class="historicalInsight.level === '極高風險' || historicalInsight.level === '高風險' ? 'high' : historicalInsight.level === '觀察' ? 'medium' : 'observe'">{{ historicalInsight.evidenceType === 'direct_item' ? '歷年相似題型' : '歷年同向度鏡像' }}</span></div>
+          <div class="subject360-history-item-summary"><p><b>目前訊號</b>{{ formatPercent(selectedStat?.rate, 1) }} 答對率｜{{ historicalInsight.signal }}</p><p><b>判讀</b>{{ historicalInsight.diagnosis }}</p><p><b>學生可能卡點</b>{{ historicalInsight.blindSpot }}</p><p><b>歷年鏡像</b>{{ historicalInsight.historicalMirror }}</p></div>
+          <div class="subject360-history-item-columns">
+            <div><b>可能的錯誤假設</b><ul><li v-for="misconception in historicalInsight.misconceptions" :key="misconception">{{ misconception }}</li></ul></div>
+            <div><b>教學建議與檢核</b><ol><li v-for="(move, index) in historicalInsight.teachingMoves" :key="move">{{ move }}<small v-if="historicalInsight.checks?.[index]">檢核：{{ historicalInsight.checks[index] }}</small></li></ol></div>
+          </div>
+          <details class="subject360-history-item-details"><summary>課堂引導提問與報告來源</summary><ul class="subject360-prompt-list"><li v-for="prompt in historicalInsight.prompts" :key="prompt">{{ prompt }}</li></ul><ul class="subject360-source-list"><li v-for="source in historicalInsight.sources" :key="`${source.year}-${source.file}-${source.section}`">{{ source.year }}｜{{ source.file }}｜{{ source.section }}</li></ul></details>
+        </article>
         <article class="subject360-card">
           <div class="subject360-card-head"><h3>需要回到題目確認的學生</h3><span>最多顯示 12 人</span></div>
           <div v-if="affectedStudents.length" class="subject360-tag-list">

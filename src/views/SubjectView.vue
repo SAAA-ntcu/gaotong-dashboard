@@ -25,7 +25,7 @@ const tabs = [
   { id: 'overview', label: '決策總覽' },
   { id: 'classes', label: '班級 × 能力' },
   { id: 'ability', label: '能力診斷' },
-  { id: 'items', label: '試題證據' },
+  { id: 'items', label: '試題資料' },
   { id: 'groups', label: '教學分組' }
 ];
 const subject = computed(() => data.value?.subjects?.[selectedSubjectId.value] || null);
@@ -144,7 +144,7 @@ watch(() => route.query, syncFromRoute, { deep: true });
     <section v-else-if="error" class="subject360-card subject360-notice danger"><strong>Subject 360 載入失敗</strong><p>{{ error }}</p></section>
     <template v-else-if="subject">
       <section class="subject360-hero">
-        <div><span class="subject360-kicker">SUBJECT 360 / TEACHER WORKSPACE</span><h1>{{ subject.label }}科教師教學決策工作臺</h1><p>先找問題，再確認能力與試題證據，最後落到學生與教學分組。</p></div>
+        <div><span class="subject360-kicker">SUBJECT 360 / TEACHER WORKSPACE</span><h1>{{ subject.label }}科教師教學決策工作臺</h1><p>先找問題，再確認能力與試題資料，最後落到學生與教學分組。</p></div>
         <div class="subject360-hero-controls">
           <label class="subject360-subject-select">目前科目<select :value="selectedSubjectId" @change="setSubject($event.target.value)"><option v-for="meta in SUBJECT360_META" :key="meta.id" :value="meta.id">{{ meta.label }}</option></select></label>
           <label class="subject360-subject-select subject360-student-search">查詢學生<input v-model="studentLookup" list="subject360-student-options" placeholder="輸入學生代碼…" :disabled="!studentCandidates.length" @change="selectStudentLookup(studentLookup)" @keydown.enter.prevent="selectStudentLookup(studentLookup)" /><datalist id="subject360-student-options"><option v-for="candidate in studentCandidates" :key="candidate.id" :value="candidate.id" :label="`${candidate.class}班 ${candidate.seat}號`" /></datalist></label>
