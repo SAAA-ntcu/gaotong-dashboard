@@ -6,15 +6,18 @@ const props = defineProps({
   subject: { type: Object, required: true },
   question: { type: Number, default: null },
   selectedClasses: { type: Array, required: true },
+  visibleClassIds: { type: Array, default: () => [] },
   visible: { type: Boolean, default: false }
 });
 
 const emit = defineEmits(['close', 'select-class', 'select-student']);
 
+const classScope = computed(() => props.visibleClassIds.length ? props.visibleClassIds : getClassIds(props.subject));
 const item = computed(() => props.question ? props.subject.items[props.question - 1] : null);
 const selectedStat = computed(() => item.value ? getItemStat(props.subject, props.question, props.selectedClasses) : null);
-const schoolStat = computed(() => item.value ? getItemStat(props.subject, props.question, getClassIds(props.subject)) : null);
-const classRows = computed(() => item.value ? getClassIds(props.subject).map((classId) => ({
+const schoolStat = computed(() => item.value ? getItemStat(props.subject, props.question, classScope.value) : null);
+const comparisonLabel = computed(() => classScope.value.length === getClassIds(props.subject).length ? '全校' : '可見範圍');
+const classRows = computed(() => item.value ? classScope.value.map((classId) => ({
   classId,
   stat: getItemStat(props.subject, props.question, [classId]),
   overall: getClassOverall(props.subject, classId)
@@ -56,7 +59,7 @@ const historicalInsight = computed(() => item.value ? props.subject.historicalAn
         <div class="subject360-mini-grid">
           <div><span>正確答案</span><strong>{{ ['A', 'B', 'C', 'D'][item.answer - 1] || item.answer }}</strong></div>
           <div><span>目前範圍</span><strong>{{ formatPercent(selectedStat?.rate) }}</strong><small>N={{ formatCount(selectedStat?.valid) }}</small></div>
-          <div><span>全校</span><strong>{{ formatPercent(schoolStat?.rate) }}</strong><small>N={{ formatCount(schoolStat?.valid) }}</small></div>
+          <div><span>{{ comparisonLabel }}</span><strong>{{ formatPercent(schoolStat?.rate) }}</strong><small>N={{ formatCount(schoolStat?.valid) }}</small></div>
           <div><span>主要錯誤</span><strong>{{ selectedStat?.topWrong ? ['A', 'B', 'C', 'D'][selectedStat.topWrong.option - 1] : '—' }}</strong><small>{{ selectedStat?.topWrong ? formatPercent(selectedStat.topWrong.share) + ' of wrong' : '無明顯集中' }}</small></div>
         </div>
         <div class="subject360-modal-grid">

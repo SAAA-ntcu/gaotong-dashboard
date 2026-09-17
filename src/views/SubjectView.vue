@@ -9,6 +9,7 @@ import SubjectItems from '../components/SubjectItems.vue';
 import SubjectGroups from '../components/SubjectGroups.vue';
 import SubjectStudentDrawer from '../components/SubjectStudentDrawer.vue';
 import { SUBJECT360_META, getClassIds, getClassStudents, getScopeLabel, loadSubject360 } from '../data/subject360';
+import { getAccessProfile, getAllowedClassIds } from '../data/access';
 
 const route = useRoute();
 const router = useRouter();
@@ -28,9 +29,19 @@ const tabs = [
   { id: 'items', label: '試題資料' },
   { id: 'groups', label: '教學分組' }
 ];
+const accessProfile = computed(() => getAccessProfile(route.query.role));
+const accessibleSubjectMeta = computed(() => SUBJECT360_META.filter((meta) => accessProfile.value.subjectIds.includes(meta.id)));
 const subject = computed(() => data.value?.subjects?.[selectedSubjectId.value] || null);
-const classIds = computed(() => getClassIds(subject.value));
-const scopeLabel = computed(() => subject.value ? getScopeLabel(subject.value, selectedClasses.value) : '載入中');
+const classIds = computed(() => getAllowedClassIds(accessProfile.value, subject.value));
+const scopeLabel = computed(() => {
+  if (!subject.value) return '載入中';
+  const fullClassIds = getClassIds(subject.value);
+  if (classIds.value.length < fullClassIds.length && selectedClasses.value.length === classIds.value.length) {
+    return `${accessProfile.value.label}｜${selectedClasses.value.join('、')}班`;
+  }
+  return getScopeLabel(subject.value, selectedClasses.value);
+});
+const selectAllLabel = computed(() => classIds.value.length === getClassIds(subject.value).length ? '全校' : '可見範圍');
 const studentCandidates = computed(() => subject.value ? getClassStudents(subject.value, selectedClasses.value) : []);
 const activeComponent = computed(() => ({ overview: SubjectOverview, classes: SubjectClasses, ability: SubjectAbility, items: SubjectItems, groups: SubjectGroups }[activeTab.value] || SubjectOverview));
 
@@ -38,7 +49,7 @@ function validTab(value) {
   return tabs.some((tab) => tab.id === value) ? value : 'overview';
 }
 function validSubject(value) {
-  return data.value?.subjects?.[value] ? value : 'math';
+  return accessibleSubjectMeta.value.some((meta) => meta.id === value) ? value : accessibleSubjectMeta.value[0]?.id || 'math';
 }
 function parseClasses(value, ids) {
   const requested = String(value || '').split(',').filter((id) => ids.includes(id));
@@ -48,7 +59,8 @@ function syncFromRoute() {
   if (!data.value) return;
   selectedSubjectId.value = validSubject(route.query.subject);
   activeTab.value = validTab(route.query.tab);
-  selectedClasses.value = parseClasses(route.query.class, getClassIds(data.value.subjects[selectedSubjectId.value]));
+  const scopedSubject = data.value.subjects[selectedSubjectId.value];
+  selectedClasses.value = parseClasses(route.query.class, getAllowedClassIds(accessProfile.value, scopedSubject));
   const question = Number(route.query.item);
   focusedItem.value = Number.isInteger(question) && question > 0 ? question : null;
   focusedAbility.value = String(route.query.ability || '');
@@ -56,8 +68,8 @@ function syncFromRoute() {
   studentLookup.value = focusedStudent.value;
 }
 function writeRoute(extra = {}) {
-  const query = { ...route.query, subject: selectedSubjectId.value, tab: activeTab.value, ...extra };
-  const ids = getClassIds(subject.value);
+  const query = { ...route.query, role: accessProfile.value.id, subject: selectedSubjectId.value, tab: activeTab.value, ...extra };
+  const ids = classIds.value;
   if (selectedClasses.value.length === ids.length) delete query.class;
   else query.class = selectedClasses.value.join(',');
   if (activeTab.value !== 'items' || !focusedItem.value) delete query.item;
@@ -73,14 +85,16 @@ function setTab(tab) {
   writeRoute();
 }
 function setSubject(subjectId) {
+  if (!accessibleSubjectMeta.value.some((meta) => meta.id === subjectId)) return;
   selectedSubjectId.value = subjectId;
-  selectedClasses.value = [...getClassIds(data.value.subjects[subjectId])];
+  selectedClasses.value = getAllowedClassIds(accessProfile.value, data.value.subjects[subjectId]);
   focusedItem.value = null;
   focusedStudent.value = '';
   focusedAbility.value = '';
   writeRoute();
 }
 function toggleClass(classId) {
+  if (!classIds.value.includes(classId)) return;
   const next = selectedClasses.value.includes(classId)
     ? selectedClasses.value.filter((id) => id !== classId)
     : [...selectedClasses.value, classId];
@@ -92,6 +106,7 @@ function selectAllClasses() {
   writeRoute();
 }
 function selectClass(classId) {
+  if (!classIds.value.includes(classId)) return;
   selectedClasses.value = [classId];
   activeTab.value = 'classes';
   focusedItem.value = null;
@@ -119,12 +134,18 @@ function selectStudentLookup(value) {
   else studentLookup.value = '';
 }
 function selectStudent(studentId) {
-  focusedStudent.value = String(studentId || '');
+  const candidate = studentCandidates.value.find((student) => student.id === studentId);
+  if (!candidate) {
+    focusedStudent.value = '';
+    studentLookup.value = '';
+    writeRoute();
+    return;
+  }
+  focusedStudent.value = String(candidate.id);
   studentLookup.value = focusedStudent.value;
   focusedItem.value = null;
   focusedAbility.value = '';
-  if (focusedStudent.value) writeRoute({ student: focusedStudent.value });
-  else writeRoute();
+  writeRoute({ student: focusedStudent.value });
 }
 
 onMounted(async () => {
@@ -146,14 +167,31 @@ watch(() => route.query, syncFromRoute, { deep: true });
       <section class="subject360-hero">
         <div><span class="subject360-kicker">SUBJECT 360 / TEACHER WORKSPACE</span><h1>{{ subject.label }}科教師教學決策工作臺</h1><p>先找問題，再確認能力與試題資料，最後落到學生與教學分組。</p></div>
         <div class="subject360-hero-controls">
-          <label class="subject360-subject-select">目前科目<select :value="selectedSubjectId" @change="setSubject($event.target.value)"><option v-for="meta in SUBJECT360_META" :key="meta.id" :value="meta.id">{{ meta.label }}</option></select></label>
+          <label class="subject360-subject-select">目前科目<select :value="selectedSubjectId" @change="setSubject($event.target.value)"><option v-for="meta in accessibleSubjectMeta" :key="meta.id" :value="meta.id">{{ meta.label }}</option></select></label>
           <label class="subject360-subject-select subject360-student-search">查詢學生<input v-model="studentLookup" list="subject360-student-options" placeholder="輸入學生代碼…" :disabled="!studentCandidates.length" @change="selectStudentLookup(studentLookup)" @keydown.enter.prevent="selectStudentLookup(studentLookup)" /><datalist id="subject360-student-options"><option v-for="candidate in studentCandidates" :key="candidate.id" :value="candidate.id" :label="`${candidate.class}班 ${candidate.seat}號`" /></datalist></label>
         </div>
       </section>
-      <SubjectScopePicker :class-ids="classIds" :selected-classes="selectedClasses" :scope-label="scopeLabel" @toggle-class="toggleClass" @select-all="selectAllClasses" />
+      <div class="subject360-access-banner">
+        <div><span>目前權限視角</span><strong>{{ accessProfile.label }}</strong></div>
+        <p>{{ accessProfile.scopeLabel }}。頁面只呈現目前視角可存取的科目、班級與學生證據。</p>
+      </div>
+      <SubjectScopePicker :class-ids="classIds" :selected-classes="selectedClasses" :scope-label="scopeLabel" :select-all-label="selectAllLabel" @toggle-class="toggleClass" @select-all="selectAllClasses" />
       <nav class="subject360-tabs" aria-label="Subject 360 教學決策流程"><button v-for="tab in tabs" :key="tab.id" type="button" :class="{ active: activeTab === tab.id }" @click="setTab(tab.id)">{{ tab.label }}</button></nav>
-      <component :is="activeComponent" v-bind="activeTab === 'ability' ? { initialDimension: focusedAbility } : {}" :subject="subject" :selected-classes="selectedClasses" :scope-label="scopeLabel" :focus-question="focusedItem" @open-page="setTab" @open-ability="openAbility" @open-item="openItem" @select-class="selectClass" @select-student="selectStudent" />
-      <SubjectStudentDrawer :subject="subject" :selected-classes="selectedClasses" :initial-student-id="focusedStudent" :visible="Boolean(focusedStudent)" @close="selectStudent('')" @select-class="selectClass" @select-student="selectStudent" />
+      <component
+        :is="activeComponent"
+        v-bind="activeTab === 'ability' ? { initialDimension: focusedAbility } : {}"
+        :subject="subject"
+        :selected-classes="selectedClasses"
+        :visible-class-ids="classIds"
+        :scope-label="scopeLabel"
+        :focus-question="focusedItem"
+        @open-page="setTab"
+        @open-ability="openAbility"
+        @open-item="openItem"
+        @select-class="selectClass"
+        @select-student="selectStudent"
+      />
+      <SubjectStudentDrawer :subject="subject" :selected-classes="selectedClasses" :visible-class-ids="classIds" :initial-student-id="focusedStudent" :visible="Boolean(focusedStudent)" @close="selectStudent('')" @select-class="selectClass" @select-student="selectStudent" />
     </template>
   </div>
 </template>

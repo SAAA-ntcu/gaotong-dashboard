@@ -6,15 +6,18 @@ import { formatCount, formatPercent, formatPoints, getClassIds, getClassOverall,
 const props = defineProps({
   subject: { type: Object, required: true },
   selectedClasses: { type: Array, required: true },
+  visibleClassIds: { type: Array, default: () => [] },
   scopeLabel: { type: String, required: true }
 });
 
 const emit = defineEmits(['open-page', 'open-ability', 'open-item']);
 
 const selectedStudents = computed(() => getClassStudents(props.subject, props.selectedClasses));
-const classRows = computed(() => getClassIds(props.subject).map((classId) => ({ classId, stat: getClassOverall(props.subject, classId) })).sort((a, b) => (a.stat.rate ?? 1) - (b.stat.rate ?? 1)));
-const dimensions = computed(() => getLinkedDimensions(props.subject).map((dimension) => linkedDimensionPriority(props.subject, dimension, props.selectedClasses)));
-const items = computed(() => props.subject.items.map((item) => itemPriority(props.subject, item.q, props.selectedClasses)).sort((a, b) => b.signals - a.signals || (a.selected.rate ?? 1) - (b.selected.rate ?? 1)));
+const classScope = computed(() => props.visibleClassIds.length ? props.visibleClassIds : getClassIds(props.subject));
+const comparisonLabel = computed(() => classScope.value.length === getClassIds(props.subject).length ? '全校' : '可見範圍');
+const classRows = computed(() => classScope.value.map((classId) => ({ classId, stat: getClassOverall(props.subject, classId) })).sort((a, b) => (a.stat.rate ?? 1) - (b.stat.rate ?? 1)));
+const dimensions = computed(() => getLinkedDimensions(props.subject).map((dimension) => linkedDimensionPriority(props.subject, dimension, props.selectedClasses, classScope.value)));
+const items = computed(() => props.subject.items.map((item) => itemPriority(props.subject, item.q, props.selectedClasses, classScope.value)).sort((a, b) => b.signals - a.signals || (a.selected.rate ?? 1) - (b.selected.rate ?? 1)));
 const topClass = computed(() => classRows.value[0]);
 const topDimension = computed(() => [...dimensions.value].sort((a, b) => (a.selected.rate ?? 1) - (b.selected.rate ?? 1))[0]);
 const topItem = computed(() => items.value[0]);
@@ -23,7 +26,7 @@ const highItems = computed(() => items.value.filter((row) => row.level === '高�
 
 const priorityQueue = computed(() => [
   { type: 'class', label: '班級', title: topClass.value ? `${topClass.value.classId} 班` : '班級比較', detail: topClass.value ? `${formatPercent(topClass.value.stat.rate)} 整體答對率` : '目前沒有可排序的班級訊號' },
-  { type: 'ability', label: '向度', title: topDimension.value?.dimension?.label || topDimension.value?.dimension?.key || '能力向度', detail: topDimension.value ? `${formatPoints(topDimension.value.gap)} vs 全校` : '目前沒有可用向度' },
+  { type: 'ability', label: '向度', title: topDimension.value?.dimension?.label || topDimension.value?.dimension?.key || '能力向度', detail: topDimension.value ? `${formatPoints(topDimension.value.gap)} vs ${comparisonLabel.value}` : '目前沒有可用向度' },
   { type: 'item', label: '題目', title: topItem.value ? `Q${topItem.value.item.q} ${topItem.value.item.short}` : '題目資料', detail: topItem.value ? `${formatPercent(topItem.value.selected.rate)} 所選範圍答對率` : '目前沒有可用題目' }
 ]);
 
@@ -56,7 +59,7 @@ function openQueue(entry) {
 
     <div class="subject360-grid subject360-grid-3">
       <article class="subject360-card subject360-focus-card"><span>第一步：鎖定班級</span><strong>{{ topClass ? `${topClass.classId} 班` : '—' }}</strong><p>{{ topClass ? formatPercent(topClass.stat.rate) + ' 整體答對率' : '目前沒有可排序的班級訊號' }}</p><button type="button" @click="emit('open-page', 'classes')">查看班級 × 能力 →</button></article>
-      <article class="subject360-card subject360-focus-card"><span>第二步：確認能力</span><strong>{{ topDimension?.dimension?.key || '—' }}</strong><p>{{ topDimension ? formatPoints(topDimension.gap) + ' vs 全校' : '目前沒有可用向度' }}</p><button type="button" @click="topDimension && emit('open-ability', topDimension)">查看能力診斷 →</button></article>
+      <article class="subject360-card subject360-focus-card"><span>第二步：確認能力</span><strong>{{ topDimension?.dimension?.key || '—' }}</strong><p>{{ topDimension ? formatPoints(topDimension.gap) + ' vs ' + comparisonLabel : '目前沒有可用向度' }}</p><button type="button" @click="topDimension && emit('open-ability', topDimension)">查看能力診斷 →</button></article>
       <article class="subject360-card subject360-focus-card"><span>第三步：題目 → 學生</span><strong>Q{{ topItem?.item.q || '—' }} {{ topItem?.item.short || '' }}</strong><p>{{ topItem ? formatPercent(topItem.selected.rate) + ' 所選範圍答對率' : '目前沒有可用題目' }}</p><button type="button" @click="topItem && emit('open-item', topItem.item.q)">查看試題資料，再下鑽學生 →</button></article>
     </div>
 

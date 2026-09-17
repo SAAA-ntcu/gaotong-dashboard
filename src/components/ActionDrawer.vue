@@ -3,13 +3,14 @@ import { useRouter } from 'vue-router';
 import { getClassSubjectStats, getSubject } from '../data/dashboard';
 
 const props = defineProps({
-  action: { type: Object, default: null }
+  action: { type: Object, default: null },
+  roleId: { type: String, default: 'principal' }
 });
 const emit = defineEmits(['close']);
 const router = useRouter();
 
 function openClass(classId) {
-  router.push({ name: 'class', query: { class: classId } });
+  router.push({ name: 'class', query: { role: props.roleId, class: classId } });
 }
 
 function deltaText(classId, subjectId) {

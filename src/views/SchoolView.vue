@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import ActionDrawer from '../components/ActionDrawer.vue';
 import MetricCard from '../components/MetricCard.vue';
 import NeedleGauge from '../components/NeedleGauge.vue';
@@ -12,8 +12,11 @@ import {
   getClassStats,
   getSchoolStats
 } from '../data/dashboard';
+import { getAccessProfile } from '../data/access';
 
+const route = useRoute();
 const router = useRouter();
+const accessProfile = computed(() => getAccessProfile(route.query.role));
 const school = getSchoolStats();
 const selectedSubjectId = ref('math');
 const selectedAction = ref(null);
@@ -50,7 +53,7 @@ function openAction(key) {
 }
 
 function openClass(classId) {
-  router.push({ name: 'class', query: { class: classId } });
+  router.push({ name: 'class', query: { role: accessProfile.value.id, class: classId } });
 }
 
 function cellTone(stats) {
@@ -78,7 +81,8 @@ function schoolSubjectAction(subjectId) {
         <span class="soft-chip">250 位在籍學生</span>
         <span class="soft-chip">9 個班級</span>
         <span class="soft-chip">國語文・數學・英語文</span>
-        <RouterLink class="primary-button" :to="{ name: 'class', query: { class: '501' } }">開啟班級工作臺</RouterLink>
+        <span class="soft-chip access-chip">視角：{{ accessProfile.label }}</span>
+        <RouterLink class="primary-button" :to="{ name: 'class', query: { role: accessProfile.id, class: '501' } }">開啟班級工作臺</RouterLink>
       </div>
     </section>
 
@@ -236,6 +240,6 @@ function schoolSubjectAction(subjectId) {
       <div class="legend-row"><span><i class="legend-dot steady"></i>常態</span><span><i class="legend-dot watch"></i>需要關注</span><span><i class="legend-dot critical"></i>優先檢視</span><span class="legend-note">本矩陣不代表學生排名，僅供教學支持分流。</span></div>
     </section>
 
-    <ActionDrawer :action="selectedAction" @close="selectedAction = null" />
+    <ActionDrawer :action="selectedAction" :role-id="accessProfile.id" @close="selectedAction = null" />
   </div>
 </template>

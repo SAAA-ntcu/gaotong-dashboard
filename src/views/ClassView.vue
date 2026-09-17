@@ -6,28 +6,33 @@ import NeedleGauge from '../components/NeedleGauge.vue';
 import StudentDrawer from '../components/StudentDrawer.vue';
 import {
   SUBJECTS,
-  classIds,
+  classIds as allClassIds,
   getClassData,
   getClassStats,
   getRows,
   getStudentDrawer,
   getSubject
 } from '../data/dashboard';
+import { getAccessProfile } from '../data/access';
 
 const route = useRoute();
 const router = useRouter();
-const activeClassId = ref(resolveClassId(route.query.class));
-const selectedSubjectId = ref('math');
+const accessProfile = computed(() => getAccessProfile(route.query.role));
+const visibleClassIds = computed(() => allClassIds.filter((classId) => accessProfile.value.classIds.includes(classId)));
+const visibleSubjects = computed(() => SUBJECTS.filter((subject) => accessProfile.value.subjectIds.includes(subject.id)));
+const activeClassId = ref(resolveClassId(route.query.class, visibleClassIds.value));
+const selectedSubjectId = ref(accessProfile.value.subjectIds[0] || 'math');
 const currentFilter = ref('all');
 const selectedSeat = ref(null);
 
-function resolveClassId(value) {
+function resolveClassId(value, availableClassIds = allClassIds) {
   const normalized = String(value || '');
-  return classIds.includes(normalized) ? normalized : classIds[0];
+  return availableClassIds.includes(normalized) ? normalized : availableClassIds[0];
 }
 
-watch(() => route.query.class, (value) => {
-  activeClassId.value = resolveClassId(value);
+watch(() => [route.query.class, route.query.role], () => {
+  activeClassId.value = resolveClassId(route.query.class, visibleClassIds.value);
+  if (!accessProfile.value.subjectIds.includes(selectedSubjectId.value)) selectedSubjectId.value = accessProfile.value.subjectIds[0] || 'math';
   selectedSeat.value = null;
 });
 
@@ -61,7 +66,8 @@ const breadthSegments = computed(() => [
 ]);
 
 function setClass(classId) {
-  router.replace({ name: 'class', query: { class: classId } });
+  if (!visibleClassIds.value.includes(classId)) return;
+  router.replace({ name: 'class', query: { role: accessProfile.value.id, class: classId } });
   currentFilter.value = 'all';
   selectedSeat.value = null;
 }
@@ -80,7 +86,7 @@ function subjectRecord(row, subject) {
 }
 
 function isFullyTested(row) {
-  return SUBJECTS.every((subject) => subjectRecord(row, subject)?.status === 'VALID');
+  return visibleSubjects.value.every((subject) => subjectRecord(row, subject)?.status === 'VALID');
 }
 
 function levelClass(record) {
@@ -110,13 +116,13 @@ function formatPercent(value) {
       <div>
         <span class="section-kicker">CLASS / TEACHER WORKSPACE</span>
         <h1>班級學力診斷工作臺</h1>
-        <p>同一個班級、三個科目、同一份可供協作的學生資料。</p>
+        <p>同一個班級、{{ visibleSubjects.length }} 個科目、同一份可供協作的學生資料。{{ accessProfile.scopeLabel }}</p>
       </div>
-      <RouterLink class="secondary-button" to="/school">返回校務總覽</RouterLink>
+      <RouterLink v-if="accessProfile.canViewSchool" class="secondary-button" :to="{ name: 'school', query: { role: accessProfile.id } }">返回校務總覽</RouterLink>
     </section>
 
     <div class="class-tabs" role="tablist" aria-label="切換班級">
-      <button v-for="classId in classIds" :key="classId" type="button" class="class-tab" :class="{ active: activeClassId === classId }" @click="setClass(classId)">
+      <button v-for="classId in visibleClassIds" :key="classId" type="button" class="class-tab" :class="{ active: activeClassId === classId }" @click="setClass(classId)">
         {{ classId }} 班
       </button>
     </div>
@@ -125,7 +131,7 @@ function formatPercent(value) {
       <div>
         <span class="section-kicker">目前班級</span>
         <h2>{{ activeClassId }} 班・跨科全貌工作臺</h2>
-        <p>五年級・在籍 {{ stats.totalStudents }} 人・評量科目 {{ classData.expectedSubjects.join('、') }}</p>
+        <p>五年級・在籍 {{ stats.totalStudents }} 人・評量科目 {{ visibleSubjects.map((subject) => subject.name).join('、') }}</p>
       </div>
       <span class="status-chip" :class="stats.testedRate >= 100 ? 'success' : 'warning'">
         {{ stats.testedRate >= 100 ? '全數到考' : `到考率 ${formatPercent(stats.testedRate)}` }}
@@ -147,7 +153,7 @@ function formatPercent(value) {
             <h2>{{ selectedSubject.name }}・班級同儕差距</h2>
           </div>
           <div class="subject-switcher">
-            <button v-for="subject in SUBJECTS" :key="subject.id" type="button" :class="{ active: selectedSubjectId === subject.id }" @click="selectedSubjectId = subject.id">
+            <button v-for="subject in visibleSubjects" :key="subject.id" type="button" :class="{ active: selectedSubjectId === subject.id }" @click="selectedSubjectId = subject.id">
               {{ subject.shortName }}
             </button>
           </div>
@@ -197,12 +203,12 @@ function formatPercent(value) {
       <div class="table-wrap">
         <table class="data-table student-table">
           <thead>
-            <tr><th>座號</th><th v-for="subject in SUBJECTS" :key="subject.id">{{ subject.name }}</th><th>關注廣度</th><th>跨科表現</th><th>到考狀況</th></tr>
+            <tr><th>座號</th><th v-for="subject in visibleSubjects" :key="subject.id">{{ subject.name }}</th><th>關注廣度</th><th>跨科表現</th><th>到考狀況</th></tr>
           </thead>
           <tbody>
             <tr v-for="row in filteredRows" :key="row.studentUid" class="clickable-row" :class="{ focused: selectedSeat === row.seat }" @click="focusStudent(row)">
               <th>{{ row.seat }}</th>
-              <td v-for="subject in SUBJECTS" :key="subject.id">
+              <td v-for="subject in visibleSubjects" :key="subject.id">
                 <span class="level-badge" :class="levelClass(subjectRecord(row, subject))">{{ levelLabel(subjectRecord(row, subject)) }}</span>
                 <small v-if="subjectRecord(row, subject)?.studentAccuracy !== null && subjectRecord(row, subject)?.studentAccuracy !== undefined">{{ subjectRecord(row, subject).studentAccuracy }}%・PR{{ Math.round(subjectRecord(row, subject).countyPr ?? 0) }}</small>
               </td>

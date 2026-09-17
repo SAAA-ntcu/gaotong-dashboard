@@ -71,8 +71,8 @@ export function getLinkedDimensionStat(subject, dimension, selectedClasses) {
   return aggregateStats(dimension.items.map((question) => getItemStat(subject, question, selectedClasses)));
 }
 
-export function linkedDimensionPriority(subject, dimension, selectedClasses) {
-  const school = getLinkedDimensionStat(subject, dimension, getClassIds(subject));
+export function linkedDimensionPriority(subject, dimension, selectedClasses, baselineClassIds = getClassIds(subject)) {
+  const school = getLinkedDimensionStat(subject, dimension, baselineClassIds);
   const selected = getLinkedDimensionStat(subject, dimension, selectedClasses);
   const gap = selected?.rate == null || school?.rate == null ? null : selected.rate - school.rate;
   const lowRate = selected?.rate != null && selected.rate < 0.6;
@@ -84,7 +84,49 @@ export function linkedDimensionPriority(subject, dimension, selectedClasses) {
     selected,
     gap,
     level,
-    reasons: [lowRate ? '所選範圍答對率偏低' : '', largeGap ? '低於全校基準' : ''].filter(Boolean)
+    reasons: [lowRate ? '所選範圍答對率偏低' : '', largeGap ? '低於比較基準' : ''].filter(Boolean)
+  };
+}
+
+export function getHistoricalDimensionDiagnosis(subject, dimension, selectedClasses) {
+  const analysis = subject?.historicalAnalysis;
+  if (!analysis || !dimension) return null;
+  const dimensionKey = dimension.contentKey || dimension.key;
+  const historyDimension = (analysis.dimensions || []).find((candidate) => candidate.key === dimensionKey) || null;
+  const questionIds = new Set((dimension.items || []).map(Number));
+  const items = Object.values(analysis.itemInsights || {})
+    .filter((insight) => questionIds.has(Number(insight.q)) || insight.dimension === dimensionKey)
+    .map((insight) => {
+      const stat = getItemStat(subject, Number(insight.q), selectedClasses);
+      const hasCurrentData = Number(stat?.valid || 0) > 0;
+      return {
+        ...insight,
+        currentRate: hasCurrentData ? stat.rate : null,
+        currentValid: hasCurrentData ? stat.valid : 0,
+        currentTopWrong: hasCurrentData ? stat.topWrong : null,
+        currentSignal: hasCurrentData && stat.rate != null && stat.rate < 0.7
+      };
+    })
+    .sort((a, b) => (a.currentRate ?? 1) - (b.currentRate ?? 1));
+  const signalItems = items.filter((item) => item.currentSignal);
+  const misconceptions = [...new Set(signalItems.flatMap((item) => item.misconceptions || []))].slice(0, 6);
+  const sources = [...new Map([
+    ...(historyDimension?.sources || []).map((source) => [`${source.year}-${source.file}-${source.section}`, source]),
+    ...signalItems.flatMap((item) => (item.sources || []).map((source) => [`${source.year}-${source.file}-${source.section}`, source]))
+  ]).values()].slice(0, 8);
+  const current = getLinkedDimensionStat(subject, dimension, selectedClasses);
+  return {
+    key: dimensionKey,
+    label: historyDimension?.label || dimension.label || dimension.key,
+    historyDimension,
+    currentRate: current?.rate ?? null,
+    currentValid: current?.valid || 0,
+    items,
+    signalItems,
+    misconceptions,
+    sources,
+    hasCurrentSignal: signalItems.length > 0,
+    evidenceLabel: signalItems.length ? '本次訊號支持的候選' : '歷史提醒，尚未有本次題目訊號支持'
   };
 }
 
@@ -174,9 +216,9 @@ export function formatCount(value) {
   return Number(value || 0).toLocaleString('zh-TW');
 }
 
-export function itemPriority(subject, question, selectedClasses) {
+export function itemPriority(subject, question, selectedClasses, baselineClassIds = getClassIds(subject)) {
   const item = subject.items[question - 1];
-  const school = getSchoolItemStat(subject, question);
+  const school = getItemStat(subject, question, baselineClassIds);
   const selected = getItemStat(subject, question, selectedClasses);
   const delta = selected.rate == null || school.rate == null ? null : selected.rate - school.rate;
   const cityRate = subject.official?.cityItem?.[question - 1]?.rate;
@@ -189,15 +231,15 @@ export function itemPriority(subject, question, selectedClasses) {
   return { item, school, selected, delta, cityRate, cityGap, level, signals };
 }
 
-export function dimensionPriority(subject, type, key, selectedClasses) {
+export function dimensionPriority(subject, type, key, selectedClasses, baselineClassIds = getClassIds(subject)) {
   const dimension = getDimensions(subject, type).find((item) => item.key === key);
-  const school = getDimensionStat(subject, type, key, getClassIds(subject));
+  const school = getDimensionStat(subject, type, key, baselineClassIds);
   const selected = getDimensionStat(subject, type, key, selectedClasses);
   const gap = selected?.rate == null || school?.rate == null ? null : selected.rate - school.rate;
   const lowRate = selected?.rate != null && selected.rate < 0.6;
   const largeGap = gap != null && gap < -0.1;
   const level = lowRate && largeGap ? '高優先' : lowRate || largeGap ? '中優先' : '建議觀察';
-  return { dimension, school, selected, gap, level, reasons: [lowRate ? '所選範圍答對率偏低' : '', largeGap ? '低於全校基準' : ''].filter(Boolean) };
+  return { dimension, school, selected, gap, level, reasons: [lowRate ? '所選範圍答對率偏低' : '', largeGap ? '低於比較基準' : ''].filter(Boolean) };
 }
 
 

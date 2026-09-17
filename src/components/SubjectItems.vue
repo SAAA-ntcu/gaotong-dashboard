@@ -2,14 +2,17 @@
 import { computed, ref, watch } from 'vue';
 import Subject360Chart from './Subject360Chart.vue';
 import SubjectItemDialog from './SubjectItemDialog.vue';
-import { formatCount, formatPercent, formatPoints, getLinkedDimensions, itemPriority } from '../data/subject360';
+import { formatCount, formatPercent, formatPoints, getClassIds, getLinkedDimensions, itemPriority } from '../data/subject360';
 
 const props = defineProps({
   subject: { type: Object, required: true },
   selectedClasses: { type: Array, required: true },
+  visibleClassIds: { type: Array, default: () => [] },
   focusQuestion: { type: Number, default: null }
 });
 const emit = defineEmits(['select-class', 'select-student']);
+const classScope = computed(() => props.visibleClassIds.length ? props.visibleClassIds : getClassIds(props.subject));
+const comparisonLabel = computed(() => classScope.value.length === getClassIds(props.subject).length ? '全校' : '可見範圍');
 
 const itemSort = ref('priority');
 const linkedFilter = ref('all');
@@ -21,7 +24,7 @@ watch(() => props.focusQuestion, (value) => { focusedQuestion.value = value || n
 const linkedDimensions = computed(() => getLinkedDimensions(props.subject));
 const linkedKeys = computed(() => ['all', ...linkedDimensions.value.map((dimension) => dimension.key)]);
 const hasCognitive = computed(() => Boolean(props.subject.dimensions?.cognitive?.length));
-const rows = computed(() => props.subject.items.map((item) => itemPriority(props.subject, item.q, props.selectedClasses)).filter((row) => {
+const rows = computed(() => props.subject.items.map((item) => itemPriority(props.subject, item.q, props.selectedClasses, classScope.value)).filter((row) => {
   const rowLinkedKey = [row.item.content, row.item.cognitive].filter(Boolean).join(' × ');
   const linkedMatch = linkedFilter.value === 'all' || rowLinkedKey === linkedFilter.value;
   const priorityMatch = priorityFilter.value === 'all' || row.level === priorityFilter.value;
@@ -83,7 +86,7 @@ function selectStudent(studentId) {
       <article class="subject360-card"><div class="subject360-card-head"><h3>解讀提示</h3><span>Item → Option</span></div><div class="subject360-signal-list"><div><b>分母</b><p>答對率使用有效選項作答數 N；選項圖使用全部學生列。</p></div><div><b>主要錯誤</b><p>主要錯誤選項表示錯答集中，不等同迷思概念已被確診。</p></div><div><b>下鑽</b><p>點選題目可查看選項分布、班級比較與需要回到題目確認的學生。</p></div></div></article>
     </div>
 
-    <article class="subject360-card subject360-section-gap"><div class="subject360-card-head"><h3>題目總覽（{{ formatCount(rows.length) }} / {{ formatCount(subject.questionCount) }}）</h3><span>點選列開啟單題診斷</span></div><div class="subject360-table-wrap"><table class="subject360-table"><thead><tr><th>題目</th><th>{{ hasCognitive ? '內容 × 認知' : '內容向度' }}</th><th>所選範圍</th><th>全校</th><th>差距</th><th>主要錯誤</th><th>優先</th></tr></thead><tbody><tr v-for="row in rows" :key="row.item.q" class="clickable-row" @click="focusedQuestion = row.item.q"><td>Q{{ row.item.q }} {{ row.item.short }}</td><td>{{ [row.item.content, row.item.cognitive].filter(Boolean).join(' × ') }}</td><td>{{ formatPercent(row.selected.rate) }}<small>N={{ formatCount(row.selected.valid) }}</small></td><td>{{ formatPercent(row.school.rate) }}</td><td>{{ formatPoints(row.delta) }}</td><td>{{ row.selected.topWrong ? ['A', 'B', 'C', 'D'][row.selected.topWrong.option - 1] : '—' }}</td><td><span class="subject360-priority" :class="row.level === '高優先' ? 'high' : row.level === '中優先' ? 'medium' : 'observe'">{{ row.level }}</span></td></tr></tbody></table></div></article>
-    <SubjectItemDialog :subject="subject" :question="focusedQuestion" :selected-classes="selectedClasses" :visible="Boolean(focusedQuestion)" @close="closeQuestion" @select-class="selectClass" @select-student="selectStudent" />
+    <article class="subject360-card subject360-section-gap"><div class="subject360-card-head"><h3>題目總覽（{{ formatCount(rows.length) }} / {{ formatCount(subject.questionCount) }}）</h3><span>點選列開啟單題診斷</span></div><div class="subject360-table-wrap"><table class="subject360-table"><thead><tr><th>題目</th><th>{{ hasCognitive ? '內容 × 認知' : '內容向度' }}</th><th>所選範圍</th><th>{{ comparisonLabel }}</th><th>差距</th><th>主要錯誤</th><th>優先</th></tr></thead><tbody><tr v-for="row in rows" :key="row.item.q" class="clickable-row" @click="focusedQuestion = row.item.q"><td>Q{{ row.item.q }} {{ row.item.short }}</td><td>{{ [row.item.content, row.item.cognitive].filter(Boolean).join(' × ') }}</td><td>{{ formatPercent(row.selected.rate) }}<small>N={{ formatCount(row.selected.valid) }}</small></td><td>{{ formatPercent(row.school.rate) }}</td><td>{{ formatPoints(row.delta) }}</td><td>{{ row.selected.topWrong ? ['A', 'B', 'C', 'D'][row.selected.topWrong.option - 1] : '—' }}</td><td><span class="subject360-priority" :class="row.level === '高優先' ? 'high' : row.level === '中優先' ? 'medium' : 'observe'">{{ row.level }}</span></td></tr></tbody></table></div></article>
+    <SubjectItemDialog :subject="subject" :question="focusedQuestion" :selected-classes="selectedClasses" :visible-class-ids="visibleClassIds" :visible="Boolean(focusedQuestion)" @close="closeQuestion" @select-class="selectClass" @select-student="selectStudent" />
   </div>
 </template>

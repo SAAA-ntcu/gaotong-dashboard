@@ -6,6 +6,7 @@ import { formatCount, formatPercent, formatPoints, getClassStudents, getLinkedDi
 const props = defineProps({
   subject: { type: Object, required: true },
   selectedClasses: { type: Array, required: true },
+  visibleClassIds: { type: Array, default: () => [] },
   initialStudentId: { type: String, default: '' },
   visible: { type: Boolean, default: false }
 });
@@ -19,7 +20,9 @@ const dimensions = computed(() => getLinkedDimensions(props.subject));
 const student = computed(() => candidates.value.find((candidate) => candidate.id === selectedStudentId.value) || candidates.value[0] || null);
 const profile = computed(() => getStudentProfile(props.subject, student.value));
 const classOverall = computed(() => student.value ? getOverall(props.subject, [student.value.class]) : null);
-const schoolOverall = computed(() => getOverall(props.subject, props.subject.classIds));
+const classScope = computed(() => props.visibleClassIds.length ? props.visibleClassIds : props.subject.classIds);
+const schoolOverall = computed(() => getOverall(props.subject, classScope.value));
+const comparisonLabel = computed(() => classScope.value.length === props.subject.classIds.length ? '全校' : '可見範圍');
 const allResponses = computed(() => props.subject.items.map((item) => ({
   item,
   response: student.value?.responses[item.q - 1],
@@ -79,7 +82,7 @@ function close() {
             <div class="subject360-profile-kpis">
               <div><span>整體表現</span><strong>{{ formatPercent(student.score) }}</strong><small>{{ formatCount(student.correctCount) }} / {{ formatCount(student.validCount) }} 有效題</small></div>
               <div><span>與班級比較</span><strong>{{ formatPoints(student.score - (classOverall?.rate || 0)) }}</strong><small>班級 {{ formatPercent(classOverall?.rate) }}</small></div>
-              <div><span>與全校比較</span><strong>{{ formatPoints(student.score - (schoolOverall?.rate || 0)) }}</strong><small>全校 {{ formatPercent(schoolOverall?.rate) }}</small></div>
+              <div><span>與{{ comparisonLabel }}比較</span><strong>{{ formatPoints(student.score - (schoolOverall?.rate || 0)) }}</strong><small>{{ comparisonLabel }} {{ formatPercent(schoolOverall?.rate) }}</small></div>
               <div><span>錯誤／未答</span><strong>{{ profile.wrongItems.length }}</strong><small>未答 {{ profile.missing }} 題</small></div>
             </div>
           </section>
@@ -118,6 +121,6 @@ function close() {
         <div v-else class="subject360-notice info">目前範圍沒有可顯示的學生。</div>
       </div>
     </aside>
-    <SubjectItemDialog v-if="student" :subject="subject" :question="focusedQuestion" :selected-classes="selectedClasses" :visible="Boolean(focusedQuestion)" @close="focusedQuestion = null" @select-class="emit('select-class', $event)" @select-student="chooseStudent($event)" />
+    <SubjectItemDialog v-if="student" :subject="subject" :question="focusedQuestion" :selected-classes="selectedClasses" :visible-class-ids="visibleClassIds" :visible="Boolean(focusedQuestion)" @close="focusedQuestion = null" @select-class="emit('select-class', $event)" @select-student="chooseStudent($event)" />
   </div>
 </template>

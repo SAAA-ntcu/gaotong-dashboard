@@ -5,7 +5,8 @@ import { formatPercent, formatPoints, getClassIds, getClassOverall, getLinkedDim
 
 const props = defineProps({
   subject: { type: Object, required: true },
-  selectedClasses: { type: Array, required: true }
+  selectedClasses: { type: Array, required: true },
+  visibleClassIds: { type: Array, default: () => [] }
 });
 
 const emit = defineEmits(['select-class', 'select-student']);
@@ -13,12 +14,14 @@ const selectedDimension = ref('');
 const dimensions = computed(() => getLinkedDimensions(props.subject));
 const hasCognitive = computed(() => Boolean(props.subject.dimensions?.cognitive?.length));
 const activeDimension = computed(() => dimensions.value.find((dimension) => dimension.key === selectedDimension.value) || dimensions.value[0]);
-const classRows = computed(() => getClassIds(props.subject).map((classId) => ({ classId, stat: getClassOverall(props.subject, classId) })).sort((a, b) => (a.stat.rate ?? 1) - (b.stat.rate ?? 1)));
-const dimensionRows = computed(() => activeDimension.value ? getClassIds(props.subject).map((classId) => {
+const classScope = computed(() => props.visibleClassIds.length ? props.visibleClassIds : getClassIds(props.subject));
+const comparisonLabel = computed(() => classScope.value.length === getClassIds(props.subject).length ? '全校' : '可見範圍');
+const dimensionCards = computed(() => dimensions.value.map((dimension) => linkedDimensionPriority(props.subject, dimension, props.selectedClasses, classScope.value)));
+const classRows = computed(() => classScope.value.map((classId) => ({ classId, stat: getClassOverall(props.subject, classId) })).sort((a, b) => (a.stat.rate ?? 1) - (b.stat.rate ?? 1)));
+const dimensionRows = computed(() => activeDimension.value ? classScope.value.map((classId) => {
   const stat = getLinkedDimensionStat(props.subject, activeDimension.value, [classId]);
   return { classId, stat, students: getStudentsForLinkedDimension(props.subject, [classId], activeDimension.value) };
 }).sort((a, b) => (a.stat?.rate ?? 1) - (b.stat?.rate ?? 1)) : []);
-const dimensionCards = computed(() => dimensions.value.map((dimension) => linkedDimensionPriority(props.subject, dimension, props.selectedClasses)));
 function dimensionColor(rate) {
   if (rate == null) return '#cbd7e5';
   if (rate < 0.6) return '#c8791f';
@@ -59,7 +62,7 @@ const dimensionTreemapChart = computed(() => ({
     formatter: (params) => {
       const data = params.data;
       if (!data?.dimensionKey) return `${data?.name || ''}<br/>內容向度群組`;
-      return `${data.name}<br/>題數：${data.itemCount}<br/>所選範圍：${formatPercent(data.rate)}<br/>與全校：${formatPoints(data.gap)}`;
+      return `${data.name}<br/>題數：${data.itemCount}<br/>所選範圍：${formatPercent(data.rate)}<br/>與${comparisonLabel.value}：${formatPoints(data.gap)}`;
     }
   },
   series: [{
@@ -76,7 +79,7 @@ const dimensionTreemapChart = computed(() => ({
     levels: [{ itemStyle: { borderColor: '#fff', borderWidth: 4, gapWidth: 4 }, label: { show: false } }, { itemStyle: { borderColor: '#fff', borderWidth: 2, gapWidth: 2 } }]
   }]
 }));
-const matrixRows = computed(() => getClassIds(props.subject).map((classId) => ({
+const matrixRows = computed(() => classScope.value.map((classId) => ({
   classId,
   cells: dimensions.value.map((dimension) => ({
     dimension,
