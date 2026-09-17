@@ -168,7 +168,7 @@ function close() {
 
           <section class="subject360-card subject360-drawer-card">
             <div class="subject360-card-head"><h3>{{ subject.dimensions?.cognitive?.length ? '內容 × 認知學習比較' : '內容向度學習比較' }}</h3><span>學生 vs 所屬班級</span></div>
-            <div v-if="isFullscreen && linkedRows.length" class="subject360-student-dimension-radar">
+            <div v-if="linkedRows.length" class="subject360-student-dimension-radar">
               <Subject360Chart v-if="linkedRows.length" :option="dimensionRadarChart" :height="340" :aria-label="subject.dimensions?.cognitive?.length ? '學生與班級內容與認知向度雷達圖' : '學生與班級內容向度雷達圖'" />
               <p class="subject360-caption">雷達圖用來快速查看能力輪廓；下方保留各向度百分比明細。</p>
             </div>
