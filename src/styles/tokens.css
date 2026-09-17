@@ -511,6 +511,12 @@ button.subject360-tag { cursor: pointer; }
 .subject360-drawer { position: fixed; inset: 0; z-index: 40; pointer-events: none; }
 .subject360-drawer-backdrop { position: absolute; inset: 0; width: 100%; padding: 0; border: 0; background: rgba(12, 25, 45, 0.38); pointer-events: auto; }
 .subject360-drawer-panel { position: absolute; top: 0; right: 0; bottom: 0; display: grid; grid-template-rows: auto minmax(0, 1fr); width: min(680px, 100%); overflow: hidden; background: #f7f9fc; box-shadow: -12px 0 30px rgba(0, 0, 0, 0.18); pointer-events: auto; }
+.subject360-drawer-head-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 8px; }
+.subject360-drawer-toggle { min-height: 31px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; color: var(--blue); background: #edf4ff; font-size: 0.7rem; font-weight: 800; white-space: nowrap; }
+.subject360-drawer-toggle:hover, .subject360-drawer-toggle[aria-pressed="true"] { color: #fff; border-color: var(--navy-2); background: var(--navy-2); }
+.subject360-drawer.is-fullscreen .subject360-drawer-panel { width: 100%; box-shadow: none; }
+.subject360-drawer.is-fullscreen .subject360-drawer-head { padding-top: max(18px, env(safe-area-inset-top)); padding-right: max(20px, env(safe-area-inset-right)); padding-left: max(20px, env(safe-area-inset-left)); }
+.subject360-drawer.is-fullscreen .subject360-drawer-body { padding-right: max(20px, env(safe-area-inset-right)); padding-bottom: max(30px, env(safe-area-inset-bottom)); padding-left: max(20px, env(safe-area-inset-left)); }
 .subject360-drawer-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; padding: 18px 20px 14px; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.98); }
 .subject360-drawer-head h2 { margin: 4px 0; color: var(--navy); font-size: 1.2rem; }
 .subject360-drawer-head p { max-width: 500px; margin: 0; color: var(--muted); font-size: 0.7rem; line-height: 1.45; }

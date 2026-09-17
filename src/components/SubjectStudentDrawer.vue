@@ -16,6 +16,7 @@ const emit = defineEmits(['close', 'select-class', 'select-student']);
 const candidates = computed(() => getClassStudents(props.subject, props.selectedClasses));
 const selectedStudentId = ref(props.initialStudentId || '');
 const focusedQuestion = ref(null);
+const isFullscreen = ref(false);
 const dimensions = computed(() => getLinkedDimensions(props.subject));
 const student = computed(() => candidates.value.find((candidate) => candidate.id === selectedStudentId.value) || candidates.value[0] || null);
 const profile = computed(() => getStudentProfile(props.subject, student.value));
@@ -38,6 +39,12 @@ watch([candidates, () => props.initialStudentId], () => {
   if (props.initialStudentId && candidates.value.some((candidate) => candidate.id === props.initialStudentId)) selectedStudentId.value = props.initialStudentId;
   if (!candidates.value.some((candidate) => candidate.id === selectedStudentId.value)) selectedStudentId.value = candidates.value[0]?.id || '';
 }, { immediate: true });
+watch(() => props.visible, (visible) => {
+  if (!visible) {
+    focusedQuestion.value = null;
+    isFullscreen.value = false;
+  }
+});
 
 function chooseStudent(studentId) {
   selectedStudentId.value = studentId;
@@ -47,23 +54,35 @@ function chooseStudent(studentId) {
 function chooseQuestion(question) {
   focusedQuestion.value = question;
 }
+function toggleFullscreen() {
+  isFullscreen.value = !isFullscreen.value;
+}
+function handleEscape() {
+  if (isFullscreen.value) isFullscreen.value = false;
+  else close();
+}
 function close() {
   focusedQuestion.value = null;
+  isFullscreen.value = false;
   emit('close');
 }
 </script>
 
+
 <template>
-  <div v-if="visible" class="subject360-drawer" role="dialog" aria-modal="true" aria-label="學生作答資料">
+  <div v-if="visible" class="subject360-drawer" :class="{ 'is-fullscreen': isFullscreen }" role="dialog" aria-modal="true" aria-labelledby="subject360-student-drawer-title" @keydown.esc="handleEscape">
     <button class="subject360-drawer-backdrop" type="button" aria-label="關閉學生作答資料" @click="close" />
     <aside class="subject360-drawer-panel">
       <header class="subject360-drawer-head">
         <div>
           <span class="subject360-kicker">學生作答資料</span>
-          <h2>學生作答資料</h2>
+          <h2 id="subject360-student-drawer-title">學生作答資料</h2>
           <p>從目前班級、向度或題目資料查看學生表現；單次作答不代表固定能力。</p>
         </div>
-        <button class="icon-button" type="button" aria-label="關閉學生作答資料" @click="close">×</button>
+        <div class="subject360-drawer-head-actions">
+          <button class="subject360-drawer-toggle" type="button" :aria-pressed="isFullscreen" :aria-label="isFullscreen ? '退出全螢幕' : '全螢幕查看學生作答資料'" @click="toggleFullscreen">{{ isFullscreen ? '退出全螢幕' : '全螢幕查看' }}</button>
+          <button class="icon-button" type="button" aria-label="關閉學生作答資料" @click="close">×</button>
+        </div>
       </header>
 
       <div class="subject360-drawer-body">
