@@ -67,7 +67,7 @@ function priorityClass(level) {
       <div class="subject360-notice info">{{ analysis.summary }}</div>
       <div class="subject360-mini-grid subject360-advice-kpis">
         <div><span>目前範圍整體</span><strong>{{ formatPercent(currentOverall.rate, 1) }}</strong><small>{{ scopeLabel || '目前範圍' }}｜N={{ formatCount(currentOverall.valid) }}</small></div>
-        <div><span>112–114 整體平均</span><strong>{{ formatPercent(historicalAverage, 1) }}</strong><small>官方報告向度基線</small></div>
+        <div><span>112–114 整體平均</span><strong>{{ formatPercent(historicalAverage, 1) }}</strong><small>歷年報告向度基線</small></div>
         <div><span>待優先向度</span><strong>{{ priorityDimensionCount }}</strong><small>目前低於 70% 或歷年反覆偏低</small></div>
         <div><span>需優先查看題目</span><strong>{{ priorityItems }}</strong><small>目前答對率低於 60%</small></div>
       </div>
