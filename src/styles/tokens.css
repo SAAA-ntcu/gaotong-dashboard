@@ -240,6 +240,13 @@ a { color: inherit; }
 .student-state-grid span, .student-state-grid strong { display: block; }
 .student-state-grid span { color: var(--muted); font-size: 0.67rem; }
 .student-state-grid strong { margin-top: 4px; color: var(--ink); font-size: 0.76rem; }
+.score-context-section { margin: 15px 0; padding: 12px; border: 1px solid #dce7f5; border-radius: 10px; background: #f6f9fe; }
+.score-context-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 7px; margin-top: 9px; }
+.score-context-grid > div { padding: 9px; border-radius: 8px; background: #fff; }
+.score-context-grid span, .score-context-grid strong { display: block; }
+.score-context-grid span { color: var(--muted); font-size: 0.67rem; }
+.score-context-grid strong { margin-top: 4px; color: var(--ink); font-size: 0.78rem; }
+.score-context-note { margin: 9px 0 0; color: var(--muted); font-size: 0.72rem; line-height: 1.5; }
 .student-subject-list { display: grid; gap: 6px; margin-top: 8px; }
 .student-subject-row { display: grid; grid-template-columns: 1fr auto; gap: 6px 8px; align-items: center; padding: 9px 10px; border-radius: 8px; background: #f7f9fc; }
 .student-subject-row strong { font-size: 0.76rem; }

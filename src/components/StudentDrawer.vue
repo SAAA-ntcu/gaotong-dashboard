@@ -15,17 +15,19 @@ const subjectDetails = computed(() => {
     displayText: record.officialLevel || record.status,
     officialLevel: record.officialLevel,
     studentAccuracy: record.studentAccuracy,
-    countyPr: record.countyPr
+    countyPr: record.countyPr,
+    allParticipantsPr: record.allParticipantsPr
   }));
 });
 
 const checklist = computed(() => props.student?.objectiveChecklist || []);
 const attendanceStatus = computed(() => {
-  const records = Object.values(props.student?.subjects || {});
+  const records = subjectDetails.value;
   return records.length === 3 && records.every((record) => record?.status === 'VALID')
     ? '全數到考'
     : '有缺考／缺資料';
 });
+const scoreContext = computed(() => props.student?.scoreContext || null);
 </script>
 
 <template>
@@ -44,13 +46,22 @@ const attendanceStatus = computed(() => {
       <div><span>跨科表現</span><strong>{{ student.crossSubjectInconsistency?.isInconsistent ? '高度不一致' : '未見明顯訊號' }}</strong></div>
     </div>
 
+    <section v-if="scoreContext" class="drawer-section score-context-section" aria-label="個人成績比較基準">
+      <span class="section-kicker">個人成績比較基準</span>
+      <div class="score-context-grid">
+        <div><span>所屬縣市</span><strong>{{ scoreContext.countyName }}</strong></div>
+        <div><span>全體參與</span><strong>{{ scoreContext.allParticipantsLabel }}</strong></div>
+      </div>
+      <p class="score-context-note">PR 值分別代表學生在所屬縣市與全體參與縣市中的相對位置。</p>
+    </section>
+
     <section class="drawer-section">
       <span class="section-kicker">科目資料</span>
       <div class="student-subject-list">
         <div v-for="item in subjectDetails" :key="item.subject" class="student-subject-row">
           <strong>{{ item.subject }}</strong>
           <span class="status-chip" :class="item.officialLevel === '待加強' ? 'danger' : item.officialLevel === '精熟' ? 'success' : 'neutral'">{{ item.displayText || item.officialLevel || '無資料' }}</span>
-          <small v-if="item.studentAccuracy !== null && item.studentAccuracy !== undefined">答對率 {{ item.studentAccuracy }}%・PR {{ item.countyPr ?? '-' }}</small>
+          <small v-if="item.studentAccuracy !== null && item.studentAccuracy !== undefined">答對率 {{ item.studentAccuracy }}%・{{ scoreContext ? scoreContext.countyName : '所屬縣市' }} PR 值 {{ item.countyPr ?? '-' }}・{{ scoreContext ? scoreContext.allParticipantsLabel : '全體參與縣市' }} PR 值 {{ item.allParticipantsPr ?? '-' }}</small>
         </div>
       </div>
     </section>

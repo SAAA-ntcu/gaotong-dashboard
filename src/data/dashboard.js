@@ -1,4 +1,5 @@
 import canonicalData from './class360.json';
+import personalScoreData from './individualScores.json';
 
 export const dashboardData = canonicalData;
 export const classIds = Object.keys(canonicalData.classes || {}).sort();
@@ -260,9 +261,36 @@ export function getPriorityItems() {
   ];
 }
 
+function enrichStudentDrawer(classId, student) {
+  const scoresBySubject = personalScoreData.classes?.[classId]?.[student.seat] || {};
+  const mergeRecord = (subjectName, record) => ({
+    ...record,
+    ...(scoresBySubject[subjectName] || {})
+  });
+  const subjects = Object.fromEntries(
+    Object.entries(student.subjects || {}).map(([subjectName, record]) => [
+      subjectName,
+      mergeRecord(subjectName, record)
+    ])
+  );
+  const subjectDetails = Array.isArray(student.subjectDetails)
+    ? student.subjectDetails.map((record) => mergeRecord(record.subject, record))
+    : student.subjectDetails;
+
+  return {
+    ...student,
+    subjects,
+    subjectDetails,
+    scoreContext: {
+      countyName: personalScoreData.countyName,
+      allParticipantsLabel: personalScoreData.allParticipantsLabel
+    }
+  };
+}
 export function getStudentDrawer(classId, seat) {
   const classData = getClassData(classId);
   const row = getRows(classId).find((item) => String(item.seat) === String(seat));
   if (!row) return null;
-  return classData.zone5_drawers?.[row.seat] || row;
+  const drawer = classData.zone5_drawers?.[row.seat] || row;
+  return enrichStudentDrawer(classId, drawer);
 }

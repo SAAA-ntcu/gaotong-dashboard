@@ -1,0 +1,3503 @@
+{
+  "school": "高通國小",
+  "year": "115",
+  "grade": 5,
+  "countyName": "測試縣",
+  "allParticipantsLabel": "全體參與縣市",
+  "classes": {
+    "501": {
+      "01": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 29,
+          "allParticipantsPr": 35
+        }
+      },
+      "02": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 96,
+          "allParticipantsPr": 97
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "03": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "04": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 21,
+          "allParticipantsPr": 25
+        }
+      },
+      "05": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 31,
+          "allParticipantsPr": 38
+        }
+      },
+      "06": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "07": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 72,
+          "allParticipantsPr": 75
+        },
+        "英語文": {
+          "countyPr": 31,
+          "allParticipantsPr": 38
+        }
+      },
+      "08": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "09": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "10": {
+        "國語文": {
+          "countyPr": 30,
+          "allParticipantsPr": 33
+        },
+        "數學": {
+          "countyPr": 2,
+          "allParticipantsPr": 2
+        },
+        "英語文": {
+          "countyPr": 14,
+          "allParticipantsPr": 18
+        }
+      },
+      "11": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "13": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "14": {
+        "國語文": {
+          "countyPr": 20,
+          "allParticipantsPr": 23
+        },
+        "數學": {
+          "countyPr": 7,
+          "allParticipantsPr": 9
+        },
+        "英語文": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        }
+      },
+      "15": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 72,
+          "allParticipantsPr": 75
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "16": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "17": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 46,
+          "allParticipantsPr": 53
+        }
+      },
+      "18": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "19": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "20": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "21": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "22": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 41,
+          "allParticipantsPr": 48
+        }
+      },
+      "23": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "24": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 25,
+          "allParticipantsPr": 28
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "25": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 77,
+          "allParticipantsPr": 80
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "27": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 27,
+          "allParticipantsPr": 33
+        }
+      },
+      "28": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 41,
+          "allParticipantsPr": 48
+        }
+      }
+    },
+    "502": {
+      "01": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "02": {
+        "國語文": {
+          "countyPr": 30,
+          "allParticipantsPr": 33
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 31,
+          "allParticipantsPr": 38
+        }
+      },
+      "03": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "04": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 27,
+          "allParticipantsPr": 33
+        }
+      },
+      "05": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 25,
+          "allParticipantsPr": 28
+        },
+        "英語文": {
+          "countyPr": 5,
+          "allParticipantsPr": 7
+        }
+      },
+      "06": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 29,
+          "allParticipantsPr": 35
+        }
+      },
+      "07": {
+        "國語文": {
+          "countyPr": 20,
+          "allParticipantsPr": 23
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "08": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 34,
+          "allParticipantsPr": 41
+        }
+      },
+      "09": {
+        "國語文": {
+          "countyPr": 7,
+          "allParticipantsPr": 8
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 23,
+          "allParticipantsPr": 28
+        }
+      },
+      "10": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 51,
+          "allParticipantsPr": 58
+        }
+      },
+      "11": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 94,
+          "allParticipantsPr": 95
+        },
+        "英語文": {
+          "countyPr": 31,
+          "allParticipantsPr": 38
+        }
+      },
+      "12": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "13": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 25,
+          "allParticipantsPr": 28
+        },
+        "英語文": {
+          "countyPr": 46,
+          "allParticipantsPr": 53
+        }
+      },
+      "14": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "15": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 91,
+          "allParticipantsPr": 92
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "16": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "17": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "18": {
+        "國語文": {
+          "countyPr": 3,
+          "allParticipantsPr": 4
+        }
+      },
+      "19": {
+        "國語文": {
+          "countyPr": 20,
+          "allParticipantsPr": 23
+        }
+      },
+      "20": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "21": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "22": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "23": {
+        "國語文": {
+          "countyPr": 24,
+          "allParticipantsPr": 28
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "24": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "25": {
+        "國語文": {
+          "countyPr": 17,
+          "allParticipantsPr": 19
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "26": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 46,
+          "allParticipantsPr": 53
+        }
+      },
+      "27": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 77,
+          "allParticipantsPr": 80
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "28": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 94,
+          "allParticipantsPr": 95
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "29": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      }
+    },
+    "503": {
+      "01": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 25,
+          "allParticipantsPr": 28
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "02": {
+        "國語文": {
+          "countyPr": 7,
+          "allParticipantsPr": 8
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 13,
+          "allParticipantsPr": 16
+        }
+      },
+      "03": {
+        "國語文": {
+          "countyPr": 30,
+          "allParticipantsPr": 33
+        },
+        "數學": {
+          "countyPr": 91,
+          "allParticipantsPr": 92
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "04": {
+        "國語文": {
+          "countyPr": 30,
+          "allParticipantsPr": 33
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "05": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "06": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "07": {
+        "國語文": {
+          "countyPr": 11,
+          "allParticipantsPr": 13
+        }
+      },
+      "08": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 38,
+          "allParticipantsPr": 44
+        }
+      },
+      "09": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 2,
+          "allParticipantsPr": 3
+        }
+      },
+      "10": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 98,
+          "allParticipantsPr": 98
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "11": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 25,
+          "allParticipantsPr": 28
+        },
+        "英語文": {
+          "countyPr": 38,
+          "allParticipantsPr": 44
+        }
+      },
+      "12": {
+        "國語文": {
+          "countyPr": 20,
+          "allParticipantsPr": 23
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 3,
+          "allParticipantsPr": 4
+        }
+      },
+      "13": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 38,
+          "allParticipantsPr": 44
+        }
+      },
+      "14": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 8,
+          "allParticipantsPr": 10
+        }
+      },
+      "15": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 3,
+          "allParticipantsPr": 4
+        }
+      },
+      "16": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "17": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "18": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "19": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "20": {
+        "國語文": {
+          "countyPr": 5,
+          "allParticipantsPr": 7
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "21": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "22": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "23": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "24": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "25": {
+        "國語文": {
+          "countyPr": 30,
+          "allParticipantsPr": 33
+        },
+        "數學": {
+          "countyPr": 7,
+          "allParticipantsPr": 9
+        },
+        "英語文": {
+          "countyPr": 2,
+          "allParticipantsPr": 3
+        }
+      },
+      "26": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 25,
+          "allParticipantsPr": 28
+        },
+        "英語文": {
+          "countyPr": 41,
+          "allParticipantsPr": 48
+        }
+      },
+      "27": {
+        "國語文": {
+          "countyPr": 9,
+          "allParticipantsPr": 10
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 27,
+          "allParticipantsPr": 33
+        }
+      },
+      "28": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 13,
+          "allParticipantsPr": 16
+        }
+      },
+      "29": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      }
+    },
+    "504": {
+      "01": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 29,
+          "allParticipantsPr": 35
+        }
+      },
+      "02": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 27,
+          "allParticipantsPr": 33
+        }
+      },
+      "03": {
+        "國語文": {
+          "countyPr": 30,
+          "allParticipantsPr": 33
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 34,
+          "allParticipantsPr": 41
+        }
+      },
+      "04": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 96,
+          "allParticipantsPr": 97
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "05": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "06": {
+        "國語文": {
+          "countyPr": 17,
+          "allParticipantsPr": 19
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 25,
+          "allParticipantsPr": 30
+        }
+      },
+      "07": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 77,
+          "allParticipantsPr": 80
+        },
+        "英語文": {
+          "countyPr": 38,
+          "allParticipantsPr": 44
+        }
+      },
+      "08": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        }
+      },
+      "09": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "10": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 72,
+          "allParticipantsPr": 75
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "11": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "12": {
+        "國語文": {
+          "countyPr": 1,
+          "allParticipantsPr": 2
+        },
+        "數學": {
+          "countyPr": 4,
+          "allParticipantsPr": 5
+        },
+        "英語文": {
+          "countyPr": 41,
+          "allParticipantsPr": 48
+        }
+      },
+      "13": {
+        "國語文": {
+          "countyPr": 24,
+          "allParticipantsPr": 28
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 19,
+          "allParticipantsPr": 23
+        }
+      },
+      "14": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 94,
+          "allParticipantsPr": 95
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "15": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 77,
+          "allParticipantsPr": 80
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "16": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 4,
+          "allParticipantsPr": 5
+        },
+        "英語文": {
+          "countyPr": 51,
+          "allParticipantsPr": 58
+        }
+      },
+      "17": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 91,
+          "allParticipantsPr": 92
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "18": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 77,
+          "allParticipantsPr": 80
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "19": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "20": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 77,
+          "allParticipantsPr": 80
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "21": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 51,
+          "allParticipantsPr": 58
+        }
+      },
+      "22": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 72,
+          "allParticipantsPr": 75
+        },
+        "英語文": {
+          "countyPr": 46,
+          "allParticipantsPr": 53
+        }
+      },
+      "24": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 72,
+          "allParticipantsPr": 75
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "25": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "26": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "27": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "28": {
+        "國語文": {
+          "countyPr": 24,
+          "allParticipantsPr": 28
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 46,
+          "allParticipantsPr": 53
+        }
+      }
+    },
+    "505": {
+      "01": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 94,
+          "allParticipantsPr": 95
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "02": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 77,
+          "allParticipantsPr": 80
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "03": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 94,
+          "allParticipantsPr": 95
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "04": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 72,
+          "allParticipantsPr": 75
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "05": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 21,
+          "allParticipantsPr": 25
+        }
+      },
+      "06": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 96,
+          "allParticipantsPr": 97
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "07": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "08": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 25,
+          "allParticipantsPr": 28
+        },
+        "英語文": {
+          "countyPr": 34,
+          "allParticipantsPr": 41
+        }
+      },
+      "10": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 4,
+          "allParticipantsPr": 5
+        },
+        "英語文": {
+          "countyPr": 16,
+          "allParticipantsPr": 20
+        }
+      },
+      "11": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 8,
+          "allParticipantsPr": 10
+        }
+      },
+      "12": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "13": {
+        "國語文": {
+          "countyPr": 24,
+          "allParticipantsPr": 28
+        },
+        "數學": {
+          "countyPr": 25,
+          "allParticipantsPr": 28
+        },
+        "英語文": {
+          "countyPr": 29,
+          "allParticipantsPr": 35
+        }
+      },
+      "14": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "15": {
+        "國語文": {
+          "countyPr": 11,
+          "allParticipantsPr": 13
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 8,
+          "allParticipantsPr": 10
+        }
+      },
+      "16": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 77,
+          "allParticipantsPr": 80
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "17": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 94,
+          "allParticipantsPr": 95
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "18": {
+        "國語文": {
+          "countyPr": 30,
+          "allParticipantsPr": 33
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 31,
+          "allParticipantsPr": 38
+        }
+      },
+      "19": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "20": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "21": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "22": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "23": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 29,
+          "allParticipantsPr": 35
+        }
+      },
+      "24": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 25,
+          "allParticipantsPr": 28
+        },
+        "英語文": {
+          "countyPr": 41,
+          "allParticipantsPr": 48
+        }
+      },
+      "25": {
+        "國語文": {
+          "countyPr": 24,
+          "allParticipantsPr": 28
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 27,
+          "allParticipantsPr": 33
+        }
+      },
+      "26": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 98,
+          "allParticipantsPr": 98
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "27": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "28": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "29": {
+        "國語文": {
+          "countyPr": 24,
+          "allParticipantsPr": 28
+        },
+        "數學": {
+          "countyPr": 7,
+          "allParticipantsPr": 9
+        },
+        "英語文": {
+          "countyPr": 25,
+          "allParticipantsPr": 30
+        }
+      }
+    },
+    "506": {
+      "01": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "02": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "03": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 2,
+          "allParticipantsPr": 2
+        },
+        "英語文": {
+          "countyPr": 34,
+          "allParticipantsPr": 41
+        }
+      },
+      "04": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "05": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 72,
+          "allParticipantsPr": 75
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "06": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "07": {
+        "國語文": {
+          "countyPr": 3,
+          "allParticipantsPr": 4
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 16,
+          "allParticipantsPr": 20
+        }
+      },
+      "08": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "09": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "10": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "11": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "12": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 25,
+          "allParticipantsPr": 30
+        }
+      },
+      "14": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 31,
+          "allParticipantsPr": 38
+        }
+      },
+      "15": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 72,
+          "allParticipantsPr": 75
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "16": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 7,
+          "allParticipantsPr": 9
+        },
+        "英語文": {
+          "countyPr": 38,
+          "allParticipantsPr": 44
+        }
+      },
+      "17": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 91,
+          "allParticipantsPr": 92
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "18": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 16,
+          "allParticipantsPr": 20
+        }
+      },
+      "19": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 41,
+          "allParticipantsPr": 48
+        }
+      },
+      "20": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 51,
+          "allParticipantsPr": 58
+        }
+      },
+      "21": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 77,
+          "allParticipantsPr": 80
+        },
+        "英語文": {
+          "countyPr": 46,
+          "allParticipantsPr": 53
+        }
+      },
+      "22": {
+        "國語文": {
+          "countyPr": 7,
+          "allParticipantsPr": 8
+        },
+        "數學": {
+          "countyPr": 7,
+          "allParticipantsPr": 9
+        },
+        "英語文": {
+          "countyPr": 27,
+          "allParticipantsPr": 33
+        }
+      },
+      "24": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "25": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "26": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 41,
+          "allParticipantsPr": 48
+        }
+      },
+      "27": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 91,
+          "allParticipantsPr": 92
+        },
+        "英語文": {
+          "countyPr": 34,
+          "allParticipantsPr": 41
+        }
+      },
+      "28": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      }
+    },
+    "507": {
+      "01": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "02": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "03": {
+        "國語文": {
+          "countyPr": 1,
+          "allParticipantsPr": 1
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 5,
+          "allParticipantsPr": 7
+        }
+      },
+      "04": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 51,
+          "allParticipantsPr": 58
+        }
+      },
+      "05": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "06": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 77,
+          "allParticipantsPr": 80
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "07": {
+        "國語文": {
+          "countyPr": 11,
+          "allParticipantsPr": 13
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 41,
+          "allParticipantsPr": 48
+        }
+      },
+      "08": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "09": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 2,
+          "allParticipantsPr": 3
+        }
+      },
+      "10": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 0,
+          "allParticipantsPr": 0
+        },
+        "英語文": {
+          "countyPr": 27,
+          "allParticipantsPr": 33
+        }
+      },
+      "11": {
+        "國語文": {
+          "countyPr": 17,
+          "allParticipantsPr": 19
+        },
+        "數學": {
+          "countyPr": 7,
+          "allParticipantsPr": 9
+        },
+        "英語文": {
+          "countyPr": 23,
+          "allParticipantsPr": 28
+        }
+      },
+      "12": {
+        "國語文": {
+          "countyPr": 30,
+          "allParticipantsPr": 33
+        },
+        "數學": {
+          "countyPr": 2,
+          "allParticipantsPr": 2
+        },
+        "英語文": {
+          "countyPr": 46,
+          "allParticipantsPr": 53
+        }
+      },
+      "13": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 7,
+          "allParticipantsPr": 9
+        },
+        "英語文": {
+          "countyPr": 34,
+          "allParticipantsPr": 41
+        }
+      },
+      "14": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 51,
+          "allParticipantsPr": 58
+        }
+      },
+      "15": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 94,
+          "allParticipantsPr": 95
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "16": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "17": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "18": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "19": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "20": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 25,
+          "allParticipantsPr": 28
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "21": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "22": {
+        "國語文": {
+          "countyPr": 3,
+          "allParticipantsPr": 4
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 16,
+          "allParticipantsPr": 20
+        }
+      },
+      "23": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 23,
+          "allParticipantsPr": 28
+        }
+      },
+      "24": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "25": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 91,
+          "allParticipantsPr": 92
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "26": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 72,
+          "allParticipantsPr": 75
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "27": {
+        "國語文": {
+          "countyPr": 2,
+          "allParticipantsPr": 3
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 1,
+          "allParticipantsPr": 1
+        }
+      },
+      "28": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "29": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      }
+    },
+    "508": {
+      "01": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "02": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "03": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "04": {
+        "國語文": {
+          "countyPr": 30,
+          "allParticipantsPr": 33
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 16,
+          "allParticipantsPr": 20
+        }
+      },
+      "05": {
+        "國語文": {
+          "countyPr": 24,
+          "allParticipantsPr": 28
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 8,
+          "allParticipantsPr": 10
+        }
+      },
+      "06": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 72,
+          "allParticipantsPr": 75
+        },
+        "英語文": {
+          "countyPr": 41,
+          "allParticipantsPr": 48
+        }
+      },
+      "07": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 94,
+          "allParticipantsPr": 95
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "08": {
+        "國語文": {
+          "countyPr": 24,
+          "allParticipantsPr": 28
+        },
+        "數學": {
+          "countyPr": 72,
+          "allParticipantsPr": 75
+        },
+        "英語文": {
+          "countyPr": 34,
+          "allParticipantsPr": 41
+        }
+      },
+      "09": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "10": {
+        "國語文": {
+          "countyPr": 20,
+          "allParticipantsPr": 23
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 14,
+          "allParticipantsPr": 18
+        }
+      },
+      "12": {
+        "國語文": {
+          "countyPr": 24,
+          "allParticipantsPr": 28
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 27,
+          "allParticipantsPr": 33
+        }
+      },
+      "13": {
+        "國語文": {
+          "countyPr": 3,
+          "allParticipantsPr": 4
+        },
+        "數學": {
+          "countyPr": 7,
+          "allParticipantsPr": 9
+        },
+        "英語文": {
+          "countyPr": 3,
+          "allParticipantsPr": 4
+        }
+      },
+      "14": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 16,
+          "allParticipantsPr": 20
+        }
+      },
+      "15": {
+        "國語文": {
+          "countyPr": 5,
+          "allParticipantsPr": 7
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 27,
+          "allParticipantsPr": 33
+        }
+      },
+      "16": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 77,
+          "allParticipantsPr": 80
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "17": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 91,
+          "allParticipantsPr": 92
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "18": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 77,
+          "allParticipantsPr": 80
+        },
+        "英語文": {
+          "countyPr": 25,
+          "allParticipantsPr": 30
+        }
+      },
+      "19": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "20": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "21": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "22": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 72,
+          "allParticipantsPr": 75
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "24": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 46,
+          "allParticipantsPr": 53
+        }
+      },
+      "25": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 7,
+          "allParticipantsPr": 9
+        },
+        "英語文": {
+          "countyPr": 10,
+          "allParticipantsPr": 12
+        }
+      },
+      "26": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "27": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "28": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 25,
+          "allParticipantsPr": 28
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "29": {
+        "國語文": {
+          "countyPr": 9,
+          "allParticipantsPr": 10
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 16,
+          "allParticipantsPr": 20
+        }
+      }
+    },
+    "509": {
+      "01": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 21,
+          "allParticipantsPr": 25
+        }
+      },
+      "02": {
+        "國語文": {
+          "countyPr": 14,
+          "allParticipantsPr": 16
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 51,
+          "allParticipantsPr": 58
+        }
+      },
+      "03": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 96,
+          "allParticipantsPr": 97
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "04": {
+        "國語文": {
+          "countyPr": 97,
+          "allParticipantsPr": 97
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "05": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 87,
+          "allParticipantsPr": 88
+        },
+        "英語文": {
+          "countyPr": 38,
+          "allParticipantsPr": 44
+        }
+      },
+      "06": {
+        "國語文": {
+          "countyPr": 86,
+          "allParticipantsPr": 88
+        },
+        "數學": {
+          "countyPr": 59,
+          "allParticipantsPr": 63
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "07": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 46,
+          "allParticipantsPr": 53
+        }
+      },
+      "08": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "09": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 96,
+          "allParticipantsPr": 97
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "10": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "11": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "12": {
+        "國語文": {
+          "countyPr": 20,
+          "allParticipantsPr": 23
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 13,
+          "allParticipantsPr": 16
+        }
+      },
+      "13": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 98,
+          "allParticipantsPr": 98
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "14": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 51,
+          "allParticipantsPr": 58
+        }
+      },
+      "15": {
+        "國語文": {
+          "countyPr": 78,
+          "allParticipantsPr": 80
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "16": {
+        "國語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        },
+        "數學": {
+          "countyPr": 39,
+          "allParticipantsPr": 43
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "17": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 32,
+          "allParticipantsPr": 35
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "18": {
+        "國語文": {
+          "countyPr": 70,
+          "allParticipantsPr": 72
+        },
+        "數學": {
+          "countyPr": 91,
+          "allParticipantsPr": 92
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "19": {
+        "國語文": {
+          "countyPr": 44,
+          "allParticipantsPr": 47
+        },
+        "數學": {
+          "countyPr": 12,
+          "allParticipantsPr": 14
+        },
+        "英語文": {
+          "countyPr": 34,
+          "allParticipantsPr": 41
+        }
+      },
+      "20": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 66,
+          "allParticipantsPr": 69
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "21": {
+        "國語文": {
+          "countyPr": 24,
+          "allParticipantsPr": 28
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 38,
+          "allParticipantsPr": 44
+        }
+      },
+      "22": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 99,
+          "allParticipantsPr": 99
+        }
+      },
+      "23": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "24": {
+        "國語文": {
+          "countyPr": 61,
+          "allParticipantsPr": 63
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 41,
+          "allParticipantsPr": 48
+        }
+      },
+      "25": {
+        "國語文": {
+          "countyPr": 93,
+          "allParticipantsPr": 93
+        },
+        "數學": {
+          "countyPr": 83,
+          "allParticipantsPr": 84
+        },
+        "英語文": {
+          "countyPr": 82,
+          "allParticipantsPr": 85
+        }
+      },
+      "26": {
+        "國語文": {
+          "countyPr": 36,
+          "allParticipantsPr": 40
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 58,
+          "allParticipantsPr": 64
+        }
+      },
+      "27": {
+        "國語文": {
+          "countyPr": 24,
+          "allParticipantsPr": 28
+        },
+        "數學": {
+          "countyPr": 46,
+          "allParticipantsPr": 50
+        },
+        "英語文": {
+          "countyPr": 67,
+          "allParticipantsPr": 73
+        }
+      },
+      "28": {
+        "國語文": {
+          "countyPr": 52,
+          "allParticipantsPr": 55
+        },
+        "數學": {
+          "countyPr": 18,
+          "allParticipantsPr": 21
+        },
+        "英語文": {
+          "countyPr": 29,
+          "allParticipantsPr": 35
+        }
+      },
+      "29": {
+        "國語文": {
+          "countyPr": 17,
+          "allParticipantsPr": 19
+        },
+        "數學": {
+          "countyPr": 52,
+          "allParticipantsPr": 57
+        },
+        "英語文": {
+          "countyPr": 41,
+          "allParticipantsPr": 48
+        }
+      }
+    }
+  }
+}

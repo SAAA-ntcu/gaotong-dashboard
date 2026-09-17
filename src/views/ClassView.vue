@@ -193,7 +193,7 @@ function formatPercent(value) {
           <span class="section-kicker">03 / 學生與科目</span>
           <h2>學生跨科資料</h2>
         </div>
-        <span class="section-help">點擊學生列開啟教師觀察卡；狀態欄只使用等級描述。</span>
+        <span class="section-help">點擊學生列開啟教師觀察卡；列表顯示所屬縣市 PR，詳情可查看全體參與縣市 PR。</span>
       </div>
       <div class="filter-row">
         <button v-for="filter in filterOptions" :key="filter.id" type="button" class="filter-button" :class="{ active: currentFilter === filter.id }" @click="setFilter(filter.id)">
@@ -210,7 +210,7 @@ function formatPercent(value) {
               <th>{{ row.seat }}</th>
               <td v-for="subject in visibleSubjects" :key="subject.id">
                 <span class="level-badge" :class="levelClass(subjectRecord(row, subject))">{{ levelLabel(subjectRecord(row, subject)) }}</span>
-                <small v-if="subjectRecord(row, subject)?.studentAccuracy !== null && subjectRecord(row, subject)?.studentAccuracy !== undefined">{{ subjectRecord(row, subject).studentAccuracy }}%・PR{{ Math.round(subjectRecord(row, subject).countyPr ?? 0) }}</small>
+                <small v-if="subjectRecord(row, subject)?.studentAccuracy !== null && subjectRecord(row, subject)?.studentAccuracy !== undefined">{{ subjectRecord(row, subject).studentAccuracy }}%・所屬縣市 PR 值 {{ Math.round(subjectRecord(row, subject).countyPr ?? 0) }}</small>
               </td>
               <td><span class="number-pill" :class="row.supportBreadth?.breadth >= 2 ? 'danger' : row.supportBreadth?.breadth === 1 ? 'warning' : 'success'">{{ row.supportBreadth?.breadth ?? 0 }} 科</span></td>
               <td><span class="status-chip" :class="row.crossSubjectInconsistency?.isInconsistent ? 'warning' : 'neutral'">{{ row.crossSubjectInconsistency?.isInconsistent ? '高度不一致' : '—' }}</span></td>
