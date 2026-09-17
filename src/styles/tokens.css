@@ -535,3 +535,16 @@ button.subject360-tag { cursor: pointer; }
   .subject360-class-table-row { grid-template-columns: 1fr; gap: 2px; }
   .subject360-class-table-row .subject360-student-trigger { justify-self: end; }
 }
+.subject360-class-ranking { display: grid; gap: 7px; }
+.subject360-class-rank-row { display: grid; grid-template-columns: 24px 52px minmax(80px, 1fr) 48px; align-items: center; gap: 8px; width: 100%; padding: 6px 0; border: 0; color: var(--ink); background: transparent; text-align: left; font-size: 0.7rem; }
+.subject360-class-rank-row:hover { color: var(--blue); }
+.subject360-class-rank { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; color: var(--muted); background: #edf2f8; font-size: 0.62rem; font-weight: 900; }
+.subject360-class-rank-row:first-child .subject360-class-rank { color: #fff; background: #b86616; }
+.subject360-class-name { color: var(--blue); white-space: nowrap; }
+.subject360-class-rank-row i { display: block; height: 8px; overflow: hidden; border-radius: 999px; background: #edf1f6; }
+.subject360-class-rank-row em { display: block; height: 100%; border-radius: inherit; background: #c8791f; }
+.subject360-class-rank-row em.low { background: #c8791f; }
+.subject360-class-rank-row strong { color: var(--navy); text-align: right; }
+@media (max-width: 700px) {
+  .subject360-class-rank-row { grid-template-columns: 24px 48px minmax(70px, 1fr) 45px; }
+}
